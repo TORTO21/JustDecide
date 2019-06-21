@@ -1,0 +1,10 @@
+node_modules/
+
+keys_dev.js
+
+*docker-compose*
+*Dockerfile*
+
+ideas.md
+
+.env
