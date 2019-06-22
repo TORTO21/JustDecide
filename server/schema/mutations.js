@@ -8,6 +8,9 @@ const {
 } = graphql;
 const mongoose = require("mongoose");
 
+const UserType = require("./types/user_type")
+const User = mongoose.model("user")
+
 const mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {

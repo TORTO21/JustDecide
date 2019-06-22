@@ -5,7 +5,7 @@ const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
 
 const UserType = require("./user_type");
-const User = mongoose.model("users");
+const User = mongoose.model("user");
 
 // const authOptions = {
 //   method: "GET",

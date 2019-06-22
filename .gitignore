@@ -8,3 +8,5 @@ keys_dev.js
 ideas.md
 
 .env
+
+.DS_Store
