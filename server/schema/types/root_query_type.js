@@ -1,11 +1,24 @@
-const mongoose = require("mongoose");
-const axios = require('axios');
-// const { AWSKey } = require('../../../config/keys');
-const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql;
+const mongoose = require('mongoose')
+const graphql = require('graphql')
+const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql
 
-const UserType = require("./user_type");
-const User = mongoose.model("user");
+// const { AWSKey } = require('../../../config/keys');
+const axios = require('axios')
+
+const AskType = require('./ask_type')
+const Ask = require('../../models/Ask')
+const ContactType = require('./contact_type')
+const Contact = require('../../models/Contact')
+const GroupType = require('./group_type')
+const Group = require('../../models/Group')
+const InvitationType = require('./invitation_type')
+const Invitation = require('../../models/Invitation')
+const OptionType = require('./option_type')
+const Option = require('../../models/Option')
+const UserType = require('./user_type')
+const User = require('../../models/User')
+const VoteType = require('./vote_type')
+const Vote = require('../../models/Vote')
 
 // const authOptions = {
 //   method: "GET",
@@ -16,61 +29,101 @@ const User = mongoose.model("user");
 //   }
 // };
 
-
 const RootQueryType = new GraphQLObjectType({
-  name: "RootQueryType",
+  name: 'RootQueryType',
   fields: () => ({
+    asks: {
+      type: new GraphQLList(AskType),
+      resolve() {
+        return Ask.find({})
+      }
+    },
+    ask: {
+      type: AskType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Ask.findById(args.id)
+      }
+    },
+    contacts: {
+      type: new GraphQLList(ContactType),
+      resolve() {
+        return Contact.find({})
+      }
+    },
+    contact: {
+      type: ContactType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Contact.findById(args.id)
+      }
+    },
+    groups: {
+      type: new GraphQLList(GroupType),
+      resolve() {
+        return Group.find({})
+      }
+    },
+    group: {
+      type: GroupType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Group.findById(args.id)
+      }
+    },
+    invitations: {
+      type: new GraphQLList(InvitationType),
+      resolve() {
+        return Invitation.find({})
+      }
+    },
+    invitation: {
+      type: InvitationType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Invitation.findById(args.id)
+      }
+    },
+    options: {
+      type: new GraphQLList(OptionType),
+      resolve() {
+        return Option.find({})
+      }
+    },
+    option: {
+      type: OptionType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Option.findById(args.id)
+      }
+    },
     users: {
       type: new GraphQLList(UserType),
       resolve() {
-        return User.find({});
+        return User.find({})
       }
     },
     user: {
       type: UserType,
-      args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_, args) {
-        return User.findById(args._id);
+        return User.findById(args.id)
       }
     },
-    // categories: {
-    //   type: new GraphQLList(CategoryType),
-    //   resolve() {
-    //     return Category.find({});
-    //   }
-    // },
-    // category: {
-    //   type: CategoryType,
-    //   args: { _id: { type: new GraphQLNonNull(GraphQLID) } },
-    //   resolve(_, args) {
-    //     return Category.findById(args._id);
-    //   }
-    // },
-    // products: {
-    //   type: new GraphQLList(ProductType),
-    //   async resolve() {
-    //     const products = await Product.find({})
-    //     return products.map(product => {
-    //       return axios(authOptions).then(res => {
-    //         product.cost = res.data.cost;
-    //         return product;
-    //       });
-    //     });
-    //   }
-    // },
-    // product: {
-    //   type: ProductType,
-    //   args: { _id: { type: GraphQLID } },
-    //   resolve(_, args) {
-    //     return Product.findById(args._id).then(product => {
-    //       return axios(authOptions).then(res => {
-    //         product.cost = res.data.cost;
-    //         return product;
-    //       });
-    //     });
-    //   }
-    // }
+    votes: {
+      type: new GraphQLList(VoteType),
+      resolve() {
+        return Vote.find({})
+      }
+    },
+    vote: {
+      type: VoteType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Vote.findById(args.id)
+      }
+    }
   })
-});
+})
 
-module.exports = RootQueryType;
+module.exports = RootQueryType

@@ -1,18 +1,26 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+
+const { Schema } = mongoose.Schema
 
 const OptionSchema = new Schema({
-  text: {
-    type: String,
+  creator_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
     required: true
   },
-  author: {
+  ask_id: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: 'ask',
+    required: true
   },
-  
+  title: {
+    type: String
+  },
+  votes: {
+    type: [Schema.Types.ObjectId],
+    ref: 'vote'
+  }
+})
 
-});
-
-const Option = mongoose.model('option', OptionSchema);
-module.exports = Option;
+const Option = mongoose.model('invitation', OptionSchema)
+module.exports = Option

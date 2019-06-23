@@ -1,3 +1,6 @@
-require("./User");
-require("./Ask");
-require("./Option");
+require('./Ask')
+require('./Contact')
+require('./Group')
+require('./Invitation')
+require('./Option')
+require('./Vote')
