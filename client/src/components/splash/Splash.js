@@ -4,7 +4,9 @@ import './Splash.css';
 const Splash = () => {
   return (
     <div>
-      Testing
+      Asking...
+      <br />
+      Index of current Asks
     </div>
   )
 }
