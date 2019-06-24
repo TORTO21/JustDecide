@@ -8,9 +8,9 @@ const InvitationSchema = new Schema({
     ref: 'ask',
     required: true
   },
-  user_id: {
+  contact_id: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'contact',
     required: true
   },
   status: {
