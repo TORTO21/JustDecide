@@ -1,6 +1,12 @@
 const graphql = require('graphql')
 
-const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql
+const {
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLID,
+  GraphQLList,
+  GraphQLBoolean
+} = graphql
 
 const Ask = require('../../models/Ask')
 const Invitation = require('../../models/Invitation')
@@ -12,12 +18,13 @@ const Contact = require('../../models/Contact')
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   fields: () => ({
+    
     id: { type: GraphQLID },
-
-    phone_hash: { type: GraphQLString },
-
+    phone_number: { type: GraphQLString },
     status: { type: GraphQLString },
-
+    token: { type: GraphQLString },
+    loggedIn: { type: GraphQLBoolean },
+    
     asks: {
       type: new GraphQLList(require('../types/ask_type')),
       resolve: user => Ask.find({ author_id: user.id })
