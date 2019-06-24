@@ -3,21 +3,15 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const UserSchema = new Schema({
-    asks: {
-    type: Schema.Types.ObjectId,
-    ref: 'ask'
-  },
-  name: {
-    type: String,
-    required: false
-  },
-  email: {
-    type: String,
-    required: false
-  },
   phone_number: {
     type: String,
     required: true
+  },
+  password: {
+    type: String,
+    required: true,
+    min: 6,
+    max: 32
   },
   status: {
     type: String,
@@ -54,12 +48,6 @@ const UserSchema = new Schema({
   monikers: {
     type: [Schema.Types.ObjectId],
     ref: 'moniker'
-  },
-  password: {
-    type: String,
-    required: true,
-    min: 8,
-    max: 32
   },
   date: {
     type: Date,

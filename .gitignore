@@ -10,3 +10,5 @@ ideas.md
 .env
 
 .DS_Store
+
+.vscode/

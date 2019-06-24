@@ -10,7 +10,7 @@ module.exports = function validateLoginInput(data) {
   }
   
   if (Validator.isEmpty(data.phone_number)) {
-    return { message: "Phone number is required", isValid: false }
+    return { message: "A valid phone number is required (10 digits)", isValid: false }
   }
 
   return { message: "", isValid: true }

@@ -1,9 +1,9 @@
 const validText = str => {
-  return typeof str === "string" && str.trim().length > 0;
+  return (typeof str === "string" && str.trim().length > 0);
 };
 
-const validNumber = num => {
-  return typeof num === "number" && num.length === 10;
+const validNumber = numString => {
+  return (numString * 1 && numString.length === 10);
 };
 
 module.exports = { validText, validNumber };
