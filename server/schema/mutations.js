@@ -4,9 +4,11 @@ const {
   GraphQLString,
   GraphQLFloat,
   GraphQLID,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLInt
 } = graphql;
 const mongoose = require("mongoose");
+const AuthService = require("../services/auth")
 
 const UserType = require("./types/user_type")
 const User = mongoose.model("user")
@@ -20,6 +22,7 @@ const mutation = new GraphQLObjectType({
       args: {
           name: { type: GraphQLString },
           email: { type: GraphQLString },
+          phone_number: { type: GraphQLFloat },
           password: { type: GraphQLString }
       },
       resolve(_, args) {
@@ -38,7 +41,7 @@ const mutation = new GraphQLObjectType({
     login: {
       type: UserType,
       args: {
-          email: { type: GraphQLString },
+          phone_number: { type: GraphQLFloat },
           password: { type: GraphQLString }
       },
       resolve(_, args) {
