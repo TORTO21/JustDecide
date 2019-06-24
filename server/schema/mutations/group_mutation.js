@@ -1,94 +1,95 @@
 const graphql = require('graphql')
-const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql
+const { GraphQLString, GraphQLID } = graphql
 
 const GroupType = require('../types/group_type')
 const Group = require('../../models/Group')
 const User = require('../../models/User')
 
-const groupMutation = new GraphQLObjectType({
-  name: 'GroupMutation',
-  fields: {
-    newGroup: {
-      type: GroupType,
-      args: {
-        owner_id: { type: GraphQLID },
-        name: { type: GraphQLString }
-      },
-      resolve(_, { owner_id, name }) {
-        // create
-        const group = new Group({
-          owner_id,
-          name
-        }).save()
-
-        // add to list(s)
-        const user = User.findByID(owner_id)
+const groupMutations = {
+  newGroup: {
+    type: GroupType,
+    args: {
+      owner_id: { type: GraphQLID },
+      name: { type: GraphQLString }
+    },
+    resolve: (parent, data, context) => {
+      const group = new Group(data)
+      return User.findById(data.owner_id).then(user => {
         user.groups.push(group)
-
-        // return newly created
-        return group
-      }
-    },
-    deleteGroup: {
-      type: GroupType,
-      args: { id: { type: GraphQLID } },
-      resolve(_, { id }) {
-        // find it
-        const group = Group.findById(id)
-
-        // remove from list(s)
-        const user = User.findById(group.owner_id)
-        user.groups.pull(group)
-
-        // remove
-        return group.remove()
-      }
-    },
-    updateGroup: {
-      type: GroupType,
-      args: {
-        id: { type: GraphQLID },
-        name: { type: GraphQLString }
-      },
-      resolve(_, { id, name }) {
-        return Group.findByIdAndUpdate(id, {
-          name
+        return Promise.all([group.save(), user.save()]).then(
+          ([group, user]) => {
+            return group
+          }
+        )
+      })
+    }
+  },
+  deleteGroup: {
+    type: GroupType,
+    args: { id: { type: GraphQLID } },
+    resolve: (_, { id }) => {
+      return Group.findById(id).then(group => {
+        User.findById(group.owner_id).then(user => {
+          user.groups.pull(group)
+          user.save()
         })
-      }
+        return group.remove()
+      })
+    }
+  },
+  updateGroup: {
+    type: GroupType,
+    args: {
+      id: { type: GraphQLID },
+      name: { type: GraphQLString }
     },
-    addUserToGroup: {
-      type: GroupType,
-      args: {
-        id: { type: GraphQLID },
-        user_id: { type: GraphQLID }
-      },
-      resolve(_, { id, user_id }) {
-        const group = Group.findById(id)
-        group.members.push(user_id)
-
-        const user = User.findById(user_id)
-        user.groups.push(id)
-
-        return group
-      }
+    resolve: (_, data) => {
+      return Group.findById(data.id).then(group => {
+        group.name = data.name || group.name
+        return group.save()
+      })
+    }
+  },
+  addUserToGroup: {
+    type: GroupType,
+    args: {
+      id: { type: GraphQLID },
+      user_id: { type: GraphQLID }
     },
-    removeUserFromGroup: {
-      type: GroupType,
-      args: {
-        id: { type: GraphQLID },
-        user_id: { type: GraphQLID }
-      },
-      resolve(_, { id, user_id }) {
-        const group = Group.findById(id)
-        group.members.pull(user_id)
-
-        const user = User.findById(user_id)
-        user.groups.pull(id)
-
-        return group
-      }
+    resolve: (parent, data, context) => {
+      return Group.findById(data.id).then(group => {
+        return User.findById(data.user_id).then(user => {
+          group.members.push(user)
+          user.memberships.push(group)
+          return Promise.all([group.save(), user.save()]).then(
+            ([group, user]) => {
+              return group
+            }
+          )
+        })
+      })
+    }
+  },
+  removeUserFromGroup: {
+    type: GroupType,
+    args: {
+      id: { type: GraphQLID },
+      user_id: { type: GraphQLID }
+    },
+    resolve: (parent, data, context) => {
+      return Group.findById(data.id).then(group => {
+        return User.findById(data.user_id).then(user => {
+          group.members.pull(user)
+          user.memberships.pull(group)
+          return Promise.all([group.save(), user.save()]).then(
+            ([group, user]) => {
+              return group
+            }
+          )
+        })
+      })
     }
   }
-})
+}
 
-module.exports = groupMutation
+module.exports = groupMutations

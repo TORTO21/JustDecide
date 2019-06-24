@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose.Schema
+const { Schema } = mongoose
 
 const VoteSchema = new Schema({
   option_id: {
@@ -19,5 +19,5 @@ const VoteSchema = new Schema({
   }
 })
 
-const Vote = mongoose.model('invitation', VoteSchema)
+const Vote = mongoose.model('vote', VoteSchema)
 module.exports = Vote

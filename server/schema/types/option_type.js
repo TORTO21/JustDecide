@@ -23,7 +23,7 @@ const OptionType = new GraphQLObjectType({
 
     votes: {
       type: new GraphQLList(require('../types/vote_type')),
-      resolve: option => Vote.find({ id: { $in: option.votes } })
+      resolve: option => Vote.find({ _id: { $in: option.votes } })
     },
 
     title: { type: GraphQLString }

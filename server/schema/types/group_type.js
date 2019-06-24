@@ -16,7 +16,7 @@ const GroupType = new GraphQLObjectType({
 
     members: {
       type: new GraphQLList(require('../types/user_type')),
-      resolve: group => User.find({ id: { $in: group.members } })
+      resolve: group => User.find({ _id: { $in: group.members } })
     },
 
     name: { type: GraphQLString }

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose.Schema
+const { Schema } = mongoose
 
 const OptionSchema = new Schema({
   creator_id: {
@@ -22,5 +22,5 @@ const OptionSchema = new Schema({
   }
 })
 
-const Option = mongoose.model('invitation', OptionSchema)
+const Option = mongoose.model('option', OptionSchema)
 module.exports = Option

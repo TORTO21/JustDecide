@@ -1,11 +1,16 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose.Schema
+const { Schema } = mongoose
 
 const AskSchema = new Schema({
   author_id: {
     type: Schema.Types.ObjectId,
     ref: 'user',
+    required: true
+  },
+  moniker_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'moniker',
     required: true
   },
   question: {

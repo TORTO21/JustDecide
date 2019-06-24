@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose.Schema
+const { Schema } = mongoose
 
 const UserSchema = new Schema({
   phone_hash: {
@@ -27,6 +27,10 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'group'
   },
+  memberships: {
+    type: [Schema.Types.ObjectId],
+    ref: 'group'
+  },
   votes: {
     type: [Schema.Types.ObjectId],
     ref: 'vote'
@@ -34,6 +38,10 @@ const UserSchema = new Schema({
   options: {
     type: [Schema.Types.ObjectId],
     ref: 'option'
+  },
+  monikers: {
+    type: [Schema.Types.ObjectId],
+    ref: 'moniker'
   }
 })
 

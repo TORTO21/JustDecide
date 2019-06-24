@@ -19,6 +19,8 @@ const UserType = require('./user_type')
 const User = require('../../models/User')
 const VoteType = require('./vote_type')
 const Vote = require('../../models/Vote')
+const MonikerType = require('./moniker_type')
+const Moniker = require('../../models/Moniker')
 
 // const authOptions = {
 //   method: "GET",
@@ -121,6 +123,19 @@ const RootQueryType = new GraphQLObjectType({
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(_, args) {
         return Vote.findById(args.id)
+      }
+    },
+    monikers: {
+      type: new GraphQLList(MonikerType),
+      resolve() {
+        return Moniker.find({})
+      }
+    },
+    moniker: {
+      type: MonikerType,
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve(_, args) {
+        return Moniker.findById(args.id)
       }
     }
   })

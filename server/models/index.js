@@ -1,6 +1,0 @@
-require('./Ask')
-require('./Contact')
-require('./Group')
-require('./Invitation')
-require('./Option')
-require('./Vote')

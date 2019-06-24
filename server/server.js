@@ -5,7 +5,6 @@ const cors = require('cors')
 const expressGraphQL = require('express-graphql')
 
 const db = require('../config/keys').MONGO_URI
-const models = require('./models/index')
 const schema = require('./schema/schema')
 
 const app = express()

@@ -2,13 +2,8 @@ const mongoose = require('mongoose')
 
 const { Schema } = mongoose
 
-const ContactSchema = new Schema({
+const MonikerSchema = new Schema({
   owner_id: {
-    type: Schema.Types.ObjectId,
-    ref: 'user',
-    required: true
-  },
-  user_id: {
     type: Schema.Types.ObjectId,
     ref: 'user',
     required: true
@@ -19,5 +14,5 @@ const ContactSchema = new Schema({
   }
 })
 
-const Contact = mongoose.model('contact', ContactSchema)
-module.exports = Contact
+const Moniker = mongoose.model('moniker', MonikerSchema)
+module.exports = Moniker

@@ -1,84 +1,69 @@
 const graphql = require('graphql')
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLBoolean,
-  GraphQLInt
-} = graphql
+const { GraphQLString, GraphQLID, GraphQLBoolean, GraphQLFloat } = graphql
 
 const AskType = require('../types/ask_type')
 const Ask = require('../../models/Ask')
 const User = require('../../models/User')
 
-const askMutation = new GraphQLObjectType({
-  name: 'AskMutation',
-  fields: {
-    newAsk: {
-      type: AskType,
-      args: {
-        author_id: { type: GraphQLID },
-        question: { type: GraphQLString },
-        use_date: { type: GraphQLBoolean },
-        use_time: { type: GraphQLBoolean },
-        date: { type: GraphQLInt },
-        deadline: { type: GraphQLInt }
-      },
-      resolve(_, { author_id, question, use_date, use_time, date, deadline }) {
-        // create
-        const ask = new Ask({
-          author_id,
-          question,
-          use_date,
-          use_time,
-          date,
-          deadline
-        }).save()
+const askMutations = {
+  newAsk: {
+    type: AskType,
+    args: {
+      author_id: { type: GraphQLID },
+      moniker_id: { type: GraphQLID },
+      question: { type: GraphQLString },
+      use_date: { type: GraphQLBoolean },
+      use_time: { type: GraphQLBoolean },
+      date: { type: GraphQLFloat },
+      deadline: { type: GraphQLFloat }
+    },
+    resolve: (parent, data, context) => {
+      const ask = new Ask(data)
 
-        // add to list(s)
-        const user = User.findByID(author_id)
+      return User.findById(data.author_id).then(user => {
         user.asks.push(ask)
-
-        // return newly created
-        return ask
-      }
-    },
-    deleteAsk: {
-      type: AskType,
-      args: { id: { type: GraphQLID } },
-      resolve(_, { id }) {
-        // find it
-        const ask = Ask.findById(id)
-
-        // remove from list(s)
-        const user = User.findById(ask.owner_id)
-        user.asks.pull(ask)
-
-        // remove
-        return ask.remove()
-      }
-    },
-    updateAsk: {
-      type: AskType,
-      args: {
-        id: { type: GraphQLID },
-        question: { type: GraphQLString },
-        use_date: { type: GraphQLBoolean },
-        use_time: { type: GraphQLBoolean },
-        date: { type: GraphQLInt },
-        deadline: { type: GraphQLInt }
-      },
-      resolve(_, { id, question, use_date, use_time, date, deadline }) {
-        return Ask.findByIdAndUpdate(id, {
-          question,
-          use_date,
-          use_time,
-          date,
-          deadline
+        return Promise.all([ask.save(), user.save()]).then(([ask, user]) => {
+          return ask
         })
-      }
+      })
+    }
+  },
+  deleteAsk: {
+    type: AskType,
+    args: { id: { type: GraphQLID } },
+    resolve: (_, { id }) => {
+      return Ask.findById(id).then(ask => {
+        User.findById(ask.owner_id).then(user => {
+          user.asks.pull(ask)
+          user.save()
+        })
+        return ask.remove()
+      })
+    }
+  },
+  updateAsk: {
+    type: AskType,
+    args: {
+      id: { type: GraphQLID },
+      moniker_id: { type: GraphQLID },
+      question: { type: GraphQLString },
+      use_date: { type: GraphQLBoolean },
+      use_time: { type: GraphQLBoolean },
+      date: { type: GraphQLFloat },
+      deadline: { type: GraphQLFloat }
+    },
+    resolve: (_, data) => {
+      return Ask.findById(data.id).then(ask => {
+        ask.moniker_id = data.moniker_id || ask.moniker_id
+        ask.question = data.question || ask.question
+        ask.use_date = data.use_date || ask.use_date
+        ask.use_time = data.use_time || ask.use_time
+        ask.use_time = data.use_time || ask.use_time
+        ask.deadline = data.deadline || ask.deadline
+        return ask.save()
+      })
     }
   }
-})
+}
 
-module.exports = askMutation
+module.exports = askMutations
