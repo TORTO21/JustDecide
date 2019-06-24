@@ -18,7 +18,7 @@ const register = async data => {
     const existingUser = await User.findOne({ phone_number });
 
     if (existingUser) {
-      throw new Error("This phone_number already exists. Please login.");
+      throw new Error("This phone number already exists. Please login.");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 

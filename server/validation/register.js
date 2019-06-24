@@ -5,8 +5,6 @@ module.exports = function validateRegisterInput(data) {
   data.password = validText(data.password) ? data.password : "";
   data.phone_number = validNumber(data.phone_number) ? data.phone_number : ""
 
-  console.log(data)
-
   if (Validator.isEmpty(data.phone_number)) {
     return { message: "A valid phone number is required (10 digits)", isValid: false }
   }
