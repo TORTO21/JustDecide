@@ -1,5 +1,5 @@
 const graphql = require('graphql')
-const { GraphQLString, GraphQLID, GraphQLBoolean, GraphQLFloat } = graphql
+const { GraphQLString, GraphQLID, GraphQLBoolean } = graphql
 
 const AskType = require('../types/ask_type')
 const Ask = require('../../models/Ask')
@@ -14,8 +14,8 @@ const askMutations = {
       question: { type: GraphQLString },
       use_date: { type: GraphQLBoolean },
       use_time: { type: GraphQLBoolean },
-      date: { type: GraphQLFloat },
-      deadline: { type: GraphQLFloat }
+      date: { type: GraphQLString },
+      deadline: { type: GraphQLString }
     },
     resolve: (parent, data, context) => {
       const ask = new Ask(data)
@@ -49,8 +49,8 @@ const askMutations = {
       question: { type: GraphQLString },
       use_date: { type: GraphQLBoolean },
       use_time: { type: GraphQLBoolean },
-      date: { type: GraphQLFloat },
-      deadline: { type: GraphQLFloat }
+      date: { type: GraphQLString },
+      deadline: { type: GraphQLString }
     },
     resolve: (_, data) => {
       return Ask.findById(data.id).then(ask => {
