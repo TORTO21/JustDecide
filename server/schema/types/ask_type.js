@@ -5,8 +5,6 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLBoolean,
-  GraphQLInt,
-  GraphQLFloat,
   GraphQLList
 } = graphql
 
@@ -36,9 +34,9 @@ const AskType = new GraphQLObjectType({
 
     use_time: { type: GraphQLBoolean },
 
-    date: { type: GraphQLFloat },
+    date: { type: GraphQLString },
 
-    deadline: { type: GraphQLFloat },
+    deadline: { type: GraphQLString },
 
     invitations: {
       type: new GraphQLList(require('../types/invitation_type')),
