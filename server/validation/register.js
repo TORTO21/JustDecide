@@ -2,8 +2,8 @@ const Validator = require("validator");
 const { validText, validNumber } = require("./manual_validations");
 
 module.exports = function validateRegisterInput(data) {
-  data.email = validText(data.email) ? data.email : "";
-  data.name = validText(data.name) ? data.name : "";
+  // data.email = validText(data.email) ? data.email : "";
+  // data.name = validText(data.name) ? data.name : "";
   data.password = validText(data.password) ? data.password : "";
   data.phone_number = validNumber(data.phone_number) ? data.phone_number : ""
 

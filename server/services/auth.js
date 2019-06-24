@@ -29,11 +29,7 @@ const register = async data => {
     const user = new User(
       {
         name,
-<<<<<<< HEAD
         // email,
-=======
-        email,
->>>>>>> 51a2f3f55d13d9b36add8274ca7889bd431d0468
         password: hashedPassword,
         phone_number //: hashedPhoneNumber
       },
