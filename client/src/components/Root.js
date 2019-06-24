@@ -1,14 +1,14 @@
 import React from 'react';
-// import { Provider } from 'react-redux';
-// import { HashRouter } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
+import { HashRouter } from 'react-router-dom';
 import App from './App';
 
-const Root = ({ store }) => (
-  // <Provider store={store}>
-    // <HashRouter>
+const Root = ({ client }) => (
+  <ApolloProvider client={ client }>
+    <HashRouter>
       <App />
-    // </HashRouter>
-  // </Provider>
+    </HashRouter>
+  </ApolloProvider>
 );
 
 export default Root;

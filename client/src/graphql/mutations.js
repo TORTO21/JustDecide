@@ -11,6 +11,14 @@ const Mutations = {
     }
   `,
 
+  LOGOUT_USER: gql`
+    mutation LogoutUser($id: String!) {
+      logout(id: $id)
+      token
+      loggedIn
+    }
+  `,
+
   LOGIN_USER: gql`
     mutation LoginUser($phone_number: String!, $password: String!) {
       login(phone_number: $phone_number, password: $password) {

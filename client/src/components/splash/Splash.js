@@ -5,6 +5,7 @@ const Splash = () => {
   return (
     <div>
       Testing
+      Hello World
     </div>
   )
 }
