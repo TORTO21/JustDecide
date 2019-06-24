@@ -5,7 +5,7 @@ const { Schema } = mongoose
 const OptionSchema = new Schema({
   creator_id: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'contact',
     required: true
   },
   ask_id: {

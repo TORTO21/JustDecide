@@ -19,10 +19,6 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'invitation'
   },
-  contacts: {
-    type: [Schema.Types.ObjectId],
-    ref: 'user'
-  },
   groups: {
     type: [Schema.Types.ObjectId],
     ref: 'group'
@@ -39,9 +35,9 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'option'
   },
-  monikers: {
+  contacts: {
     type: [Schema.Types.ObjectId],
-    ref: 'moniker'
+    ref: 'contact'
   }
 })
 

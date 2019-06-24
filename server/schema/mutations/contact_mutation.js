@@ -42,12 +42,10 @@ const contactMutations = {
     type: ContactType,
     args: {
       id: { type: GraphQLID },
-      user_id: { type: GraphQLID },
       name: { type: GraphQLString }
     },
     resolve: (_, data) => {
       return Contact.findById(data.id).then(contact => {
-        contact.user_id = data.user_id || contact.user_id
         contact.name = data.name || contact.name
         return contact.save()
       })

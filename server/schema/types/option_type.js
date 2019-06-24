@@ -2,7 +2,7 @@ const graphql = require('graphql')
 
 const { GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList } = graphql
 
-const User = require('../../models/User')
+const Contact = require('../../models/Contact')
 const Ask = require('../../models/Ask')
 const Vote = require('../../models/Vote')
 
@@ -12,8 +12,8 @@ const OptionType = new GraphQLObjectType({
     id: { type: GraphQLID },
 
     creator: {
-      type: require('../types/user_type'),
-      resolve: option => User.findById(option.creator_id)
+      type: require('../types/contact_type'),
+      resolve: option => Contact.findById(option.creator_id)
     },
 
     ask: {
