@@ -11,10 +11,17 @@ class Register extends Component {
       phone_number: "",
       password: ""
     };
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit() {
-    
+  handleSubmit(e, registerUser) {
+    e.preventDefault();
+    registerUser({
+      variables: {
+        phone_number: this.state.phone_number,
+        password: this.state.password
+      }
+    });
   }
 
   update(field) {
@@ -42,16 +49,8 @@ class Register extends Component {
         { registerUser => (
           <div>
             <form
-              onSubmit={ e => {
-                e.preventDefault();
-                console.log(e)
-                registerUser({
-                  variables: {
-                    phone_number: this.state.phone_number,
-                    password: this.state.password
-                  }
-                });
-              }}
+              className=""
+              onSubmit={ e => this.handleSubmit(e, registerUser) }
             >
               <input
                 value={ this.state.name }
@@ -61,8 +60,8 @@ class Register extends Component {
               <input
                 value={ this.state.phone_number }
                 onChange={ this.update("phone_number") }
-                placeholder="Phone Number"
                 type="tel"
+                placeholder="Phone Number"
               />
               <input
                 value={ this.state.password }

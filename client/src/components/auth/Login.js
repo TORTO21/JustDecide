@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
-import Mutations from '../graphql/mutations';
+import Mutations from '../../graphql/mutations';
 const { LOGIN_USER } = Mutations;
 
 class Login extends Component {
@@ -10,6 +10,17 @@ class Login extends Component {
       phone_number: "",
       password: ""
     };
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(e, registerUser) {
+    e.preventDefault();
+    registerUser({
+      variables: {
+        phone_number: this.state.phone_number,
+        password: this.state.password
+      }
+    });
   }
 
   update(field) {
@@ -37,21 +48,14 @@ class Login extends Component {
         { loginUser => (
           <div>
             <form
-              onSubmit={ e => {
-                e.preventDefault();
-                loginUser({
-                  variables: {
-                    email: this.state.email,
-                    password: this.state.password
-                  }
-                });
-              }}
+              className=""
+              onSubmit={ e => this.handleSubmit(e, loginUser) }
             >
               <input
-                value={this.state.email}
-                onChange={this.update("email")}
-                placeholder="Email"
-                type="email"
+                value={this.state.phone_number}
+                onChange={this.update("phone_number")}
+                type="tel"
+                placeholder="Phone Number"
               />
               <input
                 value={this.state.password}
