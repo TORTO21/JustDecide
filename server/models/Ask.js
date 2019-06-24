@@ -1,34 +1,45 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+
+const { Schema } = mongoose
 
 const AskSchema = new Schema({
+  author_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
+  moniker_id: {
+    type: Schema.Types.ObjectId,
+    ref: 'moniker',
+    required: true
+  },
   question: {
     type: String,
     required: true
   },
   use_date: {
     type: Boolean,
+    default: true
   },
   use_time: {
     type: Boolean,
+    default: true
   },
   date: {
-    type: Date,
+    type: Number // store as ms
   },
-  deadline_date: {
-    type: Date,
-    required: true
+  deadline: {
+    type: Number // store as ms
   },
-  invitees: {
+  invitations: {
     type: [Schema.Types.ObjectId],
-    ref: 'user'
+    ref: 'invitation'
   },
-  author: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
-  },
+  options: {
+    type: [Schema.Types.ObjectId],
+    ref: 'option'
+  }
+})
 
-});
-
-const Ask = mongoose.model('poll', AskSchema);
-module.exports = Ask;
+const Ask = mongoose.model('ask', AskSchema)
+module.exports = Ask
