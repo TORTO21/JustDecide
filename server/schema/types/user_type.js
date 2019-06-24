@@ -10,11 +10,10 @@ const {
 
 const Ask = require('../../models/Ask')
 const Invitation = require('../../models/Invitation')
-const User = require('../../models/User')
 const Group = require('../../models/Group')
 const Vote = require('../../models/Vote')
 const Option = require('../../models/Option')
-const Moniker = require('../../models/Moniker')
+const Contact = require('../../models/Contact')
 
 const UserType = new GraphQLObjectType({
   name: 'UserType',
@@ -34,11 +33,6 @@ const UserType = new GraphQLObjectType({
     invitations: {
       type: new GraphQLList(require('../types/invitation_type')),
       resolve: user => Invitation.find({ user_id: user.id })
-    },
-
-    contacts: {
-      type: new GraphQLList(UserType),
-      resolve: user => User.find({ owner_id: user.id })
     },
 
     groups: {
@@ -61,9 +55,9 @@ const UserType = new GraphQLObjectType({
       resolve: user => Option.find({ creator_id: user.id })
     },
 
-    monikers: {
-      type: new GraphQLList(require('./moniker_type')),
-      resolve: user => Moniker.find({ owner_id: user.id })
+    contacts: {
+      type: new GraphQLList(require('./contact_type')),
+      resolve: user => Contact.find({ owner_id: user.id })
     }
   })
 })

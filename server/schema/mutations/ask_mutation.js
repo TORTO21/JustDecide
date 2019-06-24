@@ -10,7 +10,7 @@ const askMutations = {
     type: AskType,
     args: {
       author_id: { type: GraphQLID },
-      moniker_id: { type: GraphQLID },
+      name_used_id: { type: GraphQLID },
       question: { type: GraphQLString },
       use_date: { type: GraphQLBoolean },
       use_time: { type: GraphQLBoolean },
@@ -45,7 +45,7 @@ const askMutations = {
     type: AskType,
     args: {
       id: { type: GraphQLID },
-      moniker_id: { type: GraphQLID },
+      name_used_id: { type: GraphQLID },
       question: { type: GraphQLString },
       use_date: { type: GraphQLBoolean },
       use_time: { type: GraphQLBoolean },
@@ -54,11 +54,11 @@ const askMutations = {
     },
     resolve: (_, data) => {
       return Ask.findById(data.id).then(ask => {
-        ask.moniker_id = data.moniker_id || ask.moniker_id
+        ask.name_used_id = data.name_used_id || ask.name_used_id
         ask.question = data.question || ask.question
         ask.use_date = data.use_date || ask.use_date
         ask.use_time = data.use_time || ask.use_time
-        ask.use_time = data.use_time || ask.use_time
+        ask.date = data.date || ask.date
         ask.deadline = data.deadline || ask.deadline
         return ask.save()
       })

@@ -9,7 +9,7 @@ const {
 } = graphql
 
 const User = require('../../models/User')
-const Moniker = require('../../models/Moniker')
+const Contact = require('../../models/Contact')
 const Invitation = require('../../models/Invitation')
 const Option = require('../../models/Option')
 
@@ -23,9 +23,9 @@ const AskType = new GraphQLObjectType({
       resolve: ask => User.findById(ask.author_id)
     },
 
-    moniker: {
-      type: require('../types/moniker_type'),
-      resolve: ask => Moniker.findById(ask.moniker_id)
+    name_used: {
+      type: require('../types/contact_type'),
+      resolve: ask => Contact.findById(ask.name_used_id)
     },
 
     question: { type: GraphQLString },

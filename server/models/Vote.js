@@ -8,9 +8,9 @@ const VoteSchema = new Schema({
     ref: 'option',
     required: true
   },
-  user_id: {
+  contact_id: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'contact',
     required: true
   },
   direction: {

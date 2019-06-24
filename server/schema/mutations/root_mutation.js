@@ -10,19 +10,9 @@ const group = require('./group_mutation')
 const invitation = require('./invitation_mutation')
 const user = require('./user_mutation')
 const vote = require('./vote_mutation')
-const moniker = require('./moniker_mutation')
 const option = require('./option_mutation')
 
-const fields = merge(
-  ask,
-  contact,
-  group,
-  invitation,
-  user,
-  vote,
-  moniker,
-  option
-)
+const fields = merge(ask, contact, group, invitation, user, vote, option)
 
 const allMutations = new GraphQLObjectType({
   name: 'Mutation',

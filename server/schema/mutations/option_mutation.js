@@ -3,8 +3,9 @@ const { GraphQLString, GraphQLID } = graphql
 
 const OptionType = require('../types/option_type')
 const Option = require('../../models/Option')
-const User = require('../../models/User')
+const Contact = require('../../models/Contact')
 const Ask = require('../../models/Ask')
+const User = require('../../models/User')
 
 const optionMutations = {
   newOption: {
@@ -16,15 +17,17 @@ const optionMutations = {
     },
     resolve: (parent, data, context) => {
       const option = new Option(data)
-      return User.findById(data.creator_id).then(user => {
-        user.options.push(option)
-        return Ask.findById(data.ask_id).then(ask => {
-          ask.options.push(option)
-          return Promise.all([option.save(), user.save(), ask.save()]).then(
-            ([option, user, ask]) => {
-              return option
-            }
-          )
+      return Contact.findById(data.creator_id).then(contact => {
+        return User.findById(contact.user_id).then(user => {
+          user.options.push(option)
+          return Ask.findById(data.ask_id).then(ask => {
+            ask.options.push(option)
+            return Promise.all([option.save(), user.save(), ask.save()]).then(
+              ([option, user, ask]) => {
+                return option
+              }
+            )
+          })
         })
       })
     }
@@ -35,15 +38,17 @@ const optionMutations = {
     resolve: (_, { id }) => {
       return Option.findById(id).then(option => {
         return Ask.findById(option.ask_id).then(ask => {
-          return User.findById(option.creator_id).then(user => {
-            ask.options.pull(option)
-            user.options.pull(option)
-            option.remove()
-            return Promise.all([ask.save(), user.save(), option.save()]).then(
-              ([ask, user, option]) => {
-                return option
-              }
-            )
+          return Contact.findById(option.creator_id).then(contact => {
+            return User.findById(contact.user_id).then(user => {
+              ask.options.pull(option)
+              user.options.pull(option)
+              option.remove()
+              return Promise.all([ask.save(), user.save(), option.save()]).then(
+                ([ask, user, option]) => {
+                  return option
+                }
+              )
+            })
           })
         })
       })

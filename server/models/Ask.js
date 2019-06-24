@@ -8,9 +8,9 @@ const AskSchema = new Schema({
     ref: 'user',
     required: true
   },
-  moniker_id: {
+  name_used_id: {
     type: Schema.Types.ObjectId,
-    ref: 'moniker',
+    ref: 'contact',
     required: true
   },
   question: {
