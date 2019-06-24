@@ -19,6 +19,7 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+<<<<<<< HEAD
   status: {
     type: String,
     enum: ['guest', 'registered']
@@ -55,6 +56,8 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'moniker'
   },
+=======
+>>>>>>> 51a2f3f55d13d9b36add8274ca7889bd431d0468
   password: {
     type: String,
     required: true,
