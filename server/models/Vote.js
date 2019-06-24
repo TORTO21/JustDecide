@@ -19,5 +19,8 @@ const VoteSchema = new Schema({
   }
 })
 
+VoteSchema.index({ option_id: 1 })
+VoteSchema.index({ contact_id: 1 })
+
 const Vote = mongoose.model('vote', VoteSchema)
 module.exports = Vote

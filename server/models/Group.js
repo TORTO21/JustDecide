@@ -18,5 +18,8 @@ const GroupSchema = new Schema({
   }
 })
 
+GroupSchema.index({ owner_id: 1 })
+GroupSchema.index({ name: 1 })
+
 const Group = mongoose.model('group', GroupSchema)
 module.exports = Group
