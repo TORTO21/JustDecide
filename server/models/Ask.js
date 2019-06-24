@@ -26,10 +26,10 @@ const AskSchema = new Schema({
     default: true
   },
   date: {
-    type: Number // store as ms
+    type: String // store as ms
   },
   deadline: {
-    type: Number // store as ms
+    type: String // store as ms
   },
   invitations: {
     type: [Schema.Types.ObjectId],
