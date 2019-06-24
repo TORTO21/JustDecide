@@ -3,8 +3,8 @@ import gql from 'graphql-tag';
 const Mutations = {
   
   REGISTER_USER: gql`
-    mutation RegisterUser($name: String!, $email: String!, $password: String!) {
-      register(name: $name, email: $email, password: $password) {
+    mutation RegisterUser($phone_number: String!, $password: String!) {
+      register(phone_number: $phone_number, password: $password) {
         token
         loggedIn
       }
