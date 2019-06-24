@@ -22,5 +22,8 @@ const InvitationSchema = new Schema({
   }
 })
 
+InvitationSchema.index({ ask_id: 1 })
+InvitationSchema.index({ user_id: 1 })
+
 const Invitation = mongoose.model('invitation', InvitationSchema)
 module.exports = Invitation

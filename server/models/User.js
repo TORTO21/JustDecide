@@ -51,5 +51,7 @@ const UserSchema = new Schema({
   },
 });
 
+UserSchema.index({ phone_number: 1 })
+
 const User = mongoose.model('user', UserSchema)
 module.exports = User

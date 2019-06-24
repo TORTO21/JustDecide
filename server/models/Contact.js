@@ -19,5 +19,9 @@ const ContactSchema = new Schema({
   }
 })
 
+ContactSchema.index({ owner_id: 1 })
+ContactSchema.index({ user_id: 1 })
+ContactSchema.index({ name: 1 })
+
 const Contact = mongoose.model('contact', ContactSchema)
 module.exports = Contact

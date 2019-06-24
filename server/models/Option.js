@@ -22,5 +22,9 @@ const OptionSchema = new Schema({
   }
 })
 
+OptionSchema.index({ creator_id: 1 })
+OptionSchema.index({ ask_id: 1 })
+OptionSchema.index({ title: 1 })
+
 const Option = mongoose.model('option', OptionSchema)
 module.exports = Option
