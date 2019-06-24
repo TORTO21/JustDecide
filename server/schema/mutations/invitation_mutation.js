@@ -5,13 +5,14 @@ const InvitationType = require('../types/invitation_type')
 const Invitation = require('../../models/Invitation')
 const User = require('../../models/User')
 const Ask = require('../../models/Ask')
+const Contact = require('../../models/Contact')
 
 const invitationMutations = {
   newInvitation: {
     type: InvitationType,
     args: {
       ask_id: { type: GraphQLID },
-      user_id: { type: GraphQLID },
+      contact_id: { type: GraphQLID },
       status: { type: GraphQLString },
       invite_url: { type: GraphQLString }
     },
@@ -19,13 +20,17 @@ const invitationMutations = {
       const invitation = new Invitation(data)
       return Ask.findById(data.ask_id).then(ask => {
         ask.invitations.push(invitation)
-        return User.findById(data.user_id).then(user => {
-          user.invitations.push(invitation)
-          return Promise.all([invitation.save(), ask.save(), user.save()]).then(
-            ([invitation, ask, user]) => {
+        return Contact.findById(data.contact_id).then(contact => {
+          return User.findById(contact.user_id).then(user => {
+            user.invitations.push(invitation)
+            return Promise.all([
+              invitation.save(),
+              ask.save(),
+              user.save()
+            ]).then(([invitation, ask, user]) => {
               return invitation
-            }
-          )
+            })
+          })
         })
       })
     }
@@ -36,16 +41,18 @@ const invitationMutations = {
     resolve: (_, { id }) => {
       return Invitation.findById(id).then(invitation => {
         return Ask.findById(invitation.ask_id).then(ask => {
-          return User.findById(invitation.user_id).then(user => {
-            ask.invitations.pull(invitation)
-            user.invitations.pull(invitation)
-            invitation.remove()
-            return Promise.all([
-              ask.save(),
-              user.save(),
-              invitation.save()
-            ]).then(([ask, user, invitation]) => {
-              return invitation
+          return Contact.findById(invitation.contact_id).then(contact => {
+            return User.findById(contact.user_id).then(user => {
+              ask.invitations.pull(invitation)
+              user.invitations.pull(invitation)
+              invitation.remove()
+              return Promise.all([
+                ask.save(),
+                user.save(),
+                invitation.save()
+              ]).then(([ask, user, invitation]) => {
+                return invitation
+              })
             })
           })
         })
