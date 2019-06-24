@@ -1,3 +1,27 @@
+@import-normalize;
+
+*{font-family: Quicksand;}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  background: linear-gradient(225deg, rgba(103,223,147,1) 0%, rgba(48,196,161,1) 55%, rgba(3,173,172,1) 100%);
+}
+
+.solid-pink-button {
+  width: 150px;
+  height: 35px;
+  background-color: #F99BAC;
+  border-radius: 25px;
+  color: white;
+  font-size: 15px;
+  border: none;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
