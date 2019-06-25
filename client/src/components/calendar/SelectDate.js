@@ -9,12 +9,21 @@ class SelectDate extends React.Component {
     super(props)
     this.state = {
       currentMonth: new Date(),
-      selectedDate: new Date()
+      selectedDate: new Date(),
+      today: new Date(),
+      currentWeekStart: dateFns.startOfWeek(new Date()),
+      currentWeekEnd: dateFns.endOfWeek(new Date())
     }
     this.handleNext = this.handleNext.bind(this);
     this.updateCache = this.updateCache.bind(this);
-    // this.nextWeek = this.nextWeek.bind(this);
+    this.nextWeek = this.nextWeek.bind(this);
     // this.prevWeek = this.prevWeek.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currentWeekStart !== prevState.currentWeekStart) {
+      this.renderDates();
+    }
   }
 
   renderHeader() {
@@ -62,19 +71,10 @@ class SelectDate extends React.Component {
   renderDates() {
     const { currentMonth, selectedDate } = this.state;
     const monthStart = dateFns.startOfMonth(currentMonth);
-    // const monthEnd = dateFns.endOfMonth(monthStart);
-    // const startDate = dateFns.startOfWeek(monthStart);
-    // const endDate = dateFns.endOfWeek(monthEnd);
-
-    // let days = [];
-    // let day = startDate;
-    // let formattedDate = "";
-
-    var startOfWeek = require('date-fns/start_of_week')
     const today = new Date() 
 
-    const currentWeekStart = dateFns.startOfWeek(today)
-    const currentWeekEnd = dateFns.endOfWeek(today)
+    const currentWeekStart = this.state.currentWeekStart
+    const currentWeekEnd = this.state.currentWeekEnd
 
  
     const dateFormat = "D";
@@ -96,7 +96,7 @@ class SelectDate extends React.Component {
               : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
             }`}
             key={day}
-            onClick={() => this.onDateClick(dateFns.parse(cloneDay))}>
+            onClick={() => this.onDateClick(dateFns.parse(cloneDay), currentWeekStart)}>
             <span className="number">{formattedDate}</span>
             <span className="bg">{formattedDate}</span>
           </div>
@@ -114,18 +114,30 @@ class SelectDate extends React.Component {
   }
 
   nextWeek() {
-    let nextWeek = dateFns.addWeeks(new Date(), 1)
-    console.log(nextWeek)
+    let nextWeek = dateFns.addWeeks(this.state.today, 1)
+    let nextWeekStart = dateFns.startOfWeek(nextWeek)
+    let nextWeekEnd = dateFns.endOfWeek(nextWeek)
+    this.setState({
+      today: nextWeek,
+      currentWeekStart: nextWeekStart,
+      currentWeekEnd: nextWeekEnd
+    })
     return nextWeek
   }
 
   prevWeek = day => {
-    let prevWeek = dateFns.subWeeks(new Date(), 1)
-    console.log(prevWeek)
+    let prevWeek = dateFns.subWeeks(this.state.today, 1)
+    let prevWeekStart = dateFns.startOfWeek(prevWeek)
+    let prevWeekEnd = dateFns.endOfWeek(prevWeek)
+    this.setState({
+      today: prevWeek,
+      currentWeekStart: prevWeekStart,
+      currentWeekEnd: prevWeekEnd 
+    })
     return prevWeek
   }
 
-  onDateClick = day => {
+  onDateClick = (day) => {
     this.setState({
       selectedDate: day
     });
