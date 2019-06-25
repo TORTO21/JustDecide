@@ -14,7 +14,6 @@ const Splash = () => {
         </div>
       </div> 
     </div>
-    
   )
 }
 

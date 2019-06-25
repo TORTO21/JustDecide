@@ -41,5 +41,9 @@ const AskSchema = new Schema({
   }
 })
 
+AskSchema.index({ author_id: 1 })
+AskSchema.index({ name_used_id: 1 })
+AskSchema.index({ question: 1 })
+
 const Ask = mongoose.model('ask', AskSchema)
 module.exports = Ask

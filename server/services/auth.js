@@ -56,8 +56,8 @@ const register = async data => {
 
 const logout = async data => {
   // find user by id
-  const { _id } = data;
-  const leavingUser = await User.findById(_id)
+  const { id } = data;
+  const leavingUser = await User.findById(id)
 
   // create empty token and return object with null password and phone number
   const token = "";

@@ -8,9 +8,9 @@ const InvitationSchema = new Schema({
     ref: 'ask',
     required: true
   },
-  user_id: {
+  contact_id: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'contact',
     required: true
   },
   status: {
@@ -21,6 +21,9 @@ const InvitationSchema = new Schema({
     type: String
   }
 })
+
+InvitationSchema.index({ ask_id: 1 })
+InvitationSchema.index({ user_id: 1 })
 
 const Invitation = mongoose.model('invitation', InvitationSchema)
 module.exports = Invitation

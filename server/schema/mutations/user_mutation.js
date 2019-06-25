@@ -6,19 +6,6 @@ const User = require('../../models/User')
 const AuthService = require('../../services/auth')
 
 const userMutations = {
-  // NOTE: Temporarily added to easily add user intil Auth is ready
-  // newUser: {
-  //   type: UserType,
-  //   args: {
-  //     phone_hash: { type: GraphQLString },
-  //     status: { type: GraphQLString }
-  //   },
-  //   resolve(_, { phone_hash, status }) {
-  //     return new User({
-  //       phone_hash,
-  //       status
-  //     }).save()
-  //   },
   register: {
     type: UserType,
     args: {

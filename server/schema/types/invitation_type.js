@@ -2,7 +2,7 @@ const graphql = require('graphql')
 
 const { GraphQLObjectType, GraphQLString, GraphQLID } = graphql
 
-const User = require('../../models/User')
+const Contact = require('../../models/Contact')
 const Ask = require('../../models/Ask')
 
 const InvitationType = new GraphQLObjectType({
@@ -15,9 +15,9 @@ const InvitationType = new GraphQLObjectType({
       resolve: invitation => Ask.findById(invitation.ask_id)
     },
 
-    user: {
-      type: require('../types/user_type'),
-      resolve: invitation => User.findById(invitation.user_id)
+    contact: {
+      type: require('../types/contact_type'),
+      resolve: invitation => Contact.findById(invitation.contact_id)
     },
 
     status: { type: GraphQLString },
