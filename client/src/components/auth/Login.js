@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
+import './auth.css'
 import Mutations from '../../graphql/mutations';
 const { LOGIN_USER } = Mutations;
 
@@ -13,9 +14,9 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(e, registerUser) {
+  handleSubmit(e, loginUser) {
     e.preventDefault();
-    registerUser({
+    loginUser({
       variables: {
         phone_number: this.state.phone_number,
         password: this.state.password
@@ -27,9 +28,8 @@ class Login extends Component {
     return e => this.setState({ [field]: e.target.value });
   }
 
-  updateCache(client, { data }) {
-    console.log(data);
-    client.writeData({
+  updateCache(clientCache, { data }) {
+    clientCache.writeData({
       data: { isLoggedIn: data.login.loggedIn }
     });
   }
@@ -43,10 +43,10 @@ class Login extends Component {
           localStorage.setItem("auth-token", token);
           this.props.history.push("/");
         }}
-        update={ (client, data) => this.updateCache(client, data) }
+        update={ (clientCache, data) => this.updateCache(clientCache, data) }
       >
         { loginUser => (
-          <div>
+          <div className="background">
             <form
               className=""
               onSubmit={ e => this.handleSubmit(e, loginUser) }

@@ -19,7 +19,6 @@ const askMutations = {
     },
     resolve: (parent, data, context) => {
       const ask = new Ask(data)
-
       return User.findById(data.author_id).then(user => {
         user.asks.push(ask)
         return Promise.all([ask.save(), user.save()]).then(([ask, user]) => {

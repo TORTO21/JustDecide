@@ -101,6 +101,25 @@
   box-shadow: 1px 3px 3px #00000035;
 }
 
+.logout {
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  top: 10px;
+  width: 100px;
+  height: 25px;
+}
+
+
+/* links */
+.home {
+  position: absolute;
+  z-index: 1;
+  right: 10px;
+  top: 10px;
+}
+
+
 /* form */
 .form {
   display: flex;
@@ -142,8 +161,6 @@
   font-size: 13px;
   color: #595959;
 }
-
-
 
 
 

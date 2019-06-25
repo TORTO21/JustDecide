@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
 import ApolloClient from "apollo-client";
+import './index.css'
 import Root from './components/Root';
 import Mutations from './graphql/mutations';
 const { VERIFY_USER } = Mutations;

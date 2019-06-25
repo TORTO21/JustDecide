@@ -86,7 +86,7 @@ const login = async data => {
     }
 
     // verify password, if match, create web token and return 
-    // userobject with null password and phone number
+    // user object with null password and phone number
     const passwordMatch = await bcrypt.compareSync(password, user.password)
     if(!passwordMatch) {
       throw new Error("Password does not match")

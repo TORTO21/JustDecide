@@ -29,7 +29,6 @@ class Register extends Component {
   }
 
   updateCache(client, {data}) {
-    console.log(data);
     client.writeData({
       data: { isLoggedIn: data.register.loggedIn }
     });
@@ -47,7 +46,7 @@ class Register extends Component {
         update={(client, data) => this.updateCache(client, data)}
       >
         { registerUser => (
-          <div>
+          <div className="background">
             <form
               className=""
               onSubmit={ e => this.handleSubmit(e, registerUser) }
