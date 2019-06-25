@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
 import './Splash.css';
+import '../../index.css';
+import CalendarIcon from '../icons/Calendar.png'
 
 const Splash = props => {
   return (

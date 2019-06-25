@@ -5,7 +5,6 @@ import Queries from "../../graphql/queries";
 const { IS_LOGGED_IN } = Queries;
 
 const Logout = props => {
-  console.log(props)
   return (
     <ApolloConsumer>
       { clientCache => (
@@ -15,6 +14,7 @@ const Logout = props => {
               return (
                 <div>
                   <button
+                    className="solid-pink-button logout"
                     onClick={ e => {
                       e.preventDefault();
                       localStorage.removeItem("auth-token");
