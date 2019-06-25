@@ -13,7 +13,7 @@ const AuthRoute = ({
 }) => (
   <Query query={ IS_LOGGED_IN }>
     {({ data }) => {
-      // renders if logged in
+      // renders if not logged in else send to root
       if (routeType === "auth") {
         return (
           <Route
@@ -25,7 +25,7 @@ const AuthRoute = ({
           />
         );
       } else {
-        // renders if logged in
+        // renders if logged in else send to login
         return (
           <Route
             {...rest}

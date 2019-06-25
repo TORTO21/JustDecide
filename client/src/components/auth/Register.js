@@ -47,7 +47,7 @@ class Register extends Component {
         update={(client, data) => this.updateCache(client, data)}
       >
         { registerUser => (
-          <div>
+          <div className="background">
             <form
               className=""
               onSubmit={ e => this.handleSubmit(e, registerUser) }
