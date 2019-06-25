@@ -1,5 +1,7 @@
 import React from 'react';
 import './Splash.css';
+import '../../index.css';
+import CalendarIcon from '../icons/Calendar.png'
 
 const Splash = () => {
   return (
