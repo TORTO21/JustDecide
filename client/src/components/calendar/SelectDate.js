@@ -12,12 +12,14 @@ class SelectDate extends React.Component {
       selectedDate: new Date(),
       today: new Date(),
       currentWeekStart: dateFns.startOfWeek(new Date()),
-      currentWeekEnd: dateFns.endOfWeek(new Date())
+      currentWeekEnd: dateFns.endOfWeek(new Date()),
+      monthSelector: false
     }
     this.handleNext = this.handleNext.bind(this);
     this.updateCache = this.updateCache.bind(this);
     this.nextWeek = this.nextWeek.bind(this);
-    // this.prevWeek = this.prevWeek.bind(this);
+    this.prevWeek = this.prevWeek.bind(this);
+    this.handleMonthClick = this.handleMonthClick.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -32,18 +34,19 @@ class SelectDate extends React.Component {
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
-          {/* <div className="icon" onClick={this.prevMonth}> */}
           <div className="icon" onClick={this.prevWeek}>
             chevron_left
           </div>
         </div>
         <div className="col col-center">
-          <span>
+          <div onClick={this.handleMonthClick}>
             {dateFns.format(this.state.currentMonth, dateFormat)}
-          </span>
+          </div>
+          {/* <span>
+            {dateFns.format(this.state.currentMonth, dateFormat)}
+          </span> */}
         </div>
         <div className="col col-end">
-          {/* <div className="icon" onClick={this.nextMonth}> */}
           <div className="icon" onClick={this.nextWeek}>
             chevron_right
           </div>
@@ -113,6 +116,22 @@ class SelectDate extends React.Component {
     return <div className="body">{rows}</div>
   }
 
+  renderMonthSelector() {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    if (this.state.monthSelector === true) {
+      months.forEach(month => {
+        return (
+          <div className="month-selector">
+            Testing
+            <ul>
+              {month}
+            </ul>
+          </div>
+        )
+      })
+    }
+  }
+
   nextWeek() {
     let nextWeek = dateFns.addWeeks(this.state.today, 1)
     let nextWeekStart = dateFns.startOfWeek(nextWeek)
@@ -125,7 +144,7 @@ class SelectDate extends React.Component {
     return nextWeek
   }
 
-  prevWeek = day => {
+  prevWeek() {
     let prevWeek = dateFns.subWeeks(this.state.today, 1)
     let prevWeekStart = dateFns.startOfWeek(prevWeek)
     let prevWeekEnd = dateFns.endOfWeek(prevWeek)
@@ -135,6 +154,12 @@ class SelectDate extends React.Component {
       currentWeekEnd: prevWeekEnd 
     })
     return prevWeek
+  }
+
+  handleMonthClick() {
+    this.setState({
+      monthSelector: true
+    })
   }
 
   onDateClick = (day) => {
@@ -186,6 +211,7 @@ class SelectDate extends React.Component {
           return(
             <div className="calendar">
               {this.renderHeader()}
+              {this.renderMonthSelector()}
               {this.renderDays()}
               {this.renderDates()}
               <button 
