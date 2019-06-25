@@ -22,6 +22,13 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
+// app.use(
+//   '/graphql',
+//   expressGraphQL({
+//       schema,
+//       graphiql: true
+//   })
+// )
 app.use(
   '/graphql',
   expressGraphQL(req => {

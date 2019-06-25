@@ -8,11 +8,14 @@ import Login from './auth/Login'
 import Logout from './auth/Logout'
 
 const App = () => (
-  <div>
-    <Splash />
-    <AuthRoute exact path="/register" component={ Register } routeType="auth" />
-    <AuthRoute exact path="/login" component={ Login } routeType="auth" />
-    <AuthRoute exact path="/logout" component={ Logout } />
+  <div className="background">
+    <Logout />
+    <Switch >
+      <AuthRoute exact path="/register" component={ Register } routeType="auth" />
+      <AuthRoute exact path="/login" component={ Login } routeType="auth" />
+      <Route path="/" component= { Splash } />
+      
+    </Switch>
   </div>
 )
 

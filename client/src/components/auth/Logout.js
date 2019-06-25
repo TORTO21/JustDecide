@@ -15,7 +15,7 @@ const Logout = props => {
               return (
                 <div>
                   <button
-                    onClick={e => {
+                    onClick={ e => {
                       e.preventDefault();
                       localStorage.removeItem("auth-token");
                       clientCache.writeData({ data: { isLoggedIn: false } });
@@ -26,14 +26,15 @@ const Logout = props => {
                   </button>
                 </div>
               );
-            // } else {
-            //   return (
-            //     <div>
-            //       <Link to="/">Home</Link>
-            //       <Link to="/login">Login</Link>
-            //       <Link to="/register">Register</Link>
-            //     </div>
-            //   );
+            } else {
+              return null
+              // (
+              //   <div>
+              //     <Link to="/">Home</Link>
+              //     <Link to="/login">Login</Link>
+              //     <Link to="/register">Register</Link>
+              //   </div>
+              // );
             }
           }}
         </Query>
