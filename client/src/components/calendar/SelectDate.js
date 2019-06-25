@@ -4,13 +4,6 @@ import './Calendar.css';
 import dateFns from 'date-fns';
 import { Mutation, ApolloProvider, ApolloConsumer } from 'react-apollo';
 
-
- const SAVE_DATE = gql`
-    mutation saveSelectedDate($date: String!) {
-      saveDate(askDate: $date) @client 
-    }
-  `
-
 class SelectDate extends React.Component {
   constructor(props) {
     super(props)
@@ -123,10 +116,19 @@ class SelectDate extends React.Component {
     })
   }
 
+  createDateString() {
+    let dS = (this.state.selectedDate.getMonth() + 1).toString() + " " +
+      this.state.selectedDate.getDate().toString() + " " +
+      this.state.selectedDate.getFullYear().toString()
+    console.log(dS)
+    return dS
+  }
+
   updateCache(client) {
+    const dateString = this.createDateString()
     // here we also need to write to local storage
     client.writeData({
-      data: { askDate: this.state.selectedDate.getDate() } 
+      data: { askDate: dateString } 
     })
     console.log(client)
   }
