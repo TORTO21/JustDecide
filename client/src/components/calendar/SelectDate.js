@@ -1,7 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import './Calendar.css';
-import dateFns from 'date-fns';
+import dateFns, { getISOWeek, isThisISOWeek } from 'date-fns';
 import { Mutation, ApolloProvider, ApolloConsumer } from 'react-apollo';
 
 class SelectDate extends React.Component {
@@ -13,6 +13,8 @@ class SelectDate extends React.Component {
     }
     this.handleNext = this.handleNext.bind(this);
     this.updateCache = this.updateCache.bind(this);
+    // this.nextWeek = this.nextWeek.bind(this);
+    // this.prevWeek = this.prevWeek.bind(this);
   }
 
   renderHeader() {
@@ -21,7 +23,8 @@ class SelectDate extends React.Component {
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
-          <div className="icon" onClick={this.prevMonth}>
+          {/* <div className="icon" onClick={this.prevMonth}> */}
+          <div className="icon" onClick={this.prevWeek}>
             chevron_left
           </div>
         </div>
@@ -30,8 +33,9 @@ class SelectDate extends React.Component {
             {dateFns.format(this.state.currentMonth, dateFormat)}
           </span>
         </div>
-        <div className="col col-end" onClick={this.nextMonth}>
-          <div className="icon">
+        <div className="col col-end">
+          {/* <div className="icon" onClick={this.nextMonth}> */}
+          <div className="icon" onClick={this.nextWeek}>
             chevron_right
           </div>
         </div>
@@ -40,7 +44,7 @@ class SelectDate extends React.Component {
   }
 
   renderDays() {
-    const dateFormat = "dddd";
+    const dateFormat = "ddd";
     const days = [];
 
     let startDate = dateFns.startOfWeek(this.state.currentMonth);
@@ -58,18 +62,29 @@ class SelectDate extends React.Component {
   renderDates() {
     const { currentMonth, selectedDate } = this.state;
     const monthStart = dateFns.startOfMonth(currentMonth);
-    const monthEnd = dateFns.endOfMonth(monthStart);
-    const startDate = dateFns.startOfWeek(monthStart);
-    const endDate = dateFns.endOfWeek(monthEnd);
+    // const monthEnd = dateFns.endOfMonth(monthStart);
+    // const startDate = dateFns.startOfWeek(monthStart);
+    // const endDate = dateFns.endOfWeek(monthEnd);
 
+    // let days = [];
+    // let day = startDate;
+    // let formattedDate = "";
+
+    var startOfWeek = require('date-fns/start_of_week')
+    const today = new Date() 
+
+    const currentWeekStart = dateFns.startOfWeek(today)
+    const currentWeekEnd = dateFns.endOfWeek(today)
+
+ 
     const dateFormat = "D";
     const rows = [];
 
     let days = [];
-    let day = startDate;
+    let day = currentWeekStart;
     let formattedDate = "";
 
-    while (day <= endDate) {
+    while (day <= currentWeekEnd) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
         const cloneDay = day;
@@ -96,6 +111,18 @@ class SelectDate extends React.Component {
       days = [];
     }
     return <div className="body">{rows}</div>
+  }
+
+  nextWeek() {
+    let nextWeek = dateFns.addWeeks(new Date(), 1)
+    console.log(nextWeek)
+    return nextWeek
+  }
+
+  prevWeek = day => {
+    let prevWeek = dateFns.subWeeks(new Date(), 1)
+    console.log(prevWeek)
+    return prevWeek
   }
 
   onDateClick = day => {
