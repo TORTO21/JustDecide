@@ -10,7 +10,7 @@ const { VERIFY_USER } = Mutations;
 
 // declare new cache and normalize the data by object id
 const cache = new InMemoryCache({
-  dataIdFromObject: object => object._id || null
+  dataIdFromObject: object => object._id || null,
 });
 
 // look for token in local storage and set isLoggedIn based on result in cache
@@ -18,6 +18,7 @@ const token = localStorage.getItem("auth-token");
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
+    askDate: ""
   }
 });
 

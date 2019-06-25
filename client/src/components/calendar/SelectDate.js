@@ -1,6 +1,15 @@
 import React from 'react';
+import gql from 'graphql-tag';
 import './Calendar.css';
 import dateFns from 'date-fns';
+import { Mutation, ApolloProvider, ApolloConsumer } from 'react-apollo';
+
+
+ const SAVE_DATE = gql`
+    mutation saveSelectedDate($date: String!) {
+      saveDate(askDate: $date) @client 
+    }
+  `
 
 class SelectDate extends React.Component {
   constructor(props) {
@@ -9,6 +18,8 @@ class SelectDate extends React.Component {
       currentMonth: new Date(),
       selectedDate: new Date()
     }
+    this.handleNext = this.handleNext.bind(this);
+    this.updateCache = this.updateCache.bind(this);
   }
 
   renderHeader() {
@@ -112,13 +123,39 @@ class SelectDate extends React.Component {
     })
   }
 
+  updateCache(client) {
+    // here we also need to write to local storage
+    client.writeData({
+      data: { askDate: this.state.selectedDate.getDate() } 
+    })
+    console.log(client)
+  }
+
+  handleNext() {
+    // console.log(this.state.selectedDate.getMonth())
+    // console.log(this.state.selectedDate.getDate())
+    // console.log(this.state.selectedDate.getFullYear())
+  }
+
   render() {
+    
     return (
-      <div className="calendar">
-        {this.renderHeader()}
-        {this.renderDays()}
-        {this.renderDates()}
-      </div>
+      <ApolloConsumer>
+        {(client) => {
+          return(
+            <div className="calendar">
+              {this.renderHeader()}
+              {this.renderDays()}
+              {this.renderDates()}
+              <button 
+                className="solid-pink-button"
+                onClick={() => this.updateCache(client)}>
+                Next
+              </button>
+            </div>
+          )
+        }} 
+      </ApolloConsumer>
     )
   }
 

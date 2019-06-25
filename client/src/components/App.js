@@ -12,17 +12,17 @@ import SelectDate from './calendar/SelectDate';
 
 const App = () => (
   <div>
-    <Logout />
-    <Link className="home" to="/">Home(temporary)</Link>
-    <Switch >
-      <AuthRoute exact path="/register" component={ Register } routeType="auth" />
-      <AuthRoute exact path="/login" component={ Login } routeType="auth" />
-      <Route path="/" component= { Splash } />
+    {/* <Logout /> */}
+    {/* <Link className="home" to="/">Home(temporary)</Link> */}
+    {/* <Switch > */}
+      {/* <AuthRoute exact path="/register" component={ Register } routeType="auth" /> */}
+      {/* <AuthRoute exact path="/login" component={ Login } routeType="auth" /> */}
+      {/* <Route path="/" component= { Splash } /> */}
       {/* <Route path="/asks" component= { Index } /> */}
       {/* <Route path="/asks/:ask_id" component= { AskDetail } /> */}
       {/* <Route path="/new" component = { NewAsk } /> */}
-    </Switch>
-
+    {/* </Switch> */}
+    <SelectDate />
   </div>
 )
 
