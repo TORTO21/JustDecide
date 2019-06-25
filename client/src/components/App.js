@@ -7,6 +7,7 @@ import Register from './auth/Register'
 import Login from './auth/Login'
 import Logout from './auth/Logout'
 
+
 const App = () => (
   <div>
     <Splash />

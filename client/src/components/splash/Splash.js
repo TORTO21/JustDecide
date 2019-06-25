@@ -1,5 +1,7 @@
 import React from 'react';
 import './Splash.css';
+import '../../index.css';
+import CalendarIcon from '../icons/Calendar.png'
 
 const Splash = () => {
   return (
@@ -13,6 +15,9 @@ const Splash = () => {
           <button className="solid-pink-button">Login</button>
         </div>
       </div> 
+      <div className="gradient-green-button">
+        <img src={CalendarIcon} className="calendar"></img>
+      </div>
     </div>
   )
 }
