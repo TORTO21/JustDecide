@@ -1,17 +1,22 @@
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start
+}
 
 .splash-title {
   font-size: 55px;
   color: white;
   display: flex;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 25%;
 }
 
 .splash-subtitle {
   font-size: 20px;
   color: white;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 10%;
 }
 
 .splash-buttons {
@@ -24,22 +29,33 @@
 .create-ask-button {
   width: 70%;
   height: 50px;
-  border: 1px solid white;
+  border: 2px solid white;
   border-radius: 50px;
   font-size: 20px;
   text-align: center;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0);
   color: white;
   font-weight: bolder;
-  margin-top: 75px;
+  margin-top: 20%;
+  transition: .25s;
 }
 
+.create-ask-button:hover {
+  color: rgba(3,173,172,1);
+  background-color: white;
+}
+
+.create-ask-button:focus {
+  color: rgba(3,173,172,1);
+  background-color: rgba(255, 255, 255, .75);
+}
+
+.splash-auth-buttons-container {
+  margin-top: 20%;
+}
 .splash-auth-buttons {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 100vh;
-  transform: translateY(-200%);
   justify-content: space-between;
   height: 100px;
 }

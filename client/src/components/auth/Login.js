@@ -41,30 +41,46 @@ class Login extends Component {
         onCompleted={ data => {
           const { token } = data.login;
           localStorage.setItem("auth-token", token);
-          this.props.history.push("/");
+          this.props.history.push("/new");
         }}
         update={ (clientCache, data) => this.updateCache(clientCache, data) }
       >
         { loginUser => (
-          <div className="background">
-            <form
-              className=""
-              onSubmit={ e => this.handleSubmit(e, loginUser) }
-            >
-              <input
-                value={this.state.phone_number}
-                onChange={this.update("phone_number")}
-                type="tel"
-                placeholder="Phone Number"
-              />
-              <input
-                value={this.state.password}
-                onChange={this.update("password")}
-                type="password"
-                placeholder="Password"
-              />
-              <button type="submit">Log In</button>
-            </form>
+          <div className="auth-container background">
+            <div className="auth-form-title"> Login </div>
+            <div className="auth-form-container">
+              <form
+                className="auth-form"
+                onSubmit={ e => this.handleSubmit(e, loginUser) }
+              > 
+                <div>
+                  <div className="auth-field-title">PhoneNumber</div>
+                  <input
+                    className="auth-field"
+                    value={ this.state.phone_number }
+                    onChange={ this.update("phone_number") }
+                    type="tel"
+                    placeholder="ex: 8881234567"
+                  />
+                </div>
+                <div>
+                  <div className="auth-field-title">Password</div>
+                    <input
+                    className="auth-field"
+                    value={ this.state.password }
+                    onChange={ this.update("password") }
+                    type="password"
+                  />
+                </div>
+                <div className="continue-button-container">
+                  <button
+                    className="solid-pink-button button"
+                    type="submit">
+                      Continue
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </Mutation>
