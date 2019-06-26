@@ -6,9 +6,9 @@ import RightArrow from '../icons/RightArrow.png';
 import LeftArrow from '../icons/LeftArrow.png';
 import DblLeftArrow from '../icons/DblLeftArrow.png';
 import DblRightArrow from '../icons/DblRightArrow.png';
-import TimePicker from './TimePicker';
+import DeadlineTimePicker from './DeadlineTimePicker';
 
-class SelectDate extends React.Component {
+class Deadline extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -18,6 +18,7 @@ class SelectDate extends React.Component {
       currentWeekStart: dateFns.startOfWeek(new Date()),
       currentWeekEnd: dateFns.endOfWeek(new Date())
     }
+    this.handleNext = this.handleNext.bind(this);
     this.updateCache = this.updateCache.bind(this);
     this.nextWeek = this.nextWeek.bind(this);
     this.prevWeek = this.prevWeek.bind(this);
@@ -47,10 +48,10 @@ class SelectDate extends React.Component {
           </img>
         </div>
         <div className="col col-center month-year">
-            {dateFns.format(this.state.currentMonth, dateFormat)}
+          {dateFns.format(this.state.currentMonth, dateFormat)}
         </div>
         <div className="col col-end">
-          <img 
+          <img
             src={RightArrow}
             className="arrow"
             onClick={this.nextWeek}>
@@ -71,7 +72,7 @@ class SelectDate extends React.Component {
 
     let startDate = dateFns.startOfWeek(this.state.currentMonth);
 
-    for (let i= 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-center" key={i}>
           {dateFns.format(dateFns.addDays(startDate, i), dateFormat)}
@@ -88,7 +89,7 @@ class SelectDate extends React.Component {
     const currentWeekStart = this.state.currentWeekStart
     const currentWeekEnd = this.state.currentWeekEnd
 
- 
+
     const dateFormat = "D";
     const rows = [];
 
@@ -105,9 +106,9 @@ class SelectDate extends React.Component {
             className="col cell"
             key={day}
             onClick={() => this.onDateClick(dateFns.parse(cloneDay), currentWeekStart)}>
-            <span className={`number ${!dateFns.isSameMonth(day, monthStart) 
-              ? " disabeled" : dateFns.isSameDay(day, selectedDate) 
-              ? "selected" : ""}`}>{formattedDate}
+            <span className={`number ${!dateFns.isSameMonth(day, monthStart)
+              ? " disabeled" : dateFns.isSameDay(day, selectedDate)
+                ? "selected" : ""}`}>{formattedDate}
             </span>
           </div>
         );
@@ -181,24 +182,32 @@ class SelectDate extends React.Component {
     const moFormat = "MM"
     const dateFormat = "DD"
     const yrFormat = "YYYY"
-    const date = (dateFns.format(this.state.currentMonth, moFormat) 
-      + " " + 
+    const date = (dateFns.format(this.state.currentMonth, moFormat)
+      + " " +
       dateFns.format(this.state.selectedDate, dateFormat)
       + " " +
       dateFns.format(this.state.currentMonth, yrFormat))
 
-    const time = window.localStorage.getItem("time") 
-    const dateString = date + " " + time 
+    const time = window.localStorage.getItem("deadlineTime")
+    const dateString = date + " " + time
     return (dateString)
   }
 
   updateCache(client) {
     const dateString = this.createDateString()
-    window.localStorage.setItem("date", dateString)
+    window.localStorage.setItem("deadlineDate", dateString)
     client.writeData({
-      data: { askDate: dateString } 
+      data: { deadlineDate: dateString }
     })
-    this.props.history.push("/deadlineDate")
+    this.handleNext(client)
+  }
+
+  handleNext(client) {
+    console.log("localStorage")
+    console.log(window.localStorage.getItem("deadlineDate"))
+    console.log(window.localStorage.getItem("date"))
+    console.log("cache")
+    console.log(client)
   }
 
   render() {
@@ -206,29 +215,29 @@ class SelectDate extends React.Component {
     return (
       <ApolloConsumer>
         {(client) => {
-          return(
+          return (
             <div className="background">
-                <div className="section-header cal-header">Set the Date</div>
-                <div className="calendar">
-                  {this.renderHeader()}
-                  {this.renderDays()}
-                  {this.renderDates()}
-                </div>
-                <TimePicker />
-                <div className="cal-button-container">
-                  <button 
-                    className="solid-pink-button calendar-button"
-                    onClick={() => this.updateCache(client)}>
-                    Next
+              <div className="section-header deadline-header">When do you need to know by?</div>
+              <div className="calendar">
+                {this.renderHeader()}
+                {this.renderDays()}
+                {this.renderDates()}
+              </div>
+              <DeadlineTimePicker />
+              <div className="cal-button-container">
+                <button
+                  className="solid-pink-button calendar-button"
+                  onClick={() => this.updateCache(client)}>
+                  Next
                   </button>
-                </div>
+              </div>
             </div>
           )
-        }} 
+        }}
       </ApolloConsumer>
     )
   }
 
 }
 
-export default SelectDate;
+export default Deadline;

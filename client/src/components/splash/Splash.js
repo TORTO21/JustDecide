@@ -3,7 +3,9 @@ import { withRouter } from 'react-router-dom'
 import { Query } from "react-apollo";
 import Queries from "../../graphql/queries";
 import './Splash.css';
+import CalendarIcon from '../icons/Calendar.png'
 const { IS_LOGGED_IN } = Queries;
+
 
 const Splash = props => {
   return (
