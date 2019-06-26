@@ -181,24 +181,29 @@ class SelectDate extends React.Component {
   }
 
   createDateString() {
-    let moFormat = "MM"
-    let dateFormat = "DD"
-    let yrFormat = "YYYY"
-    let dateString = (dateFns.format(this.state.currentMonth, moFormat) 
+    const moFormat = "MM"
+    const dateFormat = "DD"
+    const yrFormat = "YYYY"
+    const date = (dateFns.format(this.state.currentMonth, moFormat) 
       + " " + 
       dateFns.format(this.state.selectedDate, dateFormat)
       + " " +
       dateFns.format(this.state.currentMonth, yrFormat))
+
+    const time = window.localStorage.getItem("time") 
+    const dateString = date + " " + time 
+    console.log(dateString)
     return (dateString)
   }
 
   updateCache(client) {
     const dateString = this.createDateString()
-    // here we also need to write to local storage
+    window.localStorage.setItem("date", dateString)
     client.writeData({
       data: { askDate: dateString } 
     })
-    console.log(client)
+    console.log(window.localStorage.getItem("time"))
+    console.log(window.localStorage.getItem("date"))
   }
 
   handleNext() {
