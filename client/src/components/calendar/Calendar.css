@@ -240,18 +240,16 @@ main {
   height: auto;
 }
 
+.dbl-arrow {
+  margin-left: 10px;
+  width: 30px;
+  height: auto
+}
+
 .cal-header {
   display: flex;
   justify-content: center;
 }
-
-/* .calendar-pink-check {
-  width: 40px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  background-image: url('../icons/PinkCheck.png');
-} */
 
 .calendar .body .cell .number.selected {
   background-image: url('../icons/PinkCheck.png');

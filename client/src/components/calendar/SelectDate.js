@@ -5,6 +5,8 @@ import { ApolloConsumer } from 'react-apollo';
 import RightArrow from '../icons/RightArrow.png';
 import LeftArrow from '../icons/LeftArrow.png';
 import PinkCheck from '../icons/PinkCheck.png';
+import DblLeftArrow from '../icons/DblLeftArrow.png';
+import DblRightArrow from '../icons/DblRightArrow.png';
 
 class SelectDate extends React.Component {
   constructor(props) {
@@ -38,8 +40,12 @@ class SelectDate extends React.Component {
       <div className="header row flex-middle">
         <div className="col col-start">
           <img
+            src={DblLeftArrow}
+            className="arrow">
+          </img>
+          <img
             src={LeftArrow}
-            className="arrow"
+            className="dbl-arrow"
             onClick={this.prevWeek}>
           </img>
         </div>
@@ -53,6 +59,10 @@ class SelectDate extends React.Component {
             src={RightArrow}
             className="arrow"
             onClick={this.nextWeek}>
+          </img>
+          <img
+            src={DblRightArrow}
+            className="dbl-arrow">
           </img>
         </div>
       </div>
