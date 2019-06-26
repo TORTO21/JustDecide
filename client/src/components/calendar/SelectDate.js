@@ -41,7 +41,8 @@ class SelectDate extends React.Component {
         <div className="col col-start">
           <img
             src={DblLeftArrow}
-            className="arrow">
+            className="arrow"
+            onClick={this.prevMonth}>
           </img>
           <img
             src={LeftArrow}
@@ -62,7 +63,8 @@ class SelectDate extends React.Component {
           </img>
           <img
             src={DblRightArrow}
-            className="dbl-arrow">
+            className="dbl-arrow"
+            onClick={this.nextMonth}>
           </img>
         </div>
       </div>
