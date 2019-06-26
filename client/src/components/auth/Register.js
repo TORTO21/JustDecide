@@ -7,19 +7,22 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
       phone_number: "",
-      password: ""
+      name: "",
+      password: "",
+      password2: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit(e, registerUser) {
     e.preventDefault();
+    console.log(this.state.name)
     if (this.state.password = this.state.password2) {
       registerUser({
         variables: {
           phone_number: this.state.phone_number,
+          name: this.state.name,
           password: this.state.password,
         }
       })
@@ -43,7 +46,7 @@ class Register extends Component {
         onCompleted={ data => {
           const { token } = data.register;
           localStorage.setItem("auth-token", token);
-          this.props.history.push("/new");
+          this.props.history.push("/asks/new");
         }}
         update={(client, data) => this.updateCache(client, data)}
       >

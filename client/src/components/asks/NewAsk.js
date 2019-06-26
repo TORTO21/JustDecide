@@ -15,22 +15,23 @@ export class NewAsk extends Component {
         <div>
           <AskQuestion />
         </div>
-        {/* <div>
-          <Query
+        <div>
+          {/* <Query
             query={ QUERY_PAGE }>
               { page => {
                 switch (page) {
                   case 1: return <AskQuestion />
                   case 2: return <AskDateTime />
                   case 3: return <AskDeadline />
-                  case 4: return <AskInvites />
-                  case 5: return <AskSuccess />
+                  case 4: return <AskOptions />
+                  case 5: return <AskInvites />
+                  case 6: return <AskSuccess />
                   default: return <Redirect to="/" />
                 }
               }}
 
-          </Query>
-        </div> */}
+          </Query> */}
+        </div>
       </div>
     )
   }
