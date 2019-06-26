@@ -15,8 +15,7 @@ class SelectDate extends React.Component {
       today: new Date(),
       currentWeekStart: dateFns.startOfWeek(new Date()),
       currentWeekEnd: dateFns.endOfWeek(new Date()),
-      monthSelector: false, 
-      selectState: false
+      monthSelector: false
     }
     this.handleNext = this.handleNext.bind(this);
     this.updateCache = this.updateCache.bind(this);
@@ -92,34 +91,19 @@ class SelectDate extends React.Component {
     let day = currentWeekStart;
     let formattedDate = "";
 
-    let dateCell;
-
-    if (this.state.selectState === "false") {
-      dateCell = (
-        <>
-          <span className="number">{formattedDate}</span>
-          <span className="bg">{formattedDate}</span>
-        </>
-      )
-    } else {
-      dateCell = (
-        <img src={PinkCheck} className="calendar-pink-check"></img>
-      )
-    }
-
     while (day <= currentWeekEnd) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
         const cloneDay = day;
         days.push(
           <div
-            className={`col cell ${!dateFns.isSameMonth(day, monthStart) ? "disabeled" : dateFns.isSameDay(day, selectedDate) ? "selected" : ""}`}
-            // className="col cell"
-            // className={this.state.selectState === false ? "col cell" : "calendar-pink-check"}
+            className="col cell"
             key={day}
             onClick={() => this.onDateClick(dateFns.parse(cloneDay), currentWeekStart)}>
-            <span className="number">{formattedDate}</span>
-            {/* {dateCell} */}
+            <span className={`number ${!dateFns.isSameMonth(day, monthStart) 
+              ? " disabeled" : dateFns.isSameDay(day, selectedDate) 
+              ? "selected" : ""}`}>{formattedDate}
+            </span>
           </div>
         );
         day = dateFns.addDays(day, 1);

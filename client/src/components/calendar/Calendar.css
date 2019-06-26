@@ -245,11 +245,21 @@ main {
   justify-content: center;
 }
 
-.calendar-pink-check {
+/* .calendar-pink-check {
   width: 40px;
   height: auto;
   display: flex;
   justify-content: center;
   background-image: url('../icons/PinkCheck.png');
+} */
+
+.calendar .body .cell .number.selected {
+  background-image: url('../icons/PinkCheck.png');
+  background-size: 55px 55px;
+  color: transparent;
+  position: absolute;
+  background-color: transparent;
+  background-position: center;
 }
+
 
