@@ -47,9 +47,7 @@ class SelectDate extends React.Component {
           </img>
         </div>
         <div className="col col-center month-year">
-          {/* <div onClick={this.handleMonthClick}> */}
             {dateFns.format(this.state.currentMonth, dateFormat)}
-          {/* </div> */}
         </div>
         <div className="col col-end">
           <img 

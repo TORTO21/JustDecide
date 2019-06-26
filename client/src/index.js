@@ -17,8 +17,7 @@ const cache = new InMemoryCache({
 const token = localStorage.getItem("auth-token"); 
 cache.writeData({
   data: {
-    isLoggedIn: Boolean(token),
-    askDate: ""
+    isLoggedIn: Boolean(token)
   }
 });
 

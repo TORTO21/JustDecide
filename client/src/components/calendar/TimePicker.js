@@ -102,9 +102,6 @@ class TimePicker extends React.Component {
   }
 
   render() {
-    // const hrFormat = "hh"
-    // const minFormat = "mm"
-    // const meridiemFormat = "A"
     if (dateFns.format(new Date(), meridiemFormat) === "AM") {
       this.setState({ meridiemIndicator: "AM"})
     } 
