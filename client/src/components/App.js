@@ -7,6 +7,7 @@ import Register from './auth/Register'
 import Login from './auth/Login'
 import Logout from './auth/Logout'
 // import NewAsk from './asks/NewAsk'
+import '../index.css';
 
 import SelectDate from './calendar/SelectDate';
 

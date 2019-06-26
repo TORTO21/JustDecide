@@ -198,7 +198,7 @@ main {
   margin: auto;
   padding: 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr))
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
 }
 
 .month {
@@ -241,10 +241,16 @@ main {
   height: auto;
 }
 
-.dbl-arrow {
+.dbl-right-arrow {
   margin-left: 10px;
   width: 30px;
   height: auto
+}
+
+.dbl-left-arrow {
+  margin-right: 10px;
+  width: 30px;
+  height: auto;
 }
 
 .cal-header {

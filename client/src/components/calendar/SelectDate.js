@@ -4,9 +4,9 @@ import dateFns from 'date-fns';
 import { ApolloConsumer } from 'react-apollo';
 import RightArrow from '../icons/RightArrow.png';
 import LeftArrow from '../icons/LeftArrow.png';
-import PinkCheck from '../icons/PinkCheck.png';
 import DblLeftArrow from '../icons/DblLeftArrow.png';
 import DblRightArrow from '../icons/DblRightArrow.png';
+import TimePicker from './TimePicker';
 
 class SelectDate extends React.Component {
   constructor(props) {
@@ -16,15 +16,12 @@ class SelectDate extends React.Component {
       selectedDate: new Date(),
       today: new Date(),
       currentWeekStart: dateFns.startOfWeek(new Date()),
-      currentWeekEnd: dateFns.endOfWeek(new Date()),
-      monthSelector: false
+      currentWeekEnd: dateFns.endOfWeek(new Date())
     }
     this.handleNext = this.handleNext.bind(this);
     this.updateCache = this.updateCache.bind(this);
     this.nextWeek = this.nextWeek.bind(this);
     this.prevWeek = this.prevWeek.bind(this);
-    this.handleMonthClick = this.handleMonthClick.bind(this);
-    this.handleClearMonths = this.handleClearMonths.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -41,19 +38,19 @@ class SelectDate extends React.Component {
         <div className="col col-start">
           <img
             src={DblLeftArrow}
-            className="arrow"
+            className="dbl-left-arrow"
             onClick={this.prevMonth}>
           </img>
           <img
             src={LeftArrow}
-            className="dbl-arrow"
+            className="arrow"
             onClick={this.prevWeek}>
           </img>
         </div>
         <div className="col col-center month-year">
-          <div onClick={this.handleMonthClick}>
+          {/* <div onClick={this.handleMonthClick}> */}
             {dateFns.format(this.state.currentMonth, dateFormat)}
-          </div>
+          {/* </div> */}
         </div>
         <div className="col col-end">
           <img 
@@ -63,7 +60,7 @@ class SelectDate extends React.Component {
           </img>
           <img
             src={DblRightArrow}
-            className="dbl-arrow"
+            className="dbl-right-arrow"
             onClick={this.nextMonth}>
           </img>
         </div>
@@ -156,37 +153,50 @@ class SelectDate extends React.Component {
     return prevWeek
   }
 
-  handleMonthClick() {
-    this.setState({
-      monthSelector: true
-    })
-  }
+  // handleMonthClick() {
+  //   this.setState({
+  //     monthSelector: true
+  //   })
+  // }
 
   onDateClick = (day) => {
     this.setState({
       selectedDate: day,
-      selectState: true
     });
   };
 
   nextMonth = () => {
+    let oneMonthForward = dateFns.addMonths(this.state.currentMonth, 1)
+    let newWeekStart = dateFns.startOfWeek(oneMonthForward)
+    let newWeekEnd = dateFns.endOfWeek(oneMonthForward)
     this.setState({
-      currentMonth: dateFns.addMonths(this.state.currentMonth, 1)
+      currentMonth: oneMonthForward,
+      currentWeekStart: newWeekStart,
+      currentWeekEnd: newWeekEnd
     })
   }
 
   prevMonth = () => {
+    let oneMonthPrev = dateFns.subMonths(this.state.currentMonth, 1)
+    let newWeekStart = dateFns.startOfWeek(oneMonthPrev)
+    let newWeekEnd = dateFns.endOfWeek(oneMonthPrev)
     this.setState({
-      currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
+      currentMonth: oneMonthPrev,
+      currentWeekStart: newWeekStart,
+      currentWeekEnd: newWeekEnd
     })
   }
 
   createDateString() {
-    let dS = (this.state.selectedDate.getMonth() + 1).toString() + " " +
-      this.state.selectedDate.getDate().toString() + " " +
-      this.state.selectedDate.getFullYear().toString()
-    console.log(dS)
-    return dS
+    let moFormat = "MM"
+    let dateFormat = "DD"
+    let yrFormat = "YYYY"
+    let dateString = (dateFns.format(this.state.currentMonth, moFormat) 
+      + " " + 
+      dateFns.format(this.state.selectedDate, dateFormat)
+      + " " +
+      dateFns.format(this.state.currentMonth, yrFormat))
+    return (dateString)
   }
 
   updateCache(client) {
@@ -204,27 +214,7 @@ class SelectDate extends React.Component {
     // console.log(this.state.selectedDate.getFullYear())
   }
 
-  handleClearMonths(e) {
-    // e.stopPropagation();
-    this.setState({
-      monthSelector: false
-    })
-  }
-
   render() {
-    let months;
-    const monthOptions = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-    if (this.state.monthSelector === true) {
-      months = monthOptions.map((month, i) => {
-        return (
-          <li key={i} className="month">
-            {month}
-          </li>
-        )
-      })
-    } else {
-      months = ""
-    }
 
     return (
       <ApolloConsumer>
@@ -234,9 +224,6 @@ class SelectDate extends React.Component {
               <div className="section-header cal-header">Set the Date</div>
               <div className="calendar">
                 {this.renderHeader()}
-                {/* <ul className="month-selector">
-                  {months}
-                </ul> */}
                 {this.renderDays()}
                 {this.renderDates()}
               </div>
@@ -247,6 +234,7 @@ class SelectDate extends React.Component {
                   Next
                 </button>
               </div>
+              <TimePicker />
             </div>
           )
         }} 

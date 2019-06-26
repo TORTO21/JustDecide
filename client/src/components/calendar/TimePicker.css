@@ -1,0 +1,46 @@
+.time-picker-container {
+  width: 75%;
+  height: 20%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #595959;
+  border-radius: 15px;
+  margin: auto;
+  /* margin-top: 10%; */
+}
+
+.time-picker {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.time-input {
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  box-shadow: 1px 3px 3px #00000035;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 0px 15px;
+}
+
+.time-arrows {
+  width: 30px;
+  height: auto;
+  margin: 35px 0px;
+}
