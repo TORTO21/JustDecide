@@ -4,12 +4,12 @@ const { Schema } = mongoose
 
 const UserSchema = new Schema({
   phone_number: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
     min: 6,
     max: 32
   },
@@ -47,9 +47,9 @@ const UserSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
-  },
-});
+    default: Date.now
+  }
+})
 
 UserSchema.index({ phone_number: 1 })
 
