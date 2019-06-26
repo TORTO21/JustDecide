@@ -14,6 +14,10 @@
   background: linear-gradient(225deg, rgba(103,223,147,1) 0%, rgba(48,196,161,1) 55%, rgba(3,173,172,1) 100%);
 }
 
+button:focus, input[type="submit"]:focus {
+  outline: 0 none;
+}
+
 /* colors */
 /* white text is just plain white */
 .solid-grn {
@@ -72,6 +76,11 @@
 
 /* buttons */
 
+.button {
+  cursor: pointer;
+  
+}
+
 .solid-pink-button {
   width: 150px;
   height: 35px;
@@ -81,6 +90,11 @@
   font-size: 15px;
   border: none;
   box-shadow: 1px 3px 3px #00000035;
+}
+
+.solid-pink-button:focus {
+  box-shadow: 0 1px 1px #00000013  inset, 0 1px 8px rgba(80, 80, 80, 0.5);
+  background-color: rgb(233, 144, 160);
 }
 
 .gradient-pink-circle {

@@ -6,7 +6,7 @@ import AuthRoute from '../util/route_util'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import Logout from './auth/Logout'
-// import NewAsk from './asks/NewAsk'
+
 import SelectDate from './calendar/SelectDate';
 import Deadline from './calendar/Deadline';
 import '../index.css';
