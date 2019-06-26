@@ -6,9 +6,11 @@ import AuthRoute from '../util/route_util'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import Logout from './auth/Logout'
-import NewAsk from './asks/NewAsk'
 
 import SelectDate from './calendar/SelectDate';
+import Deadline from './calendar/Deadline';
+import '../index.css';
+
 
 const App = () => (
   <div>
@@ -17,12 +19,13 @@ const App = () => (
     <Switch >
       <AuthRoute exact path="/register" component={ Register } routeType="auth" />
       <AuthRoute exact path="/login" component={ Login } routeType="auth" />
-      <Route path="/new" component = { NewAsk } />
+      <Route exact path="/selectDate" component={ SelectDate } />
+      <Route exact path="/deadlineDate" component={ Deadline } />
       <Route path="/" component= { Splash } />
-      {/* <Route path="/asks" component= { Index } /> */}
-      {/* <Route path="/asks/:ask_id" component= { AskDetail } /> */}
+      {/* <Route path="/asks" component= { Index } />
+      <Route path="/asks/:ask_id" component= { AskDetail } />
+      <Route path="/new" component = { NewAsk } /> */}
     </Switch>
-
   </div>
 )
 

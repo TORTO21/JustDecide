@@ -65,11 +65,12 @@ button:focus, input[type="submit"]:focus {
 
 /* drop-shadow effects (they might already be applied to some buttons) */
 .drop-shadow {
-  box-shadow: 1px 3px 3px #00000035;
+  /* box-shadow: 0px 4px 15px rgba(0, 0, 0, .35); */
+  box-shadow: 0px 4px 15px #00000059
 }
 
 .drop-shadow-circle {
-  box-shadow: 1px 5px 5px 1px #00000035;
+  box-shadow: 0px 4px 4px #00000040;
 }
 
 
@@ -175,7 +176,6 @@ button:focus, input[type="submit"]:focus {
   font-size: 13px;
   color: #595959;
 }
-
 
 
 
