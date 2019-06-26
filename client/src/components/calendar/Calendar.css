@@ -233,6 +233,7 @@ main {
   padding: 2%;
   background-color: #03ADAC;
   border-radius: 15px;
+  min-width: 160px;
 }
 
 .arrow {
