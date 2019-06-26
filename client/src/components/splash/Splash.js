@@ -13,7 +13,7 @@ const Splash = props => {
       <div className="splash-buttons">
         <button
           className="create-ask-button button"
-          onClick={ () => props.history.push("/new") } >
+          onClick={ () => props.history.push("/asks/new") } >
             Create an Ask
         </button>
         <div className="splash-auth-buttons-container">

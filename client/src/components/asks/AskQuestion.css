@@ -1,0 +1,49 @@
+.ask-question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ask-question-field {
+  height: 20%;
+  width: 90%;
+  border-radius: 20px;
+  border-style: none;
+  resize: none;
+  padding: 15px;
+  font-size: 22px;
+}
+
+.ask-question-as {
+  margin-top: 10%;
+  background: white;
+  width: 80%;
+  height: 40px;
+  border-radius: 7px;
+  font-size: 22px;
+  padding: 5px;
+  padding-left: 15px;
+}
+
+.ask-questio-date-time-container {
+  margin-top: 10%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.ask-question-date-time-title {
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.ask-question-date-time {
+  margin-top: 10%;
+}
+
+.ask-question-button {
+  margin-top: 10%;
+}

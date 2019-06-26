@@ -117,9 +117,9 @@ const verifyUser = async data => {
     // attempt to find a user in the databse with obtained id and return result
     const loggedIn = await User.findById(id)
       .then(user => {
-      return user ? true : false;
+      return !!user
     });
-    return { loggedIn };
+    return { loggedIn, id };
 
   } catch (err) {
     return { loggedIn: false };
@@ -128,7 +128,7 @@ const verifyUser = async data => {
 
 const userLoggedIn = async context => {
   const validUser = await verifyUser({token: context.token})
-  return validUser.loggedIn
+  return !validUser.loggedIn
 }
 
 module.exports = { register, logout, login, verifyUser, userLoggedIn };
