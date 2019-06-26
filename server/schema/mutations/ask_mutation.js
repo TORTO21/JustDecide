@@ -4,6 +4,7 @@ const { GraphQLString, GraphQLID, GraphQLBoolean } = graphql
 const AskType = require('../types/ask_type')
 const Ask = require('../../models/Ask')
 const User = require('../../models/User')
+const { userLoggedIn } = require('../../services/auth')
 
 const askMutations = {
   newAsk: {
@@ -17,7 +18,12 @@ const askMutations = {
       date: { type: GraphQLString },
       deadline: { type: GraphQLString }
     },
-    resolve: (parent, data, context) => {
+    resolve: async (parent, data, context) => {
+      
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
+
       const ask = new Ask(data)
       return User.findById(data.author_id).then(user => {
         user.asks.push(ask)

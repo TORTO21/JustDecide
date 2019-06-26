@@ -126,5 +126,9 @@ const verifyUser = async data => {
   }
 };
 
+const userLoggedIn = async context => {
+  const validUser = await verifyUser({token: context.token})
+  return validUser.loggedIn
+}
 
-module.exports = { register, logout, login, verifyUser };
+module.exports = { register, logout, login, verifyUser, userLoggedIn };
