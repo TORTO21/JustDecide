@@ -12,7 +12,33 @@ class TimePicker extends React.Component {
       now: new Date(),
       hr: new Date(),
       min: new Date(),
-      meridiemIndicator: new Date() 
+      meridiemIndicator: "PM"
+    }
+    this.meridiemToggle = this.meridiemToggle.bind(this)
+  }
+
+  prevHour() {
+
+  }
+
+  nextHour() {
+
+  }
+
+  prevMin() {
+
+  }
+
+  nextMin() {
+
+  }
+
+  meridiemToggle() {
+    let format = "A"
+    if (this.state.meridiemIndicator === "PM") {
+      this.setState({ meridiemIndicator: "AM" })
+    } else {
+      this.setState({ meridiemIndicator: "PM" })
     }
   }
 
@@ -20,6 +46,9 @@ class TimePicker extends React.Component {
     const hrFormat = "HH"
     const minFormat = "MM"
     const meridiemFormat = "A"
+    if (dateFns.format(new Date(), meridiemFormat) === "AM") {
+      this.setState({ meridiemIndicator: "AM"})
+    } 
     return (
       <div className="time-picker-container">
         <div className="time-picker">
@@ -35,9 +64,15 @@ class TimePicker extends React.Component {
               <img src={TimePickerDown} className="time-arrows"></img>
             </div>
             <div className="time-input">
-              <img src={TimePickerUp} className="time-arrows"></img>
-              {dateFns.format(this.state.meridiemIndicator, meridiemFormat)}
-              <img src={TimePickerDown} className="time-arrows"></img>
+              <img 
+                src={TimePickerUp} 
+                className="time-arrows"
+                onClick={this.meridiemToggle}></img>
+              {this.state.meridiemIndicator}
+              <img 
+                src={TimePickerDown} 
+                className="time-arrows"
+                onClick={this.meridiemToggle}></img>
             </div>
           </div>
         </div>

@@ -87,7 +87,6 @@ class SelectDate extends React.Component {
   renderDates() {
     const { currentMonth, selectedDate } = this.state;
     const monthStart = dateFns.startOfMonth(currentMonth);
-    // const today = new Date() 
 
     const currentWeekStart = this.state.currentWeekStart
     const currentWeekEnd = this.state.currentWeekEnd
@@ -152,12 +151,6 @@ class SelectDate extends React.Component {
     })
     return prevWeek
   }
-
-  // handleMonthClick() {
-  //   this.setState({
-  //     monthSelector: true
-  //   })
-  // }
 
   onDateClick = (day) => {
     this.setState({
