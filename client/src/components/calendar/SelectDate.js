@@ -136,7 +136,6 @@ class SelectDate extends React.Component {
       currentWeekEnd: nextWeekEnd,
       currentMonth: nextWeek
     })
-    return nextWeek
   }
 
   prevWeek() {
@@ -149,7 +148,6 @@ class SelectDate extends React.Component {
       currentWeekEnd: prevWeekEnd,
       currentMonth: prevWeek
     })
-    return prevWeek
   }
 
   onDateClick = (day) => {
@@ -163,6 +161,7 @@ class SelectDate extends React.Component {
     let newWeekStart = dateFns.startOfWeek(oneMonthForward)
     let newWeekEnd = dateFns.endOfWeek(oneMonthForward)
     this.setState({
+      today: oneMonthForward,
       currentMonth: oneMonthForward,
       currentWeekStart: newWeekStart,
       currentWeekEnd: newWeekEnd
@@ -174,6 +173,7 @@ class SelectDate extends React.Component {
     let newWeekStart = dateFns.startOfWeek(oneMonthPrev)
     let newWeekEnd = dateFns.endOfWeek(oneMonthPrev)
     this.setState({
+      today: oneMonthPrev,
       currentMonth: oneMonthPrev,
       currentWeekStart: newWeekStart,
       currentWeekEnd: newWeekEnd
