@@ -1,7 +1,7 @@
 import React from 'react';
 import { ApolloConsumer, Query } from 'react-apollo';
 import './AskSuccess.css';
-import { FETCH_ASK_DETAILS } from '../../graphql/mutations/user_mutations';
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/user_queries';
 import PinkCheck from '../../components/icons/PinkCheck.png';
 import dateFns from 'date-fns'
 import Countdown from './Countdown';
