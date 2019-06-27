@@ -12,7 +12,6 @@ class AskOption extends React.Component {
       checked: false,
       options: [], 
       newOption: '',
-      // isOn: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.updateList = this.updateList.bind(this)
@@ -22,22 +21,11 @@ class AskOption extends React.Component {
 
   handleChange(checked, client) {
     if (this.state.checked === false) {
-      this.setState({ checked: true }, () => {
-        console.log(this.state.checked)
-        // this.updateToggleCache(client)
-      })
+      this.setState({ checked: true })
     } else {
-      this.setState({ checked: false }, () => {
-        console.log(this.state.checked)
-      })
+      this.setState({ checked: false })
     }
   }
-
-  // updateToggleCache(client, ) {
-  //   client.writeData({
-  //     data: { toggleState: options }
-  //   })
-  // }
 
   handleInput() {
     return (e) => {
@@ -68,8 +56,14 @@ class AskOption extends React.Component {
   }
   
   handleContinue(client) {
-    console.log(client)
     // console.log(client.cache.data.data.ROOT_QUERY.askOptions.json)
+
+    if (this.state.checked === true) {
+      client.writeData({
+        data: { askOptions: ["yes", "no"]}
+      })
+    }
+    console.log(client)
     this.props.history.push('/invite')
   }
   
