@@ -27,6 +27,9 @@ class TimePicker extends React.Component {
   }
 
   componentDidMount() {
+    if (dateFns.format(new Date(), meridiemFormat) === "AM") {
+      this.setState({ meridiemIndicator: "AM" })
+    } 
     this.storeTime()
   }
 
@@ -102,9 +105,6 @@ class TimePicker extends React.Component {
   }
 
   render() {
-    if (dateFns.format(new Date(), meridiemFormat) === "AM") {
-      this.setState({ meridiemIndicator: "AM"})
-    } 
     return (
       <ApolloConsumer>
         {(client) => {

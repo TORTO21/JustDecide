@@ -11,6 +11,7 @@ import Splash from './splash/Splash'
 import AskQuestion from './asks/AskQuestion'
 import SelectDate from './calendar/SelectDate';
 import Deadline from './calendar/Deadline';
+import AskOption from './asks/AskOption';
 import '../index.css';
 
 const App = () => (
@@ -29,6 +30,8 @@ const App = () => (
       <Route exact path="/asks/:ask_id/new-option" component={NewOption} />
       <Route exact path="/selectDate" component={ SelectDate } />
       <Route exact path="/deadlineDate" component={ Deadline } />
+      <Route exact path="/askOption" component={ AskOption } />
+      <Route exact path="/invite"  />
       <Route path="/" component= { Splash } />
       {/* <Route path="/asks" component= { AsksIndex } /> */}
     </Switch>
