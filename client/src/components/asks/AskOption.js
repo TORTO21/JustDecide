@@ -27,18 +27,24 @@ class AskOption extends React.Component {
   }
 
   updateList() {
-    console.log(this.state.newOption)
     let options = this.state.options
     if (!options.includes(this.state.newOption)) {
       options.push(this.state.newOption)
     }
-    this.setState({ options: options }, console.log(this.state.options))
+    this.setState({ options: options }, () => {
+      console.log(this.state.options)
+    })
+    this.resetForm()
+  }
+
+  resetForm() {
+    document.getElementById("option-input").value = "";
   }
   
   render() {
     let optionList = this.state.options.map((option, i) => {
       return (
-        <li key={i}>
+        <li key={i} className="option-li">
           {option}
         </li>
       )
@@ -60,7 +66,8 @@ class AskOption extends React.Component {
               className="option-input drop-shadow"
               placeholder="option"
               type="text"
-              onChange={this.handleInput()}>
+              onChange={this.handleInput()}
+              id="option-input">
             </input>
             <button
               className="add-button green-gradient"
