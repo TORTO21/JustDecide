@@ -20,16 +20,23 @@ class AskOption extends React.Component {
     this.handleContinue = this.handleContinue.bind(this)
   }
 
-  handleChange(checked) {
+  handleChange(checked, client) {
     if (this.state.checked === false) {
       this.setState({ checked: true }, () => {
         console.log(this.state.checked)
+        this.updateToggleCache(client)
       })
     } else {
       this.setState({ checked: false }, () => {
         console.log(this.state.checked)
       })
     }
+  }
+
+  updateToggleCache(client, ) {
+    client.writeData({
+      data: { toggleState: options }
+    })
   }
 
   handleInput() {
