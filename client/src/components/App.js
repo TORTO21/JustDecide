@@ -31,6 +31,7 @@ const App = () => (
       <Route exact path="/selectDate" component={ SelectDate } />
       <Route exact path="/deadlineDate" component={ Deadline } />
       <Route exact path="/askOption" component={ AskOption } />
+      <Route exact path="/invite"  />
       <Route path="/" component= { Splash } />
       {/* <Route path="/asks" component= { AsksIndex } /> */}
     </Switch>

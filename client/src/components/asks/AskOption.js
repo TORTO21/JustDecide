@@ -1,7 +1,9 @@
 import React from 'react';
 import { ApolloConsumer } from 'react-apollo';
 import './AskOption.css';
-import Switch from 'react-switch';
+import Toggle from 'react-toggle';
+import './Toggle.css'
+
 
 class AskOption extends React.Component {
   constructor(props) {
@@ -9,15 +11,25 @@ class AskOption extends React.Component {
     this.state = {
       checked: false,
       options: [], 
-      newOption: ''
+      newOption: '',
+      // isOn: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.updateList = this.updateList.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    this.handleContinue = this.handleContinue.bind(this)
   }
 
   handleChange(checked) {
-    this.setState({ checked })
+    if (this.state.checked === false) {
+      this.setState({ checked: true }, () => {
+        console.log(this.state.checked)
+      })
+    } else {
+      this.setState({ checked: false }, () => {
+        console.log(this.state.checked)
+      })
+    }
   }
 
   handleInput() {
@@ -40,6 +52,10 @@ class AskOption extends React.Component {
   resetForm() {
     document.getElementById("option-input").value = "";
   }
+
+  handleContinue() {
+    this.props.history.push('/invite')
+  }
   
   render() {
     let optionList = this.state.options.map((option, i) => {
@@ -54,12 +70,10 @@ class AskOption extends React.Component {
         <div className="">
           <div className="top-container">
             <div className="section-header ask-option-header">Is this a yes or no question?</div>
-            <label>
-              <Switch 
-                onChange={this.handleChange} 
-                checked={this.state.checked} 
-                className="toggle" />
-            </label>
+            <Toggle 
+              defaultChecked={this.state.checked}
+              icons={false}
+              onChange={this.handleChange} />
           </div>
           <div className="lower-container">
             <input
@@ -75,7 +89,8 @@ class AskOption extends React.Component {
               Add Option
             </button>
             <button
-              className="continue-button solid-pink-button">
+              className="continue-button solid-pink-button"
+              onClick={this.handleContinue}>
               Continue
             </button>
             <ul className="option-list-view drop-shadow">

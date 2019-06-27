@@ -38,6 +38,7 @@
   font-size: 35px;
   display: flex;
   text-align: center;
+  margin-bottom: 5%;
 }
 
 .add-button {
@@ -81,8 +82,8 @@
   background: white;
 }
 
-.react-switch-bg {
-  background: white;
+.toggle .react-switch-bg {
+  background: red;
 }
 
 .react-switch-handle {
