@@ -1,69 +1,70 @@
-import React, { Component } from "react";
-import { Mutation } from "react-apollo";
+import React, { Component } from 'react'
+
+import { Mutation } from 'react-apollo'
 import Mutations from '../../graphql/mutations'
-const { REGISTER_USER } = Mutations;
+const { REGISTER_USER } = Mutations
 
 class Register extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      phone_number: "",
-      name: "",
-      password: "",
-      password2: ""
-    };
+      phone_number: '',
+      name: '',
+      password: '',
+      password2: ''
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleSubmit(e, registerUser) {
-    e.preventDefault();
+    e.preventDefault()
     console.log(this.state.name)
-    if (this.state.password = this.state.password2) {
+    if (this.state.password === this.state.password2) {
       registerUser({
         variables: {
           phone_number: this.state.phone_number,
           name: this.state.name,
-          password: this.state.password,
+          password: this.state.password
         }
       })
     }
   }
 
   update(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => this.`se`tState({ [field]: e.target.value })
   }
 
-  updateCache(client, {data}) {
+  updateCache(client, { data }) {
     client.writeData({
       data: { isLoggedIn: data.register.loggedIn }
-    });
+    })
   }
 
   render() {
     return (
       <Mutation
-        mutation={ REGISTER_USER }
-        onCompleted={ data => {
-          const { token } = data.register;
-          localStorage.setItem("auth-token", token);
-          this.props.history.push("/asks/new");
+        mutation={REGISTER_USER}
+        onCompleted={data => {
+          const { token } = data.register
+          localStorage.setItem('auth-token', token)
+          this.props.history.push('/asks/new')
         }}
         update={(client, data) => this.updateCache(client, data)}
       >
-        { registerUser => (
+        {registerUser => (
           <div className="auth-container background">
             <div className="auth-form-title"> Create Your Account </div>
             <div className="auth-form-container">
               <form
                 className="auth-form"
-                onSubmit={ e => this.handleSubmit(e, registerUser) }
-              > 
+                onSubmit={e => this.handleSubmit(e, registerUser)}
+              >
                 <div>
                   <div className="auth-field-title">PhoneNumber</div>
                   <input
                     className="auth-field"
-                    value={ this.state.phone_number }
-                    onChange={ this.update("phone_number") }
+                    value={this.state.phone_number}
+                    onChange={this.update('phone_number')}
                     type="tel"
                     placeholder="ex: 8881234567"
                   />
@@ -72,16 +73,16 @@ class Register extends Component {
                   <div className="auth-field-title">Name</div>
                   <input
                     className="auth-field"
-                    value={ this.state.name }
-                    onChange={ this.update("name") }
+                    value={this.state.name}
+                    onChange={this.update('name')}
                   />
                 </div>
                 <div>
                   <div className="auth-field-title">Password</div>
-                    <input
+                  <input
                     className="auth-field"
-                    value={ this.state.password }
-                    onChange={ this.update("password") }
+                    value={this.state.password}
+                    onChange={this.update('password')}
                     type="password"
                   />
                 </div>
@@ -89,16 +90,14 @@ class Register extends Component {
                   <div className="auth-field-title">Confirm Password</div>
                   <input
                     className="auth-field"
-                    value={ this.state.password2 }
-                    onChange={ this.update("password2") }
+                    value={this.state.password2}
+                    onChange={this.update('password2')}
                     type="password"
                   />
                 </div>
                 <div className="continue-button-container">
-                  <button
-                    className="solid-pink-button button"
-                    type="submit">
-                      Continue
+                  <button className="solid-pink-button button" type="submit">
+                    Continue
                   </button>
                 </div>
               </form>
@@ -106,8 +105,8 @@ class Register extends Component {
           </div>
         )}
       </Mutation>
-    );
+    )
   }
 }
 
-export default Register;
+export default Register

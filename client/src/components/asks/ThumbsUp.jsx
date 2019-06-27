@@ -1,6 +1,7 @@
+import { NEW_VOTE, UPDATE_VOTE } from '../../graphql/mutations/vote_mutations'
+
+import { GET_ASK } from '../../graphql/queries/ask_queries'
 import { Mutation } from 'react-apollo'
-import Mutations from '../../graphql/mutations'
-import Queries from '../../graphql/queries'
 import React from 'react'
 
 export default ({ thumbClass, vote, option, contact_id, ask_id }) => {
@@ -9,8 +10,8 @@ export default ({ thumbClass, vote, option, contact_id, ask_id }) => {
   if (vote) {
     return (
       <Mutation
-        mutation={Mutations.UPDATE_VOTE}
-        refetchQueries={[{ query: Queries.GET_ASK, variables: { id: ask_id } }]}
+        mutation={UPDATE_VOTE}
+        refetchQueries={[{ query: GET_ASK, variables: { id: ask_id } }]}
       >
         {(updateVote, { data }) => (
           <div
@@ -25,8 +26,8 @@ export default ({ thumbClass, vote, option, contact_id, ask_id }) => {
   }
   return (
     <Mutation
-      mutation={Mutations.NEW_VOTE}
-      refetchQueries={[{ query: Queries.GET_ASK, variables: { id: ask_id } }]}
+      mutation={NEW_VOTE}
+      refetchQueries={[{ query: GET_ASK, variables: { id: ask_id } }]}
     >
       {(newVote, { data }) => (
         <div
