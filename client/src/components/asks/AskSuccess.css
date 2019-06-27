@@ -1,0 +1,57 @@
+.overall-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lower-container {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  flex: 1;
+}
+
+.ask-details {
+  width: 75%;
+  height: 150px;
+  background: white;
+  margin-top: 8%;
+  border-radius: 15px;
+}
+
+.ask-time {
+  margin-top: -7%;
+  height: 10%;
+  width: 50%;
+  background-color: white;
+  display: flex;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  padding-left: 10px;
+  color: #595959;
+  opacity: 1;
+  transition: .25s ease-out;
+}
+
+.ask-invitees-list {
+  width: 80%;
+  margin-top: 10%;
+  border: 1px solid black;
+  display: flex;
+  flex: 1;
+}
+
+.solid-pink-button {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
