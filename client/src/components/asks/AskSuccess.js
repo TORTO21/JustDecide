@@ -24,6 +24,7 @@ class AskSuccess extends React.Component {
                   </li>
                 )
               })
+              // let askTime = data.askDate.split(" ")
               
               return(
                 <div className="background">
