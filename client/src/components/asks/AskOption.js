@@ -38,22 +38,31 @@ class AskOption extends React.Component {
     }
   }
 
-  updateList() {
-    let options = this.state.options
-    if (!options.includes(this.state.newOption)) {
-      options.push(this.state.newOption)
+  updateList(client) {
+    let currentOptions = this.state.options
+    if (!currentOptions.includes(this.state.newOption)) {
+      currentOptions.push(this.state.newOption)
     }
-    this.setState({ options: options }, () => {
-      console.log(this.state.options)
+    this.setState({ options: currentOptions }, () => {
+      this.updateCache(client, currentOptions)
     })
     this.resetForm()
   }
 
+  updateCache(client, options) {
+    console.log(options)
+    client.writeData({
+      data: { askOptions: options }
+    })
+  }
+  
   resetForm() {
     document.getElementById("option-input").value = "";
   }
-
-  handleContinue() {
+  
+  handleContinue(client) {
+    console.log(client)
+    // console.log(client.cache.data.data.ROOT_QUERY.askOptions.json)
     this.props.history.push('/invite')
   }
   
@@ -66,39 +75,46 @@ class AskOption extends React.Component {
       )
     })
     return(
-      <div className="background">
-        <div className="">
-          <div className="top-container">
-            <div className="section-header ask-option-header">Is this a yes or no question?</div>
-            <Toggle 
-              defaultChecked={this.state.checked}
-              icons={false}
-              onChange={this.handleChange} />
-          </div>
-          <div className="lower-container">
-            <input
-              className="option-input drop-shadow"
-              placeholder="option"
-              type="text"
-              onChange={this.handleInput()}
-              id="option-input">
-            </input>
-            <button
-              className="add-button green-gradient"
-              onClick={this.updateList}>
-              Add Option
-            </button>
-            <button
-              className="continue-button solid-pink-button"
-              onClick={this.handleContinue}>
-              Continue
-            </button>
-            <ul className="option-list-view drop-shadow">
-              {optionList}
-            </ul>
-          </div>
-        </div>
-      </div>
+      <ApolloConsumer>
+        {(client) => {
+          return (
+            <div className="background">
+              <div className="overall-container">
+                <div className="top-container">
+                  <div className="section-header ask-option-header">Is this a yes or no question?</div>
+                  <Toggle 
+                    defaultChecked={this.state.checked}
+                    icons={false}
+                    onChange={this.handleChange}
+                    className={this.state.checked === true ? `yes` : `no`} />
+                </div>
+                <div className="lower-container">
+                  <input
+                    className="option-input drop-shadow"
+                    placeholder="option"
+                    type="text"
+                    onChange={this.handleInput()}
+                    id="option-input">
+                  </input>
+                  <button
+                    className="add-button green-gradient"
+                    onClick={() => this.updateList(client)}>
+                    Add Option
+                  </button>
+                  <button
+                    className="continue-button solid-pink-button"
+                    onClick={() => this.handleContinue(client)}>
+                    Continue
+                  </button>
+                  <ul className="option-list-view drop-shadow">
+                    {optionList}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )
+        }}
+        </ApolloConsumer>
     )
   }
 }

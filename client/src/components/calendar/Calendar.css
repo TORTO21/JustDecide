@@ -17,12 +17,12 @@
   box-sizing: border-box;
 }
 
-body {
+/* body {
   color: white;
   position: relative;
   display: flex;
   justify-content: center;
-}
+} */
 
 header {
   display: block;
@@ -133,6 +133,7 @@ main {
   font-size: 70%;
   padding: .75em 0;
   border-bottom: 1px solid white;
+  color: white;
 }
 
 .calendar .body .cell {
@@ -243,6 +244,7 @@ main {
   border-radius: 15px;
   min-width: 160px;
   max-height: 35px;
+  color: white;
 }
 
 .arrow {
