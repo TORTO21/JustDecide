@@ -47,7 +47,9 @@
   border: none;
   font-size: 20px;
   padding-left: 10px;
-  color: #595959
+  color: #595959;
+  opacity: 1;
+  transition: .25s ease-out;
 }
 
 .lower-container {
@@ -76,6 +78,8 @@
   border: none;
   box-shadow: 1px 3px 3px #00000035; 
   margin-top: 10%;
+  opacity: 1;
+  transition: .25s ease-out;
 }
 
 .continue-button {
@@ -121,5 +125,7 @@
 }
 
 .hidden {
-  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  transition: .25s ease-out;
 }
