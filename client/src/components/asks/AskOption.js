@@ -106,14 +106,16 @@ class AskOption extends React.Component {
                 </div>
                 <div className="lower-container">
                   <input
-                    className="option-input drop-shadow"
+                    className={`option-input drop-shadow 
+                      ${this.state.checked === true ? "hidden" : ""}`}
                     placeholder="option"
                     type="text"
                     onChange={this.handleInput()}
                     id="option-input">
                   </input>
                   <button
-                    className="add-button green-gradient"
+                    className={`add-button green-gradient
+                      ${this.state.checked === true ? "hidden" : ""}`}
                     onClick={() => this.updateList(client)}>
                     Add Option
                   </button>

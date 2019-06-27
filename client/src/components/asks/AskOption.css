@@ -94,7 +94,6 @@
 }
 
 .option-ul {
-  
   margin: 10% 0;
 }
 
@@ -119,4 +118,8 @@
     rgba(200, 154, 190, 1) 0%,
     rgba(253, 138, 138, 1) 65%
   );
+}
+
+.hidden {
+  visibility: hidden;
 }
