@@ -14,7 +14,6 @@ const NotInterestedButton = props => {
   const { invitations, history, client } = props
 
   const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
-
   const invitation = invitations.filter(
     inv => inv.contact.user.id === currentUserId
   )[0]
