@@ -1,17 +1,17 @@
-import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom'
 
-import Splash from './splash/Splash';
+import AskDetail from './asks/AskDetail'
 import AuthRoute from '../util/route_util'
-import Register from './auth/Register'
 import Login from './auth/Login'
 import Logout from './auth/Logout'
+import NewOption from './asks/NewOption'
+import React from 'react'
+import Register from './auth/Register'
+import Splash from './splash/Splash'
 import AskQuestion from './asks/AskQuestion'
-
 import SelectDate from './calendar/SelectDate';
 import Deadline from './calendar/Deadline';
 import '../index.css';
-
 
 const App = () => (
   <div>
@@ -25,14 +25,14 @@ const App = () => (
       <AuthRoute exact path="/register" component={ Register } routeType="auth" />
       <AuthRoute exact path="/login" component={ Login } routeType="auth" />
       <Route path="/asks/new" component = { AskQuestion } />
+      <Route exact path="/asks/:ask_id" component={AskDetail} />
+      <Route exact path="/asks/:ask_id/new-option" component={NewOption} />
       <Route exact path="/selectDate" component={ SelectDate } />
       <Route exact path="/deadlineDate" component={ Deadline } />
       <Route path="/" component= { Splash } />
       {/* <Route path="/asks" component= { AsksIndex } /> */}
-      {/* <Route path="/asks/:ask_id/options/new" component= { AskNewOptions } /> */}
-      {/* <Route path="/asks/:ask_id" component= { AskDetail } /> */}
     </Switch>
   </div>
 )
 
-export default App;
+export default App
