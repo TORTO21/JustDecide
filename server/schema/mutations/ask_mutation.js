@@ -4,6 +4,7 @@ const { GraphQLString, GraphQLID, GraphQLBoolean } = graphql
 const AskType = require('../types/ask_type')
 const Ask = require('../../models/Ask')
 const User = require('../../models/User')
+const { userLoggedIn } = require('../../services/auth')
 
 const askMutations = {
   newAsk: {
@@ -17,7 +18,12 @@ const askMutations = {
       date: { type: GraphQLString },
       deadline: { type: GraphQLString }
     },
-    resolve: (parent, data, context) => {
+    resolve: async (parent, data, context) => {
+      
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
+
       const ask = new Ask(data)
       return User.findById(data.author_id).then(user => {
         user.asks.push(ask)
@@ -30,7 +36,7 @@ const askMutations = {
   deleteAsk: {
     type: AskType,
     args: { id: { type: GraphQLID } },
-    resolve: (_, { id }) => {
+    resolve: (_, { id }, context) => {
       return Ask.findById(id).then(ask => {
         User.findById(ask.owner_id).then(user => {
           user.asks.pull(ask)
@@ -51,7 +57,7 @@ const askMutations = {
       date: { type: GraphQLString },
       deadline: { type: GraphQLString }
     },
-    resolve: (_, data) => {
+    resolve: (_, data, context) => {
       return Ask.findById(data.id).then(ask => {
         ask.name_used_id = data.name_used_id || ask.name_used_id
         ask.question = data.question || ask.question

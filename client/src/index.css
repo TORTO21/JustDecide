@@ -21,6 +21,15 @@
   );
 }
 
+button:focus,
+textarea:focus,
+input[type="submit"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus,
+input[type="text"]:focus {
+  outline: 0 none;
+}
+
 /* colors */
 /* white text is just plain white */
 .solid-grn {
@@ -81,7 +90,8 @@
 
 /* drop-shadow effects (they might already be applied to some buttons) */
 .drop-shadow {
-  box-shadow: 0px 4px 15px #00000059;
+  /* box-shadow: 0px 4px 15px rgba(0, 0, 0, .35); */
+  box-shadow: 0px 4px 15px #00000059
 }
 
 .drop-shadow-circle {
@@ -89,6 +99,11 @@
 }
 
 /* buttons */
+
+.button {
+  cursor: pointer;
+  
+}
 
 .solid-pink-button {
   width: 150px;
@@ -99,6 +114,11 @@
   font-size: 15px;
   border: none;
   box-shadow: 1px 3px 3px #00000035;
+}
+
+.solid-pink-button:focus {
+  box-shadow: 0 1px 1px #00000013  inset, 0 1px 8px rgba(80, 80, 80, 0.5);
+  background-color: rgb(233, 144, 160);
 }
 
 .gradient-pink-circle {
@@ -132,8 +152,8 @@
 .logout {
   position: absolute;
   z-index: 1;
-  left: 10px;
-  top: 10px;
+  left: 20px;
+  top: 20px;
   width: 100px;
   height: 25px;
 }
@@ -142,8 +162,8 @@
 .home {
   position: absolute;
   z-index: 1;
-  right: 10px;
-  top: 10px;
+  right: 20px;
+  top: 20px;
 }
 
 /* form */
@@ -188,6 +208,7 @@
   font-size: 13px;
   color: #595959;
 }
+
 
 /* preset with CRA */
 
