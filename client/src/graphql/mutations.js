@@ -2,7 +2,11 @@ import gql from 'graphql-tag'
 
 const Mutations = {
   REGISTER_USER: gql`
-    mutation RegisterUser($phone_number: String!, $password: String! $name: String!) {
+    mutation RegisterUser(
+      $phone_number: String!
+      $password: String!
+      $name: String!
+    ) {
       register(phone_number: $phone_number, password: $password, name: $name) {
         token
         loggedIn
@@ -35,10 +39,29 @@ const Mutations = {
     }
   `,
 
-
   DELETE_INVITATION: gql`
     mutation DeleteInvitation($id: ID!) {
       deleteInvitation(id: $id) {
+        id
+      }
+    }
+  `,
+
+  NEW_VOTE: gql`
+    mutation NewVote($option_id: ID!, $contact_id: ID!, $direction: String!) {
+      newVote(
+        option_id: $option_id
+        contact_id: $contact_id
+        direction: $direction
+      ) {
+        id
+      }
+    }
+  `,
+
+  UPDATE_VOTE: gql`
+    mutation UpdateVote($id: ID!, $direction: String!) {
+      updateVote(id: $id, direction: $direction) {
         id
       }
     }

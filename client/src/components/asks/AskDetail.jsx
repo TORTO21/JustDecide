@@ -51,7 +51,7 @@ const AppDetail = props => {
               >
                 <Countdown deadline={parseInt(ask.deadline)} />
               </div>
-              <OptionsList options={ask.options} />
+              <OptionsList ask={ask} history={props.history} />
               <NotInterestedButton
                 invitations={ask.invitations}
                 history={props.history}

@@ -15,9 +15,11 @@ const NotInterestedButton = props => {
 
   const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
 
-  const invitation_id = invitations.filter(
+  const invitation = invitations.filter(
     inv => inv.contact.user.id === currentUserId
-  )[0].id
+  )[0]
+
+  const invitation_id = invitation ? invitation.id : -1
 
   return (
     <Mutation
