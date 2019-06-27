@@ -8,7 +8,7 @@ import NewOption from './asks/NewOption'
 import React from 'react'
 import Register from './auth/Register'
 import Splash from './splash/Splash'
-import AskQuestion from './asks/AskQuestion'
+import AskQuestion from './ask_question/AskQuestion'
 import SelectDate from './calendar/SelectDate';
 import Deadline from './calendar/Deadline';
 import AskOption from './asks/AskOption';

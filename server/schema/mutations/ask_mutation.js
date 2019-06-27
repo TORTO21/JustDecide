@@ -76,5 +76,3 @@ const askMutations = {
 }
 
 module.exports = askMutations
-
-const graphql = require('graphql')
