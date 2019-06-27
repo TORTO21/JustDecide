@@ -31,7 +31,7 @@ class Register extends Component {
   }
 
   update(field) {
-    return e => this.`se`tState({ [field]: e.target.value })
+    return e => this.setState({ [field]: e.target.value })
   }
 
   updateCache(client, { data }) {
