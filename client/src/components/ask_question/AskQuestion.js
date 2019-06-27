@@ -17,7 +17,9 @@ class AskQuestion extends Component {
     super(props)
     
   }
+
   render() {
+    // debugger
     return (
       <ApolloConsumer>
         { client => {
