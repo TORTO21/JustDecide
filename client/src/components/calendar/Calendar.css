@@ -17,12 +17,12 @@
   box-sizing: border-box;
 }
 
-body {
-  /* color: white; */
+/* body {
+  color: white;
   position: relative;
   display: flex;
   justify-content: center;
-}
+} */
 
 header {
   display: block;
