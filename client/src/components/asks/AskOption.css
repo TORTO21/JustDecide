@@ -90,10 +90,11 @@
   flex: 1;
   border-radius: 15px;
   overflow: scroll;
+  list-style: none;
 }
 
 .option-ul {
-  list-style: none;
+  
   margin: 10% 0;
 }
 

@@ -24,7 +24,7 @@ class AskOption extends React.Component {
     if (this.state.checked === false) {
       this.setState({ checked: true }, () => {
         console.log(this.state.checked)
-        this.updateToggleCache(client)
+        // this.updateToggleCache(client)
       })
     } else {
       this.setState({ checked: false }, () => {
@@ -33,11 +33,11 @@ class AskOption extends React.Component {
     }
   }
 
-  updateToggleCache(client, ) {
-    client.writeData({
-      data: { toggleState: options }
-    })
-  }
+  // updateToggleCache(client, ) {
+  //   client.writeData({
+  //     data: { toggleState: options }
+  //   })
+  // }
 
   handleInput() {
     return (e) => {
@@ -81,6 +81,21 @@ class AskOption extends React.Component {
         </li>
       )
     })
+    let listView;
+    if (this.state.checked === false) {
+      listView = (
+        <ul className = "option-list-view drop-shadow">
+          { optionList }
+        </ul >
+      )
+    } else {
+      listView = (
+        <ul className="option-list-view drop-shadow">
+          <li key="0" className="option-li">no</li>
+          <li key="1" className="option-li">yes</li>
+        </ul>
+      )
+    }
     return(
       <ApolloConsumer>
         {(client) => {
@@ -113,9 +128,8 @@ class AskOption extends React.Component {
                     onClick={() => this.handleContinue(client)}>
                     Continue
                   </button>
-                  <ul className="option-list-view drop-shadow">
-                    {optionList}
-                  </ul>
+                  {listView}
+                  
                 </div>
               </div>
             </div>
