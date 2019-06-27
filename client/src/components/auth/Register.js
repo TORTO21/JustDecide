@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { Mutation } from 'react-apollo'
-import Mutations from '../../graphql/mutations'
+import Mutations from '../../graphql/mutations/auth_mutations'
 const { REGISTER_USER } = Mutations
 
 class Register extends Component {
