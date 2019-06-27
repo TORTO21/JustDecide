@@ -6,6 +6,7 @@ const Invitation = require('../../models/Invitation')
 const User = require('../../models/User')
 const Ask = require('../../models/Ask')
 const Contact = require('../../models/Contact')
+const { userLoggedIn } = require('../../services/auth')
 
 const invitationMutations = {
   newInvitation: {
@@ -16,7 +17,10 @@ const invitationMutations = {
       status: { type: GraphQLString },
       invite_url: { type: GraphQLString }
     },
-    resolve: (parent, data, context) => {
+    resolve: async (parent, data, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       const invitation = new Invitation(data)
       return Ask.findById(data.ask_id).then(ask => {
         ask.invitations.push(invitation)
@@ -38,7 +42,10 @@ const invitationMutations = {
   deleteInvitation: {
     type: InvitationType,
     args: { id: { type: GraphQLID } },
-    resolve: (_, { id }) => {
+    resolve: async (_, { id }, context) => {
+      // if (!await userLoggedIn(context)) {
+      //   throw new Error("You must be logged in before proceeding")
+      // }
       return Invitation.findById(id).then(invitation => {
         return Ask.findById(invitation.ask_id).then(ask => {
           return Contact.findById(invitation.contact_id).then(contact => {
@@ -65,7 +72,10 @@ const invitationMutations = {
       id: { type: GraphQLID },
       status: { type: GraphQLString }
     },
-    resolve: (_, data) => {
+    resolve: async (_, data, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       return Invitation.findById(data.id).then(invitation => {
         invitation.status = data.status || invitation.status
         return invitation.save()
