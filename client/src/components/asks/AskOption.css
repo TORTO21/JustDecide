@@ -62,3 +62,20 @@
   flex: 1;
   border-radius: 15px;
 }
+
+.toggle {
+  margin-top: 40%;
+  background: white;
+}
+
+.react-switch-bg {
+  background: white;
+}
+
+.react-switch-handle {
+  background: linear-gradient(
+    325deg,
+    rgba(200, 154, 190, 1) 0%,
+    rgba(253, 138, 138, 1) 65%
+  );
+}
