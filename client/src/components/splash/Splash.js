@@ -1,9 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { Query } from "react-apollo";
-import Queries from "../../graphql/queries";
+import Queries from "../../graphql/queries/auth_queries";
 import './Splash.css';
-import CalendarIcon from '../icons/Calendar.png'
 const { IS_LOGGED_IN } = Queries;
 
 

@@ -1,6 +1,6 @@
 import { ApolloConsumer, Query } from 'react-apollo'
 
-import Queries from '../../graphql/queries'
+import Queries from '../../graphql/queries/auth_queries'
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 const { IS_LOGGED_IN } = Queries
@@ -9,7 +9,7 @@ const Logout = props => {
   return (
     <ApolloConsumer>
       {clientCache => (
-        <Query query={IS_LOGGED_IN}>
+        <Query query={ IS_LOGGED_IN }>
           {({ data }) => {
             if (data.isLoggedIn) {
               return (
@@ -29,13 +29,6 @@ const Logout = props => {
               )
             } else {
               return null
-              // (
-              //   <div>
-              //     <Link to="/">Home</Link>
-              //     <Link to="/login">Login</Link>
-              //     <Link to="/register">Register</Link>
-              //   </div>
-              // );
             }
           }}
         </Query>

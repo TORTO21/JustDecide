@@ -2,7 +2,7 @@ import './index.css'
 
 import ApolloClient from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
-import Mutations from './graphql/mutations'
+import Mutations from './graphql/mutations/auth_mutations'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/Root'
