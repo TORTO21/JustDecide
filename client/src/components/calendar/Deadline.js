@@ -1,12 +1,13 @@
-import React from 'react';
-import './Calendar.css';
-import dateFns from 'date-fns';
-import { ApolloConsumer } from 'react-apollo';
-import RightArrow from '../icons/RightArrow.png';
-import LeftArrow from '../icons/LeftArrow.png';
-import DblLeftArrow from '../icons/DblLeftArrow.png';
-import DblRightArrow from '../icons/DblRightArrow.png';
-import DeadlineTimePicker from './DeadlineTimePicker';
+import './Calendar.css'
+
+import { ApolloConsumer } from 'react-apollo'
+import DblLeftArrow from '../icons/DblLeftArrow.png'
+import DblRightArrow from '../icons/DblRightArrow.png'
+import DeadlineTimePicker from './DeadlineTimePicker'
+import LeftArrow from '../icons/LeftArrow.png'
+import React from 'react'
+import RightArrow from '../icons/RightArrow.png'
+import dateFns from 'date-fns'
 
 class Deadline extends React.Component {
   constructor(props) {
@@ -18,20 +19,20 @@ class Deadline extends React.Component {
       currentWeekStart: dateFns.startOfWeek(new Date()),
       currentWeekEnd: dateFns.endOfWeek(new Date())
     }
-    this.handleNext = this.handleNext.bind(this);
-    this.updateCache = this.updateCache.bind(this);
-    this.nextWeek = this.nextWeek.bind(this);
-    this.prevWeek = this.prevWeek.bind(this);
+    this.handleNext = this.handleNext.bind(this)
+    this.updateCache = this.updateCache.bind(this)
+    this.nextWeek = this.nextWeek.bind(this)
+    this.prevWeek = this.prevWeek.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.currentWeekStart !== prevState.currentWeekStart) {
-      this.renderDates();
+      this.renderDates()
     }
   }
 
   renderHeader() {
-    const dateFormat = "MMMM YYYY";
+    const dateFormat = 'MMMM YYYY'
 
     return (
       <div className="header row flex-middle">
@@ -39,13 +40,15 @@ class Deadline extends React.Component {
           <img
             src={DblLeftArrow}
             className="dbl-left-arrow"
-            onClick={this.prevMonth}>
-          </img>
+            onClick={this.prevMonth}
+            alt="double left arrow"
+          />
           <img
             src={LeftArrow}
             className="arrow"
-            onClick={this.prevWeek}>
-          </img>
+            onClick={this.prevWeek}
+            alt="left arrow"
+          />
         </div>
         <div className="col col-center month-year">
           {dateFns.format(this.state.currentMonth, dateFormat)}
@@ -54,23 +57,25 @@ class Deadline extends React.Component {
           <img
             src={RightArrow}
             className="arrow"
-            onClick={this.nextWeek}>
-          </img>
+            onClick={this.nextWeek}
+            alt="right arrow"
+          />
           <img
             src={DblRightArrow}
             className="dbl-right-arrow"
-            onClick={this.nextMonth}>
-          </img>
+            onClick={this.nextMonth}
+            alt="double-right-arrow"
+          />
         </div>
       </div>
     )
   }
 
   renderDays() {
-    const dateFormat = "ddd";
-    const days = [];
+    const dateFormat = 'ddd'
+    const days = []
 
-    let startDate = dateFns.startOfWeek(this.state.currentMonth);
+    let startDate = dateFns.startOfWeek(this.state.currentMonth)
 
     for (let i = 0; i < 7; i++) {
       days.push(
@@ -83,43 +88,52 @@ class Deadline extends React.Component {
   }
 
   renderDates() {
-    const { currentMonth, selectedDate } = this.state;
-    const monthStart = dateFns.startOfMonth(currentMonth);
+    const { currentMonth, selectedDate } = this.state
+    const monthStart = dateFns.startOfMonth(currentMonth)
 
     const currentWeekStart = this.state.currentWeekStart
     const currentWeekEnd = this.state.currentWeekEnd
 
+    const dateFormat = 'D'
+    const rows = []
 
-    const dateFormat = "D";
-    const rows = [];
-
-    let days = [];
-    let day = currentWeekStart;
-    let formattedDate = "";
+    let days = []
+    let day = currentWeekStart
+    let formattedDate = ''
 
     while (day <= currentWeekEnd) {
       for (let i = 0; i < 7; i++) {
-        formattedDate = dateFns.format(day, dateFormat);
-        const cloneDay = day;
+        formattedDate = dateFns.format(day, dateFormat)
+        const cloneDay = day
         days.push(
           <div
             className="col cell"
             key={day}
-            onClick={() => this.onDateClick(dateFns.parse(cloneDay), currentWeekStart)}>
-            <span className={`number ${!dateFns.isSameMonth(day, monthStart)
-              ? " disabeled" : dateFns.isSameDay(day, selectedDate)
-                ? "selected" : ""}`}>{formattedDate}
+            onClick={() =>
+              this.onDateClick(dateFns.parse(cloneDay), currentWeekStart)
+            }
+          >
+            <span
+              className={`number ${
+                !dateFns.isSameMonth(day, monthStart)
+                  ? ' disabeled'
+                  : dateFns.isSameDay(day, selectedDate)
+                  ? 'selected'
+                  : ''
+              }`}
+            >
+              {formattedDate}
             </span>
           </div>
-        );
-        day = dateFns.addDays(day, 1);
+        )
+        day = dateFns.addDays(day, 1)
       }
       rows.push(
         <div className="row" key={day}>
           {days}
         </div>
-      );
-      days = [];
+      )
+      days = []
     }
     return <div className="body">{rows}</div>
   }
@@ -148,11 +162,11 @@ class Deadline extends React.Component {
     })
   }
 
-  onDateClick = (day) => {
+  onDateClick = day => {
     this.setState({
-      selectedDate: day,
-    });
-  };
+      selectedDate: day
+    })
+  }
 
   nextMonth = () => {
     let oneMonthForward = dateFns.addMonths(this.state.currentMonth, 1)
@@ -179,23 +193,24 @@ class Deadline extends React.Component {
   }
 
   createDateString() {
-    const moFormat = "MM"
-    const dateFormat = "DD"
-    const yrFormat = "YYYY"
-    const date = (dateFns.format(this.state.currentMonth, moFormat)
-      + " " +
-      dateFns.format(this.state.selectedDate, dateFormat)
-      + " " +
-      dateFns.format(this.state.currentMonth, yrFormat))
+    const moFormat = 'MM'
+    const dateFormat = 'DD'
+    const yrFormat = 'YYYY'
+    const date =
+      dateFns.format(this.state.currentMonth, moFormat) +
+      ' ' +
+      dateFns.format(this.state.selectedDate, dateFormat) +
+      ' ' +
+      dateFns.format(this.state.currentMonth, yrFormat)
 
-    const time = window.localStorage.getItem("deadlineTime")
-    const dateString = date + " " + time
-    return (dateString)
+    const time = window.localStorage.getItem('deadlineTime')
+    const dateString = date + ' ' + time
+    return dateString
   }
 
   updateCache(client) {
     const dateString = this.createDateString()
-    window.localStorage.setItem("deadlineDate", dateString)
+    window.localStorage.setItem('deadlineDate', dateString)
     client.writeData({
       data: { deadlineDate: dateString }
     })
@@ -203,21 +218,22 @@ class Deadline extends React.Component {
   }
 
   handleNext(client) {
-    console.log("localStorage")
-    console.log(window.localStorage.getItem("deadlineDate"))
-    console.log(window.localStorage.getItem("date"))
-    console.log("cache")
+    console.log('localStorage')
+    console.log(window.localStorage.getItem('deadlineDate'))
+    console.log(window.localStorage.getItem('date'))
+    console.log('cache')
     console.log(client)
   }
 
   render() {
-
     return (
       <ApolloConsumer>
-        {(client) => {
+        {client => {
           return (
             <div className="background">
-              <div className="section-header deadline-header">When do you need to know by?</div>
+              <div className="section-header deadline-header">
+                When do you need to know by?
+              </div>
               <div className="calendar">
                 {this.renderHeader()}
                 {this.renderDays()}
@@ -227,9 +243,10 @@ class Deadline extends React.Component {
               <div className="cal-button-container">
                 <button
                   className="solid-pink-button calendar-button"
-                  onClick={() => this.updateCache(client)}>
+                  onClick={() => this.updateCache(client)}
+                >
                   Next
-                  </button>
+                </button>
               </div>
             </div>
           )
@@ -237,7 +254,6 @@ class Deadline extends React.Component {
       </ApolloConsumer>
     )
   }
-
 }
 
-export default Deadline;
+export default Deadline

@@ -1,5 +1,5 @@
+import { DELETE_INVITATION } from '../../graphql/mutations/invitation_mutations'
 import { Mutation } from 'react-apollo'
-import Mutations from '../../graphql/mutations'
 import React from 'react'
 import { withApollo } from 'react-apollo'
 
@@ -23,7 +23,7 @@ const NotInterestedButton = props => {
 
   return (
     <Mutation
-      mutation={Mutations.DELETE_INVITATION}
+      mutation={DELETE_INVITATION}
       onCompleted={() => handleCompleted(history)}
     >
       {(deleteInvitation, { data }) => (

@@ -1,15 +1,13 @@
 import AskSummaryPanel from './AskSummaryPanel'
 import Countdown from './Countdown'
+import { GET_ASK } from '../../graphql/queries/ask_queries'
 import { Link } from 'react-router-dom'
 import NotInterestedButton from './NotInterestedButton'
 import OptionsList from './OptionsList'
-import Queries from '../../graphql/queries'
 import { Query } from 'react-apollo'
 import React from 'react'
 
-const { GET_ASK } = Queries
-
-const AppDetail = props => {
+const AskDetail = props => {
   const id = props.match.params.ask_id
 
   return (
@@ -75,4 +73,4 @@ const AppDetail = props => {
   )
 }
 
-export default AppDetail
+export default AskDetail
