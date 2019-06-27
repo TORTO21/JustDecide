@@ -20,27 +20,32 @@
   flex: 1;
 }
 
-.ask-details {
+.ask-details-container {
   width: 75%;
   height: 150px;
   background: white;
   margin-top: 8%;
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
 }
 
-.ask-time {
+.ask-deadline-counter {
   margin-top: -7%;
   height: 10%;
   width: 50%;
-  background-color: white;
   display: flex;
   border-radius: 15px;
   border: none;
-  font-size: 20px;
   padding-left: 10px;
   color: #595959;
-  opacity: 1;
-  transition: .25s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 
 .ask-invitees-list {
@@ -50,7 +55,7 @@
   flex: 1;
 }
 
-.solid-pink-button {
+.ask-button {
   margin-top: 10%;
   margin-bottom: 10%;
 }
@@ -83,4 +88,23 @@
 .success-pink-check {
   width: 35px;
   height: 35px;
+}
+
+.ask-details {
+  text-align: center;
+  margin: 25px 10px 0px 10px;
+}
+
+.date-time-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ask-date {
+  margin-bottom: 5px;
+}
+
+.ask-time {
+  margin-bottom: 20px;
 }
