@@ -1,8 +1,10 @@
 import OptionBar from './OptionBar'
 import React from 'react'
 
-const OptionsList = ({ options }) => {
+const OptionsList = ({ ask, history }) => {
   const barColors = ['ochre', 'pink', 'turquoise', 'plum']
+
+  const { options, invitations } = ask
 
   const netVote = option => {
     return option.votes.reduce(
@@ -34,6 +36,9 @@ const OptionsList = ({ options }) => {
           option={option}
           colorClass={barColors[idx % 4]}
           barPct={barPct(option)}
+          history={history}
+          invitations={invitations}
+          ask_id={ask.id}
         />
       ))}
     </div>
