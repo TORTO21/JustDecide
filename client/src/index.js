@@ -20,7 +20,7 @@ const token = localStorage.getItem('auth-token')
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
-    currentUserId: '5d0fb512911601d99c6e30b1',
+    currentUserId: true,
     askOptions: []
   }
 })
@@ -62,7 +62,6 @@ if (token) {
   cache.writeData({
     data: {
       isLoggedIn: false,
-      currentUserId: '5d0fb512911601d99c6e30b1'
     }
   })
 }

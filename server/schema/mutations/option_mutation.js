@@ -6,6 +6,7 @@ const Option = require('../../models/Option')
 const Contact = require('../../models/Contact')
 const Ask = require('../../models/Ask')
 const User = require('../../models/User')
+const { userLoggedIn } = require('../../services/auth')
 
 const optionMutations = {
   newOption: {
@@ -15,7 +16,10 @@ const optionMutations = {
       ask_id: { type: GraphQLID },
       title: { type: GraphQLString }
     },
-    resolve: (parent, data, context) => {
+    resolve: async (parent, data, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       const option = new Option(data)
       return Contact.findById(data.creator_id).then(contact => {
         return User.findById(contact.user_id).then(user => {
@@ -35,7 +39,10 @@ const optionMutations = {
   deleteOption: {
     type: OptionType,
     args: { id: { type: GraphQLID } },
-    resolve: (_, { id }) => {
+    resolve: async (_, { id }, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       return Option.findById(id).then(option => {
         return Ask.findById(option.ask_id).then(ask => {
           return Contact.findById(option.creator_id).then(contact => {
@@ -60,7 +67,10 @@ const optionMutations = {
       id: { type: GraphQLID },
       title: { type: GraphQLString }
     },
-    resolve: (_, data) => {
+    resolve: async (_, data, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       return Option.findById(data.id).then(option => {
         option.title = data.title || option.title
         return option.save()
