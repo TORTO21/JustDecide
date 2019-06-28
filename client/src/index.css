@@ -1,7 +1,6 @@
 /* app-wide settings */
 /* reset, font, background gradient */
 @import-normalize;
-@import '../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css';
 
 * {
   font-family: Quicksand;
