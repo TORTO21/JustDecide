@@ -52,9 +52,9 @@ export default ({ currentUserId, history }) => {
                       marginTop: 17,
                       maxHeight: 219,
                       overflowY: 'scroll',
-                      borderBottom: '1px solid #e4e4e4',
-                      padding: '0 30px',
-                      minWidth: 211
+                      padding: '10px 30px',
+                      width: '87%',
+                      boxShadow: '0px 4px 15px #00000059'
                     }}
                   >
                     {contacts.map(c => (
