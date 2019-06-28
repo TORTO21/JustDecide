@@ -38,7 +38,7 @@ const UserType = new GraphQLObjectType({
 
     invited: {
       type: new GraphQLList(require('../types/invitation_type')),
-      resolve: user => Contact.find({ user_id: user.id })
+      resolve: user => Contact.find({ phone_number: user.phone_number })
         .then(contacts => contacts.map(c => c.id))
         .then(contact_ids => Invitation.find({ contact_id: { $in: contact_ids } }))
     },
