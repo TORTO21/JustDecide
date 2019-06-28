@@ -12,6 +12,7 @@ class AskQuestion extends Component {
     return (
       <ApolloConsumer>
         { client => {
+          console.log(client.cache.data.data.ROOT_QUERY.currentUserId)
           return(
             <div className="ask-question-container background">
               <div className="ask-question-title section-header" >Ask</div>

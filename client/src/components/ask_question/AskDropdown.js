@@ -44,7 +44,7 @@ class AskDropdown extends Component {
                 
                 const { user } = data
                 const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
-                console.log(currentUserId)
+                // console.log(currentUserId)
                 
                 const selfRefs = user.contacts.filter(contact => {
                   return contact.user.id === user.id

@@ -45,8 +45,9 @@ const client = new ApolloClient({
   }
 })
 
-// if token exists in local stroage, apply backend mutation, VERIFY_USER,
-// to see if it matches with back-end token, thus setting isLoggedIn status.
+// if token exists in local stroage, apply backend mutation,
+// VERIFY_USER, to match with back-end token, thus setting
+// isLoggedIn and currentUserId status.
 if (token) {
   client
     .mutate({ 
