@@ -42,12 +42,15 @@ class AsksIndex extends React.Component {
   }
 
   render() {
+    const user_id = window.localStorage.getItem('currentUserId')
     return (
-      // <Query query={GET_USER_ASKS} variables={{id: user_id}}>
-      <Query query={GET_ASKS} >
+      <Query query={GET_USER_ASKS} variables={{id: user_id}}>
+      {/* <Query query={GET_ASKS} > */}
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+            console.log(data)
+            return
             let asks = data.asks.map(ask => {
               let date = this.formatDate(ask.date)
               let time = this.formatTime(ask.date)

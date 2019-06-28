@@ -59,17 +59,32 @@ export const GET_ASKS = gql`
 `
 
 export const GET_USER_ASKS = gql`
-  {
-  user(id: "5d1155722ec86b307d6dfa98") {
-    asks {
-      question
-      date 
-      invitations {
-        contact {
-          name
+  query getUserAsks($id: ID!) {
+    user(id: $id) {
+      asks {
+        question
+        date 
+        invitations {
+          contact {
+            name
+          }
         }
       }
     }
   }
-}
+`
+
+export const GET_USER_ANSWERING = gql`
+  query getUserAnswering($id: ID!) {
+    user(id: $id) {
+      asks {
+        question
+        invitations {
+          contact {
+            name
+          }
+        } 
+      }
+    }
+  }
 `
