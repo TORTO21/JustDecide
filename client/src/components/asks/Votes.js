@@ -5,7 +5,6 @@ import dateFns from 'date-fns';
 import { GET_VOTES } from '../../graphql/queries/votes_queries';
 
 const Votes = ask_id => {
-
   return (
     <Query query={GET_VOTES} variables={{ ask_id: ask_id }}>
       {({ loading, error, data}) => {

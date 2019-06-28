@@ -45,6 +45,7 @@ class AsksIndex extends React.Component {
 
   render() {
     const user_id = window.localStorage.getItem('current-user')
+    console.log(user_id)
     return (
       <Query query={GET_USER_ASKS} variables={{id: user_id}}>
         {({ loading, error, data}) => {

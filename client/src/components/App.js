@@ -53,7 +53,6 @@ const App = () => (
       <Route exact path="/askInvite" component={AskInvite} />
       <Route exact path="/users/:user_id/newContact" component={AddContact} />
       <Route path="/" component={Splash} />
-      {/* <Route path="/asks" component= { AsksIndex } /> */}
     </Switch>
   </div>
 )
