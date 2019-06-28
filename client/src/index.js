@@ -21,7 +21,8 @@ cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
     currentUserId: true,
-    askOptions: []
+    askOptions: [],
+    askInvitees: []
   }
 })
 
@@ -61,7 +62,7 @@ if (token) {
   // otherwise isLoggedIn defaults to false
   cache.writeData({
     data: {
-      isLoggedIn: false,
+      isLoggedIn: false
     }
   })
 }
