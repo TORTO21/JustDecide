@@ -30,9 +30,17 @@ const UserType = new GraphQLObjectType({
       resolve: user => Ask.find({ author_id: user.id })
     },
 
-    invitations: {
+    // to be fixed (fix user_id in invitation.js)
+    // invitations: {
+    //   type: new GraphQLList(require('../types/invitation_type')),
+    //   resolve: user => Invitation.find({ user_id: user.id })
+    // },
+
+    invited: {
       type: new GraphQLList(require('../types/invitation_type')),
-      resolve: user => Invitation.find({ user_id: user.id })
+      resolve: user => Contact.find({ user_id: user.id })
+        .then(contacts => contacts.map(c => c.id))
+        .then(contact_ids => Invitation.find({ contact_id: { $in: contact_ids } }))
     },
 
     groups: {
