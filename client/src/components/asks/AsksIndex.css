@@ -86,3 +86,14 @@
 .hidden {
   visibility: hidden;
 }
+
+.badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(
+    325deg,
+    rgba(200, 154, 190, 1) 0%,
+    rgba(253, 138, 138, 1) 65%
+  );
+}

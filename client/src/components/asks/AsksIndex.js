@@ -42,74 +42,32 @@ class AsksIndex extends React.Component {
   }
 
   render() {
-    // console.log(this.props.client.cache.data.data.ROOT_QUERY.currentUserId)
-    // return
-
-    // const user_id = this.props.client.cache.data.data.ROOT_QUERY.currentUserId
     return (
       // <Query query={GET_USER_ASKS} variables={{id: user_id}}>
       <Query query={GET_ASKS} >
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-              let asks = data.asks.map(ask => {
-                let date = this.formatDate(ask.date)
-                let time = this.formatTime(ask.date)
-                return (
-                  <li
-                    key={ask.id}
-                    className="asks-li drop-shadow"
-                    onClick={() => {}}>
-                    <span className="ask-question">{ask.question}</span>
-                    <div className="ask-date">{date}</div>
-                    <div className="ask-time">{time}</div>
-                    <Votes props={ask.id}/>
-                  </li>
-                )
-              })
+            let asks = data.asks.map(ask => {
+              let date = this.formatDate(ask.date)
+              let time = this.formatTime(ask.date)
               return (
-                <div className="background">
-                  <div className="outer-container">
-                    <div className="top-container">
-                      <div className="section-header">Just Decide</div>
-                      <button
-                        className="asks-index-button button"
-                        onClick={() => this.props.history.push("/asks/new")} >
-                        Create an Ask
-                  </button>
-                      <div className="index-header-container">
-                        <div className="container">
-                          <div
-                            className="index-headers"
-                            onClick={this.toggleHeaders}>
-                            Asks
-                      </div>
-                          {/* {askGradient} */}
-                          <div className={`gradient-bar 
-                        ${this.state.asks ? "" : "hidden"}`}
-                            onClick={this.toggleHeaders}></div>
-                        </div>
-                        <div className="container">
-                          <div
-                            className="index-headers"
-                            onClick={this.toggleHeaders}>
-                            Answering
-                      </div>
-                          {/* {answeringGradient} */}
-                          <div className={`gradient-bar
-                        ${this.state.answering ? "" : "hidden"}`}
-                            onClick={this.toggleHeaders}></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="lower-container">
-                      <ul className="asks-ul">
-                        {asks}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                <li
+                  key={ask.id}
+                  className="asks-li drop-shadow"
+                  onClick={() => {}}>
+                  <span className="ask-question">{ask.question}</span>
+                  <div className="ask-date">{date}</div>
+                  <div className="ask-time">{time}</div>
+                  <Votes props={ask.id}/>
+                </li>
               )
+            })
+            return (
+              <ul className = "asks-ul">
+                {asks}
+              </ul>
+            )             
         }}
       </Query>
     )
