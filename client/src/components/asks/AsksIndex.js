@@ -1,8 +1,8 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
-import { GET_ASKS } from '../../graphql/queries/ask_queries';
+import { GET_USER_ASKS, GET_ASKS } from '../../graphql/queries/ask_queries';
 import { GET_VOTES } from '../../graphql/queries/votes_queries';
 import Votes from './Votes.js'
 import './AsksIndex.css';
@@ -42,8 +42,13 @@ class AsksIndex extends React.Component {
   }
 
   render() {
+    // console.log(this.props.client.cache.data.data.ROOT_QUERY.currentUserId)
+    // return
+
+    // const user_id = this.props.client.cache.data.data.ROOT_QUERY.currentUserId
     return (
-      <Query query={GET_ASKS}>
+      // <Query query={GET_USER_ASKS} variables={{id: user_id}}>
+      <Query query={GET_ASKS} >
         {({ loading, error, data}) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -111,4 +116,4 @@ class AsksIndex extends React.Component {
   }
 }
 
-export default withRouter(AsksIndex);
+export default withApollo(AsksIndex);

@@ -52,9 +52,24 @@ export const GET_ASK = gql`
 export const GET_ASKS = gql`
   {
     asks {
-      id
       question 
-      date 
+      date
     }
   }
+`
+
+export const GET_USER_ASKS = gql`
+  {
+  user(id: "5d1155722ec86b307d6dfa98") {
+    asks {
+      question
+      date 
+      invitations {
+        contact {
+          name
+        }
+      }
+    }
+  }
+}
 `
