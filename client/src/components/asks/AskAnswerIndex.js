@@ -4,10 +4,11 @@ import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
 import Votes from './Votes.js'
 import AsksIndex from './AsksIndex';
+import AnswersIndex from './AnswersIndex';
 
-class Index extends React.Component {
+class AskAnswerIndex extends React.Component {
   constructor(props) {
-    super(props) 
+    super(props)
     this.state = {
       asks: true,
       answering: false
@@ -16,7 +17,7 @@ class Index extends React.Component {
   }
 
   toggleHeaders() {
-    if (this.state.asks === true) {
+    if (this.state.asks) {
       this.setState({
         asks: false,
         answering: true
@@ -30,6 +31,16 @@ class Index extends React.Component {
   }
 
   render() {
+    let indexDisplay;
+    if (this.state.asks) {
+      indexDisplay = (
+        <AsksIndex />
+      )
+    } else {
+      indexDisplay = (
+        <AnswersIndex />
+      )
+    }
     return (
       <div className="background">
         <div className="outer-container">
@@ -66,7 +77,7 @@ class Index extends React.Component {
             </div>
           </div>
           <div className="lower-container">
-              <AsksIndex />
+            {indexDisplay}
           </div>
         </div>
       </div>
@@ -75,4 +86,4 @@ class Index extends React.Component {
 
 }
 
-export default Index
+export default AskAnswerIndex

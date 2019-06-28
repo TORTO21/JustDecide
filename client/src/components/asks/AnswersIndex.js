@@ -2,12 +2,12 @@ import React from 'react';
 import { Query, withApollo } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
-import { GET_USER_ASKS, GET_ASKS } from '../../graphql/queries/ask_queries';
+import { GET_USER_ANSWERING } from '../../graphql/queries/ask_queries';
 import { GET_VOTES } from '../../graphql/queries/votes_queries';
 import Votes from './Votes.js'
 import './AsksIndex.css';
 
-class AsksIndex extends React.Component {
+class AnswersIndex extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,7 +26,7 @@ class AsksIndex extends React.Component {
     } else {
       this.setState({
         asks: true,
-        answering: false 
+        answering: false
       })
     }
   }
@@ -46,34 +46,34 @@ class AsksIndex extends React.Component {
   render() {
     const user_id = window.localStorage.getItem('current-user')
     return (
-      <Query query={GET_USER_ASKS} variables={{id: user_id}}>
-        {({ loading, error, data}) => {
+      <Query query={GET_USER_ANSWERING} variables={{ id: user_id }}>
+        {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-            let asks = data.user.asks.map(ask => {
-              let date = this.formatDate(ask.date)
-              let time = this.formatTime(ask.date)
-              return (
-                <li
-                  key={ask.id}
-                  className="asks-li drop-shadow"
-                  onClick={() => {}}>
-                  <span className="ask-question">{ask.question}</span>
-                  <div className="ask-date">{date}</div>
-                  <div className="ask-time">{time}</div>
-                  {/* <Votes props={ask.id}/> */}
-                </li>
-              )
-            })
+          let asks = data.user.asks.map(ask => {
+            let date = this.formatDate(ask.date)
+            let time = this.formatTime(ask.date)
             return (
-              <ul className = "asks-ul">
-                {asks}
-              </ul>
-            )             
+              <li
+                key={ask.id}
+                className="asks-li drop-shadow"
+                onClick={() => { }}>
+                <span className="ask-question">{ask.question}</span>
+                <div className="ask-date">{date}</div>
+                <div className="ask-time">{time}</div>
+                {/* <Votes props={ask.id} /> */}
+              </li>
+            )
+          })
+          return (
+            <ul className="asks-ul">
+              {asks}
+            </ul>
+          )
         }}
       </Query>
     )
   }
 }
 
-export default withApollo(AsksIndex);
+export default withApollo(AnswersIndex);
