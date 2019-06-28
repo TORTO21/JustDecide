@@ -23,6 +23,8 @@ cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
     currentUserId,
+    askOptions: [],
+    askInvitees: []
   }
 })
 
