@@ -76,16 +76,14 @@ export const GET_USER_ASKS = gql`
 
 export const GET_USER_ANSWERING = gql`
   query getUserAnswering($id: ID!) {
-    user(id: $id) {
-      asks {
-        question
-        date
-        invitations {
-          contact {
-            name
-          }
-        } 
-      }
+    user(id: "5d110fe472d9f0614532313a") {
+      phone_number
+      id
+      invited {
+        ask {
+          question
+        }
+      } 
     }
   }
 `

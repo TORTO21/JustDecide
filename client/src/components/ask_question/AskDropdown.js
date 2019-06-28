@@ -47,7 +47,7 @@ class AskDropdown extends Component {
                 // console.log(currentUserId)
                 
                 const selfRefs = user.contacts.filter(contact => {
-                  return contact.user.id === user.id
+                  return contact.user && contact.user.id === user.id
                 }).map(contact => {
                   return {
                     ref: contact.name,

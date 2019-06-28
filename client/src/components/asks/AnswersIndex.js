@@ -50,6 +50,8 @@ class AnswersIndex extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+          console.log(data)
+          return
           let asks = data.user.asks.map(ask => {
             let date = this.formatDate(ask.date)
             let time = this.formatTime(ask.date)
