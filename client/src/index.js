@@ -15,14 +15,14 @@ const cache = new InMemoryCache({
   dataIdFromObject: object => object._id || null
 })
 
-// look for token in local storage and set isLoggedIn based on result in cache
+// look for token and currentUserId in local storage and
+// SET isLoggedIn and currentUserId based on result in cache
 const token = localStorage.getItem('auth-token')
 const currentUserId = localStorage.getItem('current-user')
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
     currentUserId,
-    askOptions: []
   }
 })
 
@@ -61,15 +61,13 @@ if (token) {
       })
     })
 } else {
-  // otherwise isLoggedIn defaults to false
+  // otherwise isLoggedIn and currentUserId defaults to false and e
   cache.writeData({
     data: {
       isLoggedIn: false,
+      currentUserId: ""
     }
   })
 }
 
-// if client, render root, 
-const ComponentRender = <Root client={client} />
-
-ReactDOM.render(ComponentRender, document.getElementById('root'))
+ReactDOM.render(<Root client={client} />, document.getElementById('root'))
