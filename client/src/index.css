@@ -279,3 +279,12 @@ code {
   margin: 1px;
   cursor: pointer;
 }
+
+.close {
+  background-image: url(./components/icons/close.png);
+  width: 38px;
+  height: 38px;
+  background-size: cover;
+  margin: 1px;
+  cursor: pointer;
+}
