@@ -1,6 +1,7 @@
 /* app-wide settings */
 /* reset, font, background gradient */
 @import-normalize;
+@import '../node_modules/pretty-checkbox/dist/pretty-checkbox.min.css';
 
 * {
   font-family: Quicksand;
@@ -23,10 +24,10 @@
 
 button:focus,
 textarea:focus,
-input[type="submit"]:focus,
-input[type="password"]:focus,
-input[type="tel"]:focus,
-input[type="text"]:focus {
+input[type='submit']:focus,
+input[type='password']:focus,
+input[type='tel']:focus,
+input[type='text']:focus {
   outline: 0 none;
 }
 
@@ -91,7 +92,7 @@ input[type="text"]:focus {
 /* drop-shadow effects (they might already be applied to some buttons) */
 .drop-shadow {
   /* box-shadow: 0px 4px 15px rgba(0, 0, 0, .35); */
-  box-shadow: 0px 4px 15px #00000059
+  box-shadow: 0px 4px 15px #00000059;
 }
 
 .drop-shadow-circle {
@@ -102,7 +103,6 @@ input[type="text"]:focus {
 
 .button {
   cursor: pointer;
-  
 }
 
 .solid-pink-button {
@@ -117,7 +117,7 @@ input[type="text"]:focus {
 }
 
 .solid-pink-button:focus {
-  box-shadow: 0 1px 1px #00000013  inset, 0 1px 8px rgba(80, 80, 80, 0.5);
+  box-shadow: 0 1px 1px #00000013 inset, 0 1px 8px rgba(80, 80, 80, 0.5);
   background-color: rgb(233, 144, 160);
 }
 
@@ -208,7 +208,6 @@ input[type="text"]:focus {
   font-size: 13px;
   color: #595959;
 }
-
 
 /* preset with CRA */
 
