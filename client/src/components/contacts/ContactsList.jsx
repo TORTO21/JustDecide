@@ -27,6 +27,12 @@ const InnerList = ({ currentUserId, history, currentInvitees }) => {
     history.push('/success')
   }
 
+  const saveInviteList = client => {
+    client.writeData({
+      data: { askInvitees: selected }
+    })
+  }
+
   return (
     <ApolloConsumer>
       {client => {
@@ -75,11 +81,11 @@ const InnerList = ({ currentUserId, history, currentInvitees }) => {
                         />
                       ))}
                     </div>
-                    <Link to="/addContacts">
+                    <Link to={`/users/${currentUserId}/newContact`}>
                       <button
                         style={{ marginTop: 30 }}
                         className="gradient-green-button"
-                        onClick={() => handleContinue(client)}
+                        onClick={() => saveInviteList(client)}
                       >
                         Add Someone Else
                       </button>

@@ -2,6 +2,7 @@ import '../index.css'
 
 import { Link, Route, Switch } from 'react-router-dom'
 
+import AddContact from './contacts/AddContact'
 import AskDetail from './asks/AskDetail'
 import AskInvite from './asks/AskInvite'
 import AskOption from './asks/AskOption'
@@ -45,6 +46,7 @@ const App = () => (
       <Route exact path="/deadlineDate" component={Deadline} />
       <Route exact path="/askOption" component={AskOption} />
       <Route exact path="/askInvite" component={AskInvite} />
+      <Route exact path="/users/:user_id/newContact" component={AddContact} />
       <Route path="/" component={Splash} />
       {/* <Route path="/asks" component= { AsksIndex } /> */}
     </Switch>
