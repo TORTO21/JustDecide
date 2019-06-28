@@ -114,7 +114,6 @@ export default ({ currentUserId, history }) => {
     <Query query={ASK_INVITEES}>
       {({ loading, data }) => {
         if (loading) return null
-        console.log(data.askInvitees)
         return (
           <InnerList
             currentUserId={currentUserId}
