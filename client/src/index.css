@@ -263,3 +263,10 @@ code {
   background-size: cover;
   margin: 7px;
 }
+
+.back-button {
+  position: absolute;
+  z-index: 1;
+  left: 10px;
+  top: 20px;
+}

@@ -1,13 +1,14 @@
 import './Calendar.css'
-
+import React from 'react'
+import { Link } from 'react-router-dom';
 import { ApolloConsumer } from 'react-apollo'
 import DblLeftArrow from '../icons/DblLeftArrow.png'
 import DblRightArrow from '../icons/DblRightArrow.png'
 import LeftArrow from '../icons/LeftArrow.png'
-import React from 'react'
 import RightArrow from '../icons/RightArrow.png'
 import TimePicker from './TimePicker'
 import dateFns from 'date-fns'
+
 
 class SelectDate extends React.Component {
   constructor(props) {
@@ -222,6 +223,11 @@ class SelectDate extends React.Component {
         {client => {
           return (
             <div className="background">
+            <Link className="back-button" to="/">
+                <svg width="35" height="28" viewBox="0 0 35 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.78083 30.1096L35 55.3287L30.1096 60.2192L0 30.1096L30.1096 0L35 4.89042L9.78083 30.1096Z" fill="white" />
+                </svg>
+            </Link>
               <div className="section-header cal-header">Set the Date</div>
               <div className="calendar">
                 {this.renderHeader()}
