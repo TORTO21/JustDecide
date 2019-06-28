@@ -71,6 +71,7 @@
   list-style: none;
   margin-top: 30px;
   padding: 0;
+  width: 80%;
 }
 
 .asks-li {
@@ -79,6 +80,7 @@
   height: 120px;
   border-radius: 10px;
   display: block;
+  font-size: 15px;
 }
 
 .hidden {

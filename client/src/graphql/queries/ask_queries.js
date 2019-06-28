@@ -52,6 +52,7 @@ export const GET_ASK = gql`
 export const GET_ASKS = gql`
   {
     asks {
+      id
       question 
       date 
     }
