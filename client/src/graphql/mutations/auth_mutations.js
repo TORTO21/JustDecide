@@ -10,6 +10,7 @@ const Mutations = {
       register(phone_number: $phone_number, password: $password, name: $name) {
         token
         loggedIn
+        id
       }
     }
   `,
@@ -27,6 +28,7 @@ const Mutations = {
       login(phone_number: $phone_number, password: $password) {
         token
         loggedIn
+        id
       }
     }
   `,

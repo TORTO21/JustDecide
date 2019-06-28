@@ -22,7 +22,7 @@ const OptionBar = ({
   const invitation = invitations.filter(
     inv => inv.contact.user.id === currentUserId
   )[0]
-
+  console.log(invitation)
   const contact_id = invitation ? invitation.contact.id : -1
 
   const isLoggedIn = client.cache.data.data.ROOT_QUERY.isLoggedIn
