@@ -50,17 +50,15 @@ class AnswersIndex extends React.Component {
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          console.log(data)
-          return
-          let asks = data.user.asks.map(ask => {
-            let date = this.formatDate(ask.date)
-            let time = this.formatTime(ask.date)
+          let asks = data.user.invited.map(invite => {
+            let date = this.formatDate(invite.ask.date)
+            let time = this.formatTime(invite.ask.date)
             return (
               <li
-                key={ask.id}
+                key={invite.id}
                 className="asks-li drop-shadow"
                 onClick={() => { }}>
-                <span className="ask-question">{ask.question}</span>
+                <span className="ask-question">{invite.ask.question}</span>
                 <div className="ask-date">{date}</div>
                 <div className="ask-time">{time}</div>
                 {/* <Votes props={ask.id} /> */}

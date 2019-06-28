@@ -76,14 +76,17 @@ export const GET_USER_ASKS = gql`
 
 export const GET_USER_ANSWERING = gql`
   query getUserAnswering($id: ID!) {
-    user(id: "5d110fe472d9f0614532313a") {
+    user(id: $id) {
       phone_number
       id
       invited {
         ask {
           question
+          date
         }
       } 
     }
   }
 `
+
+
