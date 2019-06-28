@@ -17,10 +17,11 @@ const cache = new InMemoryCache({
 
 // look for token in local storage and set isLoggedIn based on result in cache
 const token = localStorage.getItem('auth-token')
+const currentUserId = localStorage.getItem('current-user')
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
-    currentUserId: true,
+    currentUserId,
     askOptions: []
   }
 })
@@ -48,7 +49,9 @@ const client = new ApolloClient({
 // to see if it matches with back-end token, thus setting isLoggedIn status.
 if (token) {
   client
-    .mutate({ mutation: VERIFY_USER, variables: { token } })
+    .mutate({ 
+      mutation: VERIFY_USER,
+      variables: { token }})
     .then(({ data }) => {
       cache.writeData({
         data: {
@@ -66,4 +69,7 @@ if (token) {
   })
 }
 
-ReactDOM.render(<Root client={client} />, document.getElementById('root'))
+// if client, render root, 
+const ComponentRender = <Root client={client} />
+
+ReactDOM.render(ComponentRender, document.getElementById('root'))

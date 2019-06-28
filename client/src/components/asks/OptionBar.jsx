@@ -22,7 +22,7 @@ const OptionBar = ({
   const invitation = invitations.filter(
     inv => inv.contact.user.id === currentUserId
   )[0]
-
+  console.log(invitation)
   const contact_id = invitation ? invitation.contact.id : -1
 
   const isLoggedIn = client.cache.data.data.ROOT_QUERY.isLoggedIn
@@ -90,7 +90,7 @@ const OptionBar = ({
             </div>
           </div>
         </div>
-        {isLoggedIn && (
+        {isLoggedIn && contact_id !== -1 && (
           <ThumbsUp
             thumbClass={upClass}
             vote={vote}
@@ -99,10 +99,10 @@ const OptionBar = ({
             ask_id={ask_id}
           />
         )}
-        {!isLoggedIn && (
+        {(!isLoggedIn || contact_id === -1) && (
           <div className={upClass} onClick={() => history.push('/')} />
         )}
-        {isLoggedIn && (
+        {isLoggedIn && contact_id !== -1 && (
           <ThumbsDn
             thumbClass={dnClass}
             vote={vote}
@@ -111,7 +111,7 @@ const OptionBar = ({
             ask_id={ask_id}
           />
         )}
-        {!isLoggedIn && (
+        {(!isLoggedIn || contact_id === -1) && (
           <div className={dnClass} onClick={() => history.push('/')} />
         )}
       </div>

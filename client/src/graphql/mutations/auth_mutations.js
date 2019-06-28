@@ -27,6 +27,7 @@ const Mutations = {
       login(phone_number: $phone_number, password: $password) {
         token
         loggedIn
+        id
       }
     }
   `,
@@ -35,6 +36,7 @@ const Mutations = {
     mutation VerifyUser($token: String!) {
       verifyUser(token: $token) {
         loggedIn
+        id
       }
     }
   `

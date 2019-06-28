@@ -19,6 +19,7 @@ const Logout = props => {
                     onClick={e => {
                       e.preventDefault()
                       localStorage.removeItem('auth-token')
+                      localStorage.removeItem('current-user')
                       clientCache.writeData({ data: { isLoggedIn: false } })
                       props.history.push('/')
                     }}
