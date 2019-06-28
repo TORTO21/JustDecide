@@ -43,6 +43,10 @@ class AnswersIndex extends React.Component {
     return dateFns.format(d, timeFormat)
   }
 
+  detailClick(ask_id) {
+    this.props.history.push(`/asks/${ask_id}`)
+  }
+
   render() {
     const user_id = window.localStorage.getItem('current-user')
     return (
@@ -57,8 +61,8 @@ class AnswersIndex extends React.Component {
               <li
                 key={invite.id}
                 className="asks-li drop-shadow"
-                onClick={() => { }}>
-                <span className="ask-question">{invite.ask.question}</span>
+                onClick={() => this.detailClick(invite.ask.id)}>
+                <div className="ask-question">{invite.ask.question}</div>
                 <div className="ask-date">{date}</div>
                 <div className="ask-time">{time}</div>
                 {/* <Votes props={ask.id} /> */}

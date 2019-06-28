@@ -14,7 +14,9 @@ class AsksIndex extends React.Component {
       asks: true,
       answering: false
     }
+    
     this.toggleHeaders = this.toggleHeaders.bind(this)
+    this.detailClick = this.detailClick.bind(this)
   }
 
   toggleHeaders() {
@@ -43,36 +45,53 @@ class AsksIndex extends React.Component {
     return dateFns.format(d, timeFormat)
   }
 
+  detailClick(ask_id) {
+    this.props.history.push(`/asks/${ask_id}`)
+  }
+
+  updateCache(client, askCount) {
+    client.writeData({ askCount: askCount})
+  }
+
   render() {
     const user_id = window.localStorage.getItem('current-user')
-    console.log(user_id)
-    return (
-      <Query query={GET_USER_ASKS} variables={{id: user_id}}>
-        {({ loading, error, data}) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
-            let asks = data.user.asks.map(ask => {
-              let date = this.formatDate(ask.date)
-              let time = this.formatTime(ask.date)
-              return (
-                <li
-                  key={ask.id}
-                  className="asks-li drop-shadow"
-                  onClick={() => {}}>
-                  <span className="ask-question">{ask.question}</span>
-                  <div className="ask-date">{date}</div>
-                  <div className="ask-time">{time}</div>
-                  {/* <Votes props={ask.id}/> */}
-                </li>
-              )
-            })
+    return(
+      <ApolloConsumer>
+        {client => {
             return (
-              <ul className = "asks-ul">
-                {asks}
-              </ul>
-            )             
+              <Query query={GET_USER_ASKS} variables={{id: user_id}}>
+                {({ loading, error, data}) => {
+                  if (loading) return "Loading...";
+                  if (error) return `Error! ${error.message}`;
+
+                    let askCount = data.user.asks.length
+                    this.updateCache(client, askCount)
+        
+                    let asks = data.user.asks.map(ask => {
+                      let date = this.formatDate(ask.date)
+                      let time = this.formatTime(ask.date)
+        
+                      return (
+                        <li
+                          key={ask.id}
+                          className="asks-li drop-shadow"
+                          onClick={() => this.detailClick(ask.id)}>
+                          <div className="ask-question">{ask.question}</div>
+                          <div className="ask-date">{date}</div>
+                          <div className="ask-time">{time}</div>
+                        </li>
+                      )
+                    })
+                    return (
+                      <ul className = "asks-ul">
+                        {asks}
+                      </ul>
+                    )             
+                }}
+              </Query>
+            )
         }}
-      </Query>
+      </ApolloConsumer>
     )
   }
 }

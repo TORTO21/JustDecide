@@ -64,11 +64,7 @@ export const GET_USER_ASKS = gql`
       asks {
         question
         date 
-        # invitations {
-        #   contact {
-        #     name
-        #   }
-        # }
+        id
       }
     }
   }
@@ -83,6 +79,7 @@ export const GET_USER_ANSWERING = gql`
         ask {
           question
           date
+          id
         }
       } 
     }

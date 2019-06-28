@@ -11,9 +11,11 @@ class AskAnswerIndex extends React.Component {
     super(props)
     this.state = {
       asks: true,
-      answering: false
+      answering: false,
+      askCount: 0
     }
     this.toggleHeaders = this.toggleHeaders.bind(this)
+    this.reportCount = this.reportCount.bind(this)
   }
 
   toggleHeaders() {
@@ -30,11 +32,15 @@ class AskAnswerIndex extends React.Component {
     }
   }
 
+  reportCount(count) {
+    this.setState({askCount: count})
+  }
+
   render() {
     let indexDisplay;
     if (this.state.asks) {
       indexDisplay = (
-        <AsksIndex />
+        <AsksIndex reportCount={this.reportCount}/>
       )
     } else {
       indexDisplay = (
@@ -53,7 +59,11 @@ class AskAnswerIndex extends React.Component {
                   </button>
             <div className="index-header-container">
               <div className="container">
-                <div className="badge"></div>
+                <div className="badge"
+                  style={{
+                    right: 10,
+                    top: -10
+                  }}>{this.state.askCount}</div>
                 <div
                   className="index-headers"
                   onClick={this.toggleHeaders}>
