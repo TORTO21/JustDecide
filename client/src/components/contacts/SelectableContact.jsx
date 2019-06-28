@@ -1,27 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default ({ contact, onSelect }) => {
+export default ({ contact, onSelect, selected }) => {
   const [checked, setChecked] = useState(false)
+
+  useEffect(() => setChecked(selected.indexOf(contact.id) !== -1), [contact.id, selected])
 
   const handleClick = () => {
     setChecked(!checked)
     onSelect()
   }
 
+  const checkedClass = checked ? 'checkedButton' : 'unCheckedButton'
+
   return (
     <div
-      className="pretty p-icon p-round p-pulse"
       style={{
-        display: 'block',
-        fontSize: 21,
-        margin: '10px 0'
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderBottom: ' 1px solid gray',
+        paddingBottom: 3,
+        marginTop: 11
       }}
     >
-      <input type="checkbox" checked={checked} onChange={handleClick} />
-      <div className="state p-success">
-        <i className="icon mdi mdi-check" />
-        <label>{contact.name}</label>
-      </div>
+      <div className="text">{contact.name}</div>
+      <div className={checkedClass} onClick={handleClick} />
     </div>
   )
 }
