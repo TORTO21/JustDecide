@@ -15,13 +15,16 @@ const cache = new InMemoryCache({
   dataIdFromObject: object => object._id || null
 })
 
-// look for token in local storage and set isLoggedIn based on result in cache
+// look for token and currentUserId in local storage and
+// SET isLoggedIn and currentUserId based on result in cache
 const token = localStorage.getItem('auth-token')
+const currentUserId = localStorage.getItem('current-user')
 cache.writeData({
   data: {
     isLoggedIn: Boolean(token),
-    currentUserId: true,
-    askOptions: []
+    currentUserId,
+    askOptions: [],
+    askInvitees: []
   }
 })
 
@@ -45,11 +48,14 @@ const client = new ApolloClient({
   resolvers: {}
 })
 
-// if token exists in local stroage, apply backend mutation, VERIFY_USER,
-// to see if it matches with back-end token, thus setting isLoggedIn status.
+// if token exists in local stroage, apply backend mutation,
+// VERIFY_USER, to match with back-end token, thus setting
+// isLoggedIn and currentUserId status.
 if (token) {
   client
-    .mutate({ mutation: VERIFY_USER, variables: { token } })
+    .mutate({ 
+      mutation: VERIFY_USER,
+      variables: { token }})
     .then(({ data }) => {
       cache.writeData({
         data: {
@@ -59,10 +65,11 @@ if (token) {
       })
     })
 } else {
-  // otherwise isLoggedIn defaults to false
+  // otherwise isLoggedIn and currentUserId defaults to false and e
   cache.writeData({
     data: {
       isLoggedIn: false,
+      currentUserId: ""
     }
   })
 }

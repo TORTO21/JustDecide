@@ -2,9 +2,6 @@ const mongoose = require('mongoose')
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLList, GraphQLID, GraphQLNonNull } = graphql
 
-// const { AWSKey } = require('../../../config/keys');
-const axios = require('axios')
-
 const AskType = require('./ask_type')
 const Ask = require('../../models/Ask')
 const ContactType = require('./contact_type')
@@ -19,15 +16,6 @@ const UserType = require('./user_type')
 const User = require('../../models/User')
 const VoteType = require('./vote_type')
 const Vote = require('../../models/Vote')
-
-// const authOptions = {
-//   method: "GET",
-//   url:
-//     "https://hcu221eec0.execute-api.us-west-1.amazonaws.com/default/generate-price",
-//   headers: {
-//     "x-api-key": AWSKey
-//   }
-// };
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
