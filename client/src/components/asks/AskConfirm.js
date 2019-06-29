@@ -1,4 +1,4 @@
-import './AskSuccess.css'
+import './AskConfirm.css'
 
 import { ApolloConsumer, Query } from 'react-apollo'
 
@@ -8,11 +8,7 @@ import PinkCheck from '../../components/icons/PinkCheck.png'
 import React from 'react'
 import dateFns from 'date-fns'
 
-class AskSuccess extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
+class AskConfirm extends React.Component {
   render() {
     return (
       <ApolloConsumer>
@@ -41,7 +37,7 @@ class AskSuccess extends React.Component {
                 <div className="background">
                   <div className="overall-container">
                     <div className="top-container">
-                      <div className="section-header">Success!</div>
+                      <div className="section-header">Confirm!</div>
                       <div className="ask-details-container">
                         <div className="ask-details">
                           Where do you want to go to dinner?
@@ -74,4 +70,4 @@ class AskSuccess extends React.Component {
   }
 }
 
-export default AskSuccess
+export default AskConfirm
