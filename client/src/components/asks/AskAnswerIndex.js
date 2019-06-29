@@ -5,7 +5,7 @@ import dateFns from 'date-fns';
 import Votes from './Votes.js'
 import AsksIndex from './AsksIndex';
 import AnswersIndex from './AnswersIndex';
-import { ASK_COUNT } from '../../graphql/queries/ask_queries'
+import { BADGE_COUNT } from '../../graphql/queries/ask_queries'
 
 class AskAnswerIndex extends React.Component {
   constructor(props) {
@@ -31,11 +31,12 @@ class AskAnswerIndex extends React.Component {
     }
   }
 
+
   render() {
     let indexDisplay;
     if (this.state.asks) {
       indexDisplay = (
-        <AsksIndex reportCount={this.reportCount}/>
+        <AsksIndex />
       )
     } else {
       indexDisplay = (
@@ -43,8 +44,9 @@ class AskAnswerIndex extends React.Component {
       )
     }
     return(
-      <Query query={ASK_COUNT}>
-        {({ data: { askCount } }) => {
+      <Query query={BADGE_COUNT} pollInterval={500}>
+        {({ data: { askCount, answeringCount }, startPolling, stopPolling }) => {
+          
           return (
             <div className="background">
               <div className="outer-container">
@@ -61,7 +63,7 @@ class AskAnswerIndex extends React.Component {
                         style={{
                           right: 10,
                           top: -10
-                        }}>{window.localStorage.getItem('askCount')}</div>
+                        }}>{askCount}</div>
                       <div
                         className="index-headers"
                         onClick={this.toggleHeaders}>
@@ -72,7 +74,7 @@ class AskAnswerIndex extends React.Component {
                         onClick={this.toggleHeaders}></div>
                     </div>
                     <div className="container">
-                      <div className="badge">{window.localStorage.getItem('answeringCount')}</div>
+                      <div className="badge">{answeringCount}</div>
                       <div
                         className="index-headers"
                         onClick={this.toggleHeaders}>

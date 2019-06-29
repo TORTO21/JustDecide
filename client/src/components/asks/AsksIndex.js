@@ -13,27 +13,15 @@ class AsksIndex extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      showDeleteModal: false
+      showDeleteModal: false,
+      deleteAskId: null
     }
-    // this.toggleHeaders = this.toggleHeaders.bind(this)
     this.detailClick = this.detailClick.bind(this)
     this.handleTrash = this.handleTrash.bind(this)
-    this.handleDelete = this.handleDelete.bind(this)
+    // this.handleDelete = this.handleDelete.bind(this)
+    // this.closeModal = this.closeModal.bind(this)
+    this.updateCache = this.updateCache.bind(this)
   }
-
-  // toggleHeaders() {
-  //   if (this.state.asks === true) {
-  //     this.setState({
-  //       asks: false,
-  //       answering: true
-  //     })
-  //   } else {
-  //     this.setState({
-  //       asks: true,
-  //       answering: false 
-  //     })
-  //   }
-  // }
 
   formatDate(date) {
     let d = new Date(parseInt(date))
@@ -51,8 +39,10 @@ class AsksIndex extends React.Component {
     this.props.history.push(`/asks/${ask_id}`)
   }
 
-  updateWindow(askCount) {
-    window.localStorage.setItem('askCount', askCount)
+  updateCache(client, askCount) {
+    client.writeData({
+      data: { askCount: askCount }
+    })
   }
 
   handleTrash(e, ask_id) {
@@ -69,20 +59,27 @@ class AsksIndex extends React.Component {
     }
   }
 
-  handleDelete(e, mutation) {
+  handleDelete(e, mutation, idToDelete) {
     e.preventDefault();
-    mutation({ variables: this.state.deleteAskId })
+    mutation({ variables: {id: idToDelete} })
+
+    // this.setState({ showDeleteModal: false })
+  }
+
+  closeModal() {
+    this.setState({ showDeleteModal: false })
   }
 
   render() {
     const user_id = window.localStorage.getItem('current-user')
-
     return(
       <>
-      <Mutation mutation={DELETE_ASK}
-        onCompleted={() => this.handleTrash}>
-          {(deleteAsk, { data }) => {
+        <Mutation mutation={DELETE_ASK}
+        onCompleted={() => this.closeModal()}>
+          {(DeleteAsk, { data }) => {
             if (this.state.showDeleteModal) {
+              const idToDelete = this.state.deleteAskId
+              
               return (
                 <div className="delete-modal drop-shadow">
                   <div className="modal-gradient"></div>
@@ -92,7 +89,7 @@ class AsksIndex extends React.Component {
                   <div className="yes-no-button-container">
                     <button 
                       className="solid-pink-button yes-button"
-                      onClick={e => this.handleDelete(e, deleteAsk) }>
+                      onClick={e => this.handleDelete(e, DeleteAsk, idToDelete) }>
                       Yes
                     </button>
                     <button 
@@ -111,19 +108,21 @@ class AsksIndex extends React.Component {
         <ApolloConsumer>
           {client => {
               return (
-                <Query query={GET_USER_ASKS} variables={{id: user_id}}>
-                  {({ loading, error, data}) => {
+                <Query query={GET_USER_ASKS} variables={{id: user_id}} pollInterval={500}>
+                  {({ loading, error, data, startPolling, stopPolling }) => {
                     if (loading) return "Loading...";
                     if (error) return `Error! ${error.message}`;
 
                       let askCount = data.user.asks.length
-                      this.updateWindow(askCount)
+                      // this.updateWindow(askCount)
+                      this.updateCache(client, askCount)
           
                       let asks = data.user.asks.map(ask => {
                         let date = this.formatDate(ask.date)
                         let time = this.formatTime(ask.date)
           
                         return (
+                          
                           <li
                             key={ask.id}
                             className="asks-li drop-shadow"
@@ -134,7 +133,7 @@ class AsksIndex extends React.Component {
                             <img
                               src={TrashIcon}
                               className="trash-icon"
-                              onClick={e => this.handleTrash(e, ask.id)}>
+                              onClick={e => this.handleTrash(e, ask.id) }>
                             </img>
                           </li>
                         )

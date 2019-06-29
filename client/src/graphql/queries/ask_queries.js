@@ -85,8 +85,9 @@ export const GET_USER_ANSWERING = gql`
     }
   }
 `
-export const ASK_COUNT = gql`
+export const BADGE_COUNT = gql`
   query {
     askCount @client
+    answeringCount @client
   }
 `

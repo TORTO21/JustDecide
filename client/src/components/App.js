@@ -16,7 +16,6 @@ import React from 'react'
 import Register from './auth/Register'
 import SelectDate from './calendar/SelectDate'
 import Splash from './splash/Splash'
-// import AsksIndex from './asks/AsksIndex';
 import AskAnswerIndex from './asks/AskAnswerIndex';
 import '../index.css';
 
