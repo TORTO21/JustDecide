@@ -47,13 +47,8 @@ class AskDropdown extends Component {
       dropdown: false
     })
 
-    const prev = client.readQuery({
-      query: FETCH_ASK_DETAILS
-    })
-
     client.writeData({
       data: {
-        ...prev,
         askAskingAs: selfRef
       }
     })

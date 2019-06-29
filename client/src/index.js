@@ -24,10 +24,13 @@ cache.writeData({
     askQuestion: '',
     askUseDate: true,
     askAskingAs: null,
-    isLoggedIn: Boolean(token),
-    currentUserId,
+    askDate: '',
+    askDeadline: '',
     askOptions: [],
-    askInvitees: []
+    askInvitees: [],
+
+    isLoggedIn: Boolean(token),
+    currentUserId
   }
 })
 
