@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query, withApollo } from 'react-apollo';
+import { Query, withApollo, ApolloConsumer } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
 import { GET_USER_ASKS, GET_ASKS } from '../../graphql/queries/ask_queries';
@@ -50,12 +50,20 @@ class AsksIndex extends React.Component {
   }
 
   updateCache(client, askCount) {
-    client.writeData({ askCount: askCount})
+    client.writeData({ 
+      data: { askCount: askCount }
+    })
   }
 
   render() {
+    // <div>
+    // <Query>
     const user_id = window.localStorage.getItem('current-user')
     return(
+      // <div>
+      //   <Query>
+
+      //   </Query>
       <ApolloConsumer>
         {client => {
             return (
@@ -92,6 +100,7 @@ class AsksIndex extends React.Component {
             )
         }}
       </ApolloConsumer>
+      // </div>
     )
   }
 }

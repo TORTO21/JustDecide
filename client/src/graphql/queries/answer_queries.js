@@ -14,3 +14,8 @@ export const GET_ANSWERS = gql`
     }
   }
 `
+export const ANSWER_COUNT = gql`
+  query {
+    answerCount @client
+  }
+`

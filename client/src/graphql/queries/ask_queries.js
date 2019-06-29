@@ -85,5 +85,8 @@ export const GET_USER_ANSWERING = gql`
     }
   }
 `
-
-
+export const ASK_COUNT = gql`
+  query {
+    askCount @client
+  }
+`
