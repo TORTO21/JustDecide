@@ -1,17 +1,20 @@
-import React, { Component } from "react";
-import { withRouter } from 'react-router-dom'
-import { Query, ApolloConsumer } from "react-apollo";
-import AskDropdown from './AskDropdown'
-import Toggle from 'react-toggle';
 import './AskQuestion.css'
 
+import React, { Component } from 'react'
+
+import { ApolloConsumer } from 'react-apollo'
+import AskDropdown from './AskDropdown'
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
+import { Query } from 'react-apollo'
+import Toggle from 'react-toggle'
+import { withRouter } from 'react-router-dom'
 
 class AskQuestion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      ask: "",
-      checked: true
+      askQuestion: this.props.data.askQuestion,
+      askUseDate: this.props.data.askUseDate
     }
     this.toggle = this.toggle.bind(this)
   }
@@ -19,73 +22,66 @@ class AskQuestion extends Component {
   updateCache(client) {
     client.writeData({
       data: {
-        ask: this.state.ask,
-        dateTime: this.state.checked
+        askQuestion: this.state.askQuestion,
+        askUseDate: this.state.askUseDate
       }
     })
   }
 
   handleNext(client) {
     this.updateCache(client)
-    if (this.state.checked) {
-      this.props.history.push("/selectDate")
+    if (this.state.askUseDate) {
+      this.props.history.push('/selectDate')
     } else {
-      this.props.history.push("/deadlineDate")
+      this.props.history.push('/deadlineDate')
     }
   }
 
   update(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => this.setState({ [field]: e.target.value })
   }
 
   toggle() {
-    this.state.checked === true
-      ? this.setState({ checked: false })
-      : this.setState({ checked: true })
+    this.setState({ askUseDate: !this.state.askUseDate })
   }
 
   render() {
-    console.log(this.state.checked)
     return (
       <ApolloConsumer>
-        { client => {
-          return(
+        {client => {
+          return (
             <div className="ask-question-container background">
-              <div className="ask-question-title section-header" >Ask</div>
+              <div className="ask-question-title section-header">Ask</div>
               <textarea
-                className="ask-question-field" 
-                onChange={ this.update("ask") }
+                className="ask-question-field"
+                onChange={this.update('askQuestion')}
+                value={this.state.askQuestion}
                 placeholder="ex: Where are we going for dinner?"
               />
               <div className="ask-question-as drop-shadow button">
-                <div style={{flex: 1}}> 
-                  <AskDropdown />
-                </div>
-                <div className="ask-question-as-icon">
-                  <svg width="22" height="22" viewBox="0 -5 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="24 / music / player-play">
-                      <path id="icon" fillRule="evenodd" clipRule="evenodd" d="M43.75 10.4167L6.25002 10.4167C4.60176 10.4167 3.60626 12.2401 4.49757 13.6266L23.2476 42.7933C24.0676 44.0689 25.9324 44.0689 26.7525 42.7933L45.5025 13.6266C46.3938 12.2401 45.3983 10.4167 43.75 10.4167ZM25 37.8141L10.066 14.5834L39.934 14.5834L25 37.8141Z" fill="#979797"/>
-                    </g>
-                  </svg>
+                <div style={{ flex: 1 }}>
+                  <AskDropdown currentSelection={this.props.data.askAskingAs} />
                 </div>
               </div>
-              <div className="ask-questio-date-time-container">
+              <div className="ask-question-date-time-container">
                 <div className="ask-question-date-time-title">
                   Do you want to set a date or time?
                 </div>
                 <div className="ask-question-date-time">
-                  <Toggle 
-                    defaultChecked={ this.state.checked }
-                    icons={ false }
-                    onChange={ this.toggle }
-                    className={ this.state.checked === true ? `yes` : `no` } />
+                  <Toggle
+                    defaultChecked={this.state.askUseDate}
+                    icons={false}
+                    onChange={this.toggle}
+                    className={this.state.askUseDate ? `yes` : `no`}
+                  />
                 </div>
               </div>
               <div className="ask-question-button">
                 <button
                   className="solid-pink-button button"
-                  onClick={ () => this.handleNext(client) } >
-                    Next
+                  onClick={() => this.handleNext(client)}
+                >
+                  Next
                 </button>
               </div>
             </div>
@@ -96,4 +92,12 @@ class AskQuestion extends Component {
   }
 }
 
-export default  withRouter(AskQuestion)
+const WithExistingAnswers = ({ history }) => (
+  <Query query={FETCH_ASK_DETAILS}>
+    {({ data }) => {
+      return <AskQuestion data={data} history={history} />
+    }}
+  </Query>
+)
+
+export default withRouter(WithExistingAnswers)

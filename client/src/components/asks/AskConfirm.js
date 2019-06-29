@@ -3,7 +3,7 @@ import './AskConfirm.css'
 import { ApolloConsumer, Query } from 'react-apollo'
 
 import Countdown from './Countdown'
-import { FETCH_ASK_DETAILS } from '../../graphql/queries/user_queries'
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
 import PinkCheck from '../../components/icons/PinkCheck.png'
 import React from 'react'
 import dateFns from 'date-fns'
