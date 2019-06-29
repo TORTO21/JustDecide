@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { Query , ApolloConsumer } from "react-apollo";
+import { ApolloConsumer, Query } from 'react-apollo'
+import React, { Component } from 'react'
+
 import { GET_USER_CONTACTS } from '../../graphql/queries/ask_question_queries'
 
 class AskDropdown extends Component {

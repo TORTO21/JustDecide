@@ -223,6 +223,7 @@ class Deadline extends React.Component {
     console.log(window.localStorage.getItem('date'))
     console.log('cache')
     console.log(client)
+    this.props.history.push("/askOption")
   }
 
   render() {

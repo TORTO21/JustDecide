@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { Mutation } from 'react-apollo'
 import Mutations from '../../graphql/mutations/auth_mutations'
+
 const { REGISTER_USER } = Mutations
 
 class Register extends Component {
@@ -18,7 +19,6 @@ class Register extends Component {
 
   handleSubmit(e, registerUser) {
     e.preventDefault()
-    console.log(this.state.name)
     if (this.state.password === this.state.password2) {
       registerUser({
         variables: {
