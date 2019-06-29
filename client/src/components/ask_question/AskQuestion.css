@@ -22,8 +22,10 @@
   height: 40px;
   border-radius: 7px;
   font-size: 22px;
-  padding: 5px;
-  padding-left: 15px;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .ask-questio-date-time-container {
@@ -47,4 +49,25 @@
 
 .ask-question-button {
   margin-top: 10%;
+}
+
+.ask-question-dropdown {
+  position: absolute;
+  z-index: 4;
+  background: white;
+  width: 70%;
+  max-height: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  overflow: scroll;
+}
+
+.ask-question-ref {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0;
+  border-bottom: 1px solid lightgray;
 }
