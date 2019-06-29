@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { GET_CONTACTS } from '../../graphql/queries/user_queries'
 import { Mutation } from 'react-apollo'
 import { NEW_CONTACT } from '../../graphql/mutations/contact_mutations'
 
@@ -15,6 +16,7 @@ const CreateContact = props => {
       onCompleted={data => {
         props.history.goBack()
       }}
+      refetchQueries={[{ query: GET_CONTACTS, variables: { id: owner_id } }]}
     >
       {newContact => (
         <div className="auth-container background">

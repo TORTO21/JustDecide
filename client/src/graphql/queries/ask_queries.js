@@ -1,5 +1,23 @@
 import gql from 'graphql-tag'
 
+export const FETCH_ASK_DETAILS = gql`
+  query {
+    askQuestion @client
+    askUseDate @client
+    askAskingAs @client {
+      id
+      name
+      user {
+        id
+      }
+    }
+    askDate @client
+    askDeadline @client
+    askOptions @client
+    askInvitees @client
+  }
+`
+
 export const GET_ASK = gql`
   query getAsk($id: ID!) {
     ask(id: $id) {

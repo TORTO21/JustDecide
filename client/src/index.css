@@ -153,16 +153,9 @@ input[type='text']:focus {
   z-index: 1;
   left: 20px;
   top: 20px;
-  width: 100px;
-  height: 25px;
-}
-
-/* links */
-.home {
-  position: absolute;
-  z-index: 1;
-  right: 20px;
-  top: 20px;
+  width: 60px;
+  height: 20px;
+  font-size: 12px;
 }
 
 /* form */
@@ -287,4 +280,13 @@ code {
   background-size: cover;
   margin: 1px;
   cursor: pointer;
+}
+
+.back-btn {
+  background-image: url(./components/icons/back.png);
+  width: 28px;
+  height: 28px;
+  background-size: contain;
+  cursor: pointer;
+  background-repeat: no-repeat;
 }

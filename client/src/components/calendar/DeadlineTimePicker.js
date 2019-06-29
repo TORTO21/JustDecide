@@ -92,7 +92,7 @@ class DeadlineTimePicker extends React.Component {
 
   createTimeString() {
     let timeString = (dateFns.format(this.state.hr, hrFormat)
-      + " " +
+      + ":" +
       dateFns.format(this.state.min, minFormat)
       + " " +
       this.state.meridiemIndicator)

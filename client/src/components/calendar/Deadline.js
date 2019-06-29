@@ -4,7 +4,9 @@ import { ApolloConsumer } from 'react-apollo'
 import DblLeftArrow from '../icons/DblLeftArrow.png'
 import DblRightArrow from '../icons/DblRightArrow.png'
 import DeadlineTimePicker from './DeadlineTimePicker'
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
 import LeftArrow from '../icons/LeftArrow.png'
+import { Query } from 'react-apollo'
 import React from 'react'
 import RightArrow from '../icons/RightArrow.png'
 import dateFns from 'date-fns'
@@ -12,12 +14,17 @@ import dateFns from 'date-fns'
 class Deadline extends React.Component {
   constructor(props) {
     super(props)
+
+    const dateToUse = this.props.data.askDeadline
+      ? new Date(this.props.data.askDeadline)
+      : new Date()
+
     this.state = {
-      currentMonth: new Date(),
-      selectedDate: new Date(),
-      today: new Date(),
-      currentWeekStart: dateFns.startOfWeek(new Date()),
-      currentWeekEnd: dateFns.endOfWeek(new Date())
+      currentMonth: dateToUse,
+      selectedDate: dateToUse,
+      today: dateToUse,
+      currentWeekStart: dateFns.startOfWeek(dateToUse),
+      currentWeekEnd: dateFns.endOfWeek(dateToUse)
     }
     this.handleNext = this.handleNext.bind(this)
     this.updateCache = this.updateCache.bind(this)
@@ -212,7 +219,7 @@ class Deadline extends React.Component {
     const dateString = this.createDateString()
     window.localStorage.setItem('deadlineDate', dateString)
     client.writeData({
-      data: { deadlineDate: dateString }
+      data: { askDeadline: dateString }
     })
     this.handleNext(client)
   }
@@ -223,6 +230,7 @@ class Deadline extends React.Component {
     console.log(window.localStorage.getItem('date'))
     console.log('cache')
     console.log(client)
+    this.props.history.push('/askOption')
   }
 
   render() {
@@ -231,7 +239,13 @@ class Deadline extends React.Component {
         {client => {
           return (
             <div className="background">
-              <div className="section-header deadline-header">
+              <div
+                className="section-header deadline-header"
+                style={{
+                  marginLeft: 20,
+                  marginRight: 20
+                }}
+              >
                 When do you need to know by?
               </div>
               <div className="calendar">
@@ -256,4 +270,12 @@ class Deadline extends React.Component {
   }
 }
 
-export default Deadline
+const WithExistingAnswers = ({ history }) => (
+  <Query query={FETCH_ASK_DETAILS}>
+    {({ data }) => {
+      return <Deadline data={data} history={history} />
+    }}
+  </Query>
+)
+
+export default WithExistingAnswers

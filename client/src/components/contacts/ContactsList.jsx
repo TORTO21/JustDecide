@@ -1,13 +1,14 @@
-import { ASK_INVITEES, GET_CONTACTS } from '../../graphql/queries/user_queries'
 import React, { useEffect, useState } from 'react'
 
 import { ApolloConsumer } from 'react-apollo'
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
+import { GET_CONTACTS } from '../../graphql/queries/user_queries'
 import { Link } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import SelectableContact from './SelectableContact'
 
-const InnerList = ({ currentUserId, history, currentInvitees }) => {
-  const [selected, setSelected] = useState([])
+const ContactsList = ({ currentUserId, history, currentInvitees }) => {
+  const [selected, setSelected] = useState(currentInvitees)
 
   useEffect(() => setSelected(currentInvitees), [currentInvitees])
 
@@ -24,7 +25,7 @@ const InnerList = ({ currentUserId, history, currentInvitees }) => {
     client.writeData({
       data: { askInvitees: selected }
     })
-    history.push('/success')
+    history.push('/askConfirm')
   }
 
   const saveInviteList = client => {
@@ -48,7 +49,7 @@ const InnerList = ({ currentUserId, history, currentInvitees }) => {
               {({ loading, data }) => {
                 if (loading) return null
                 const contacts = data.user.contacts.sort((a, b) =>
-                  a.name < b.name ? -1 : 1
+                  a.name.toUpperCase() < b.name.toUpperCase() ? -1 : 1
                 )
                 return (
                   <div
@@ -109,19 +110,18 @@ const InnerList = ({ currentUserId, history, currentInvitees }) => {
   )
 }
 
-export default ({ currentUserId, history }) => {
-  return (
-    <Query query={ASK_INVITEES}>
-      {({ loading, data }) => {
-        if (loading) return null
-        return (
-          <InnerList
-            currentUserId={currentUserId}
-            history={history}
-            currentInvitees={data.askInvitees}
-          />
-        )
-      }}
-    </Query>
-  )
-}
+const WithExistingAnswers = ({ currentUserId, history }) => (
+  <Query query={FETCH_ASK_DETAILS}>
+    {({ data }) => {
+      return (
+        <ContactsList
+          currentUserId={currentUserId}
+          history={history}
+          currentInvitees={data.askInvitees}
+        />
+      )
+    }}
+  </Query>
+)
+
+export default WithExistingAnswers

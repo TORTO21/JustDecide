@@ -26,9 +26,9 @@
   height: 100%;
 }
 
-.outer-container {
+/* .outer-container {
   position: relative;
-}
+} */
 
 .top-container {
   display: flex;
