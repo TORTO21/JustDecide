@@ -63,7 +63,7 @@ class AskDropdown extends Component {
             >
               { ({ loading, error, data: { user } }) => {
                 if (loading) return "Asking as ..."
-                // if (error) return console.log(error.message)
+                // if (error) return `Error! ${ error.message }`
                 
                 const selfRefs = user.contacts.filter(contact => {
                   return contact.user && contact.user.id === user.id

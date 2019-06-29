@@ -6,6 +6,7 @@ import Mutations from './graphql/mutations/auth_mutations'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/Root'
+import Errors from './components/errors/Errors'
 import { createHttpLink } from 'apollo-link-http'
 import { onError } from "apollo-link-error";
 
@@ -25,7 +26,8 @@ cache.writeData({
     isLoggedIn: Boolean(token),
     currentUserId,
     askOptions: [],
-    askInvitees: []
+    askInvitees: [],
+    errors: []
   }
 })
 
@@ -38,24 +40,33 @@ const httpLink = createHttpLink({
   }
 })
 
-const errorlink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-      ),
-    );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
+const errorLink = onError(error => console.log("hello from error index"))
+// (({ graphQLErrors, networkError }) => {
+//   if (graphQLErrors)
+//     graphQLErrors.map(({ message, locations, path }) =>
+//       console.log(
+//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+//       ),
+//     );
+//   if (networkError) console.log(`[Network error]: ${networkError}`);
+// });
 
 // Create new Apollo client from link and cache.
 const client = new ApolloClient({
   link: httpLink,
   cache,
-  onError: ({ networkError, graphQLErrors }) => {
-    console.log('graphQLErrors', graphQLErrors)
-    console.log('networkError', networkError)
-  }
+  onError: 
+  errorLink
+  // ({ networkError, graphQLErrors }) => {
+  //   console.log('graphQLErrors', graphQLErrors)
+  //   console.log('networkError', networkError)
+  //   ReactDOM.render(
+  //     <Errors
+  //       client={ client }
+  //       networkError={ networkError }
+  //       graphQLErrors={ graphQLErrors }
+  //       />, document.getElementById('root'))
+  // }
 })
 
 // if token exists in local stroage, apply backend mutation,

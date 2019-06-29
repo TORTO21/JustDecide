@@ -34,8 +34,8 @@ class Register extends Component {
     return e => this.setState({ [field]: e.target.value })
   }
 
-  updateCache(client, { data }) {
-    client.writeData({
+  updateCache(cache, { data }) {
+    cache.writeData({
       data: {
         isLoggedIn: data.register.loggedIn,
         currentUserId: data.register.id
@@ -53,7 +53,7 @@ class Register extends Component {
           localStorage.setItem("current-user", id);
           this.props.history.push('/asks/new')
         }}
-        update={(client, data) => this.updateCache(client, data)}
+        update={(cache, result) => this.updateCache(cache, result)}
       >
         {registerUser => (
           <div className="auth-container background">

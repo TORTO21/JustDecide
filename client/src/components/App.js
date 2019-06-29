@@ -18,10 +18,12 @@ import React from 'react'
 import Register from './auth/Register'
 import SelectDate from './calendar/SelectDate'
 import Splash from './splash/Splash'
+import Errors from './errors/Errors'
 
 const App = () => (
   <div>
     <Nav />
+    {/* <Errors /> */}
     <Switch>
       <AuthRoute exact path="/register" component={Register} routeType="auth" />
       <AuthRoute exact path="/login" component={Login} routeType="auth" />

@@ -19,7 +19,7 @@ const Splash = props => {
         </button>
         <div className="splash-auth-buttons-container">
           <Query query={ IS_LOGGED_IN }>
-            {({ data }) => {
+            {({ errors, data }) => {
               if (!data.isLoggedIn) {
                 return (
                   <div className="splash-auth-buttons">
