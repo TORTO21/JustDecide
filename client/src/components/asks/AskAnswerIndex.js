@@ -38,11 +38,7 @@ class AskAnswerIndex extends React.Component {
 
   render() {
     const user_id = window.localStorage.getItem('current-user')
-    // look at state to conditionally render 
-    // run query 
-    // inside body of query, have access to data
-    
-    // 
+
     let indexDisplay;
     
     return(

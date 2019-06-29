@@ -14,12 +14,11 @@ class AsksIndex extends React.Component {
     super(props)
     this.state = {
       showDeleteModal: false,
-      deleteAskId: null
+      deleteAskId: null,
+      data: this.props.data
     }
     this.detailClick = this.detailClick.bind(this)
     this.handleTrash = this.handleTrash.bind(this)
-    // this.handleDelete = this.handleDelete.bind(this)
-    // this.closeModal = this.closeModal.bind(this)
     this.updateCache = this.updateCache.bind(this)
   }
 
@@ -62,8 +61,6 @@ class AsksIndex extends React.Component {
   handleDelete(e, mutation, idToDelete) {
     e.preventDefault();
     mutation({ variables: {id: idToDelete} })
-
-    // this.setState({ showDeleteModal: false })
   }
 
   closeModal() {
@@ -71,16 +68,40 @@ class AsksIndex extends React.Component {
   }
 
   render() {
+
     const user_id = window.localStorage.getItem('current-user')
+    let deleteModal;
+
     return(
       <>
         <Mutation mutation={DELETE_ASK}
         onCompleted={() => this.closeModal()}>
           {(DeleteAsk, { data }) => {
+            let asks = this.state.data.user.asks.map(ask => {
+              let date = this.formatDate(ask.date)
+              let time = this.formatTime(ask.date)
+              return (
+
+                <li
+                  key={ask.id}
+                  className="asks-li drop-shadow"
+                  onClick={() => this.detailClick(ask.id)}>
+                  <div className="ask-question">{ask.question}</div>
+                  <div className="ask-date">{date}</div>
+                  <div className="ask-time">{time}</div>
+                  <img
+                    src={TrashIcon}
+                    className="trash-icon"
+                    onClick={e => this.handleTrash(e, ask.id)}>
+                  </img>
+                </li>
+              )
+            })
+
             if (this.state.showDeleteModal) {
               const idToDelete = this.state.deleteAskId
               
-              return (
+              deleteModal = (
                 <div className="delete-modal drop-shadow">
                   <div className="modal-gradient"></div>
                   <div className="delete-confirm-message">
@@ -101,53 +122,18 @@ class AsksIndex extends React.Component {
                 </div>
               )
             } else {
-              return null
+              deleteModal = null
             }
+            return (
+              <>
+                {deleteModal}
+                <ul className="asks-ul" >
+                  {asks}
+                </ul>
+              </>
+            )
           }}
         </Mutation>
-        <ApolloConsumer>
-          {client => {
-              return (
-                <Query query={GET_USER_ASKS} variables={{id: user_id}} pollInterval={500}>
-                  {({ loading, error, data, startPolling, stopPolling }) => {
-                    if (loading) return "Loading...";
-                    if (error) return `Error! ${error.message}`;
-
-                      let askCount = data.user.asks.length
-                      // this.updateWindow(askCount)
-                      this.updateCache(client, askCount)
-          
-                      let asks = data.user.asks.map(ask => {
-                        let date = this.formatDate(ask.date)
-                        let time = this.formatTime(ask.date)
-          
-                        return (
-                          
-                          <li
-                            key={ask.id}
-                            className="asks-li drop-shadow"
-                            onClick={() => this.detailClick(ask.id)}>
-                            <div className="ask-question">{ask.question}</div>
-                            <div className="ask-date">{date}</div>
-                            <div className="ask-time">{time}</div>
-                            <img
-                              src={TrashIcon}
-                              className="trash-icon"
-                              onClick={e => this.handleTrash(e, ask.id) }>
-                            </img>
-                          </li>
-                        )
-                      })
-                      return (
-                        <ul className = "asks-ul">
-                          {asks}
-                        </ul>
-                      )             
-                  }}
-                </Query>
-              )
-          }}
-        </ApolloConsumer>
       </>
     )
   }
