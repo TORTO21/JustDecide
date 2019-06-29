@@ -14,12 +14,12 @@ class AsksIndex extends React.Component {
     super(props)
     this.state = {
       showDeleteModal: false,
-      deleteAskId: null,
-      data: this.props.data
+      deleteAskId: null
     }
     this.detailClick = this.detailClick.bind(this)
     this.handleTrash = this.handleTrash.bind(this)
     this.updateCache = this.updateCache.bind(this)
+    this.detailClick = this.detailClick.bind(this)
   }
 
   formatDate(date) {
@@ -75,11 +75,13 @@ class AsksIndex extends React.Component {
     return(
       <>
         <Mutation mutation={DELETE_ASK}
-        onCompleted={() => this.closeModal()}>
+        onCompleted={() => this.closeModal()}
+        refetchQueries={[{query: GET_USER_ASKS, variables: {id: user_id}}]}>
           {(DeleteAsk, { data }) => {
-            let asks = this.state.data.user.asks.map(ask => {
+            let asks = this.props.data.user.asks.map(ask => {
               let date = this.formatDate(ask.date)
               let time = this.formatTime(ask.date)
+              console.log(ask.id)
               return (
 
                 <li

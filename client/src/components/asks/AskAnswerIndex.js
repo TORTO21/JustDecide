@@ -42,12 +42,10 @@ class AskAnswerIndex extends React.Component {
     let indexDisplay;
     
     return(
-        <Query query={GET_USER_ASKS} variables={{ id: user_id }}
-          pollInterval={500}>
+        <Query query={GET_USER_ASKS} variables={{ id: user_id }}>
           {({ loading: loadingAsk, error: errorAsk, data: ask, startPolling, stopPolling }) => (
 
-            <Query query={GET_USER_ANSWERING} variables={{ id: user_id }}
-              pollInterval={500}>
+            <Query query={GET_USER_ANSWERING} variables={{ id: user_id }}>
               {({ loading: loadingAnswer, error: errorAnswer, data: answer, startPolling, stopPolling }) => {
                 if (loadingAsk) return "Loading ...";
                 if (errorAsk) return `Error! ${errorAsk.message}`;
@@ -58,9 +56,10 @@ class AskAnswerIndex extends React.Component {
                 let answeringCount = answer.user.invited.length
 
                 if (this.state.asks) {
-                  indexDisplay = <AsksIndex data={ask} />
+                  console.log("rendering")
+                  indexDisplay = <AsksIndex data={ask} history={this.props.history}/>
                 } else {
-                  indexDisplay = <AnswersIndex data={answer} />
+                  indexDisplay = <AnswersIndex data={answer} history={this.props.history}/>
       
                 }
                 return (
