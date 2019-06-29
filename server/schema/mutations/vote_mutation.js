@@ -6,6 +6,7 @@ const Vote = require('../../models/Vote')
 const Option = require('../../models/Option')
 const Contact = require('../../models/Contact')
 const User = require('../../models/User')
+const { userLoggedIn } = require ('../../services/auth')
 
 const voteMutations = {
   newVote: {
@@ -15,7 +16,10 @@ const voteMutations = {
       contact_id: { type: GraphQLID },
       direction: { type: GraphQLString }
     },
-    resolve: (parent, data, context) => {
+    resolve: async(parent, data, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       const vote = new Vote(data)
       return Option.findById(data.option_id).then(option => {
         option.votes.push(vote)
@@ -35,7 +39,10 @@ const voteMutations = {
   deleteVote: {
     type: VoteType,
     args: { id: { type: GraphQLID } },
-    resolve: (_, { id }) => {
+    resolve: async (_, { id }, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       return Vote.findById(id).then(vote => {
         return Contact.findById(vote.contact_id).then(contact => {
           return User.findById(contact.user_id).then(user => {
@@ -62,7 +69,10 @@ const voteMutations = {
       id: { type: GraphQLID },
       direction: { type: GraphQLString }
     },
-    resolve: (_, data) => {
+    resolve: async (_, data, context) => {
+      if (!await userLoggedIn(context)) {
+        throw new Error("You must be logged in before proceeding")
+      }
       return Vote.findById(data.id).then(vote => {
         vote.direction = data.direction || vote.direction
         return vote.save()
