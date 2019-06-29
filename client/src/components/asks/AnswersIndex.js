@@ -10,28 +10,28 @@ import './AsksIndex.css';
 class AnswersIndex extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      asks: true,
-      answering: false
-    }
-    this.toggleHeaders = this.toggleHeaders.bind(this)
+    // this.state = {
+    //   asks: true,
+    //   answering: false
+    // }
+    // this.toggleHeaders = this.toggleHeaders.bind(this)
   }
 
 
 
-  toggleHeaders() {
-    if (this.state.asks === true) {
-      this.setState({
-        asks: false,
-        answering: true
-      })
-    } else {
-      this.setState({
-        asks: true,
-        answering: false
-      })
-    }
-  }
+  // toggleHeaders() {
+  //   if (this.state.asks === true) {
+  //     this.setState({
+  //       asks: false,
+  //       answering: true
+  //     })
+  //   } else {
+  //     this.setState({
+  //       asks: true,
+  //       answering: false
+  //     })
+  //   }
+  // }
 
   formatDate(date) {
     let d = new Date(parseInt(date))
@@ -49,6 +49,10 @@ class AnswersIndex extends React.Component {
     this.props.history.push(`/asks/${ask_id}`)
   }
 
+  updateWindow(answeringCount) {
+    window.localStorage.setItem('answeringCount', answeringCount)
+  }
+
   render() {
     const user_id = window.localStorage.getItem('current-user')
     return(
@@ -59,6 +63,10 @@ class AnswersIndex extends React.Component {
               {({ loading, error, data }) => {
                 if (loading) return "Loading...";
                 if (error) return `Error! ${error.message}`;
+
+                let answeringCount = data.user.invited.length
+                this.updateWindow(answeringCount)
+
                 let asks = data.user.invited.map(invite => {
                   let date = this.formatDate(invite.ask.date)
                   let time = this.formatTime(invite.ask.date)

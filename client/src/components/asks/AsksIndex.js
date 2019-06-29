@@ -10,28 +10,28 @@ import './AsksIndex.css';
 class AsksIndex extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      asks: true,
-      answering: false
-    }
+    // this.state = {
+    //   asks: true,
+    //   answering: false
+    // }
     
-    this.toggleHeaders = this.toggleHeaders.bind(this)
+    // this.toggleHeaders = this.toggleHeaders.bind(this)
     this.detailClick = this.detailClick.bind(this)
   }
 
-  toggleHeaders() {
-    if (this.state.asks === true) {
-      this.setState({
-        asks: false,
-        answering: true
-      })
-    } else {
-      this.setState({
-        asks: true,
-        answering: false 
-      })
-    }
-  }
+  // toggleHeaders() {
+  //   if (this.state.asks === true) {
+  //     this.setState({
+  //       asks: false,
+  //       answering: true
+  //     })
+  //   } else {
+  //     this.setState({
+  //       asks: true,
+  //       answering: false 
+  //     })
+  //   }
+  // }
 
   formatDate(date) {
     let d = new Date(parseInt(date))
@@ -49,15 +49,12 @@ class AsksIndex extends React.Component {
     this.props.history.push(`/asks/${ask_id}`)
   }
 
-  updateCache(client, askCount) {
-    client.writeData({ 
-      data: { askCount: askCount }
-    })
+  updateWindow(askCount) {
+    window.localStorage.setItem('askCount', askCount)
   }
 
   render() {
-    // <div>
-    // <Query>
+
     const user_id = window.localStorage.getItem('current-user')
     return(
       // <div>
@@ -73,7 +70,7 @@ class AsksIndex extends React.Component {
                   if (error) return `Error! ${error.message}`;
 
                     let askCount = data.user.asks.length
-                    this.updateCache(client, askCount)
+                    this.updateWindow(askCount)
         
                     let asks = data.user.asks.map(ask => {
                       let date = this.formatDate(ask.date)
