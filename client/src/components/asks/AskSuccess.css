@@ -1,0 +1,110 @@
+.overall-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lower-container {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  flex: 1;
+}
+
+.ask-details-container {
+  width: 75%;
+  height: 150px;
+  background: white;
+  margin-top: 8%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+
+.ask-deadline-counter {
+  margin-top: -7%;
+  height: 10%;
+  width: 50%;
+  display: flex;
+  border-radius: 15px;
+  border: none;
+  padding-left: 10px;
+  color: #595959;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.ask-invitees-list {
+  width: 80%;
+  margin-top: 10%;
+  display: flex;
+  flex: 1;
+}
+
+.ask-button {
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.ask-invitees-ul {
+  margin: 0px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  border-radius: 15px;
+  overflow: scroll;
+  list-style: none;
+  padding: 0px;
+  align-items: center;
+}
+
+.invitee-li {
+  margin-top: 10%;
+  padding-bottom: 5%;
+  list-style: none;
+  color: #595959;
+  border-bottom: 1px solid grey;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.success-pink-check {
+  width: 35px;
+  height: 35px;
+}
+
+.ask-details {
+  text-align: center;
+  margin: 25px 10px 0px 10px;
+}
+
+.date-time-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ask-date {
+  margin-bottom: 5px;
+}
+
+.ask-time {
+  margin-bottom: 20px;
+}
