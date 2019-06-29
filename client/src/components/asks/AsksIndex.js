@@ -77,40 +77,30 @@ class AsksIndex extends React.Component {
   render() {
     const user_id = window.localStorage.getItem('current-user')
 
-    // let deleteModal;
-    // if (this.state.showDeleteModal) {
-    //   return (
-    //     <div className="delete-modal">
-    //       <div className="delete-confirm-message">
-    //         Are you sure you want to delete this ask?
-    //       </div>
-    //       <button className="yes-button">Yes</button>
-    //       <button className="no-button">No</button>
-    //     </div>
-    //   )
-    // }
-
     return(
-      <div>
-        <Mutation mutation={DELETE_ASK}
+      <>
+      <Mutation mutation={DELETE_ASK}
         onCompleted={() => this.handleTrash}>
           {(deleteAsk, { data }) => {
             if (this.state.showDeleteModal) {
               return (
-                <div className="delete-modal">
+                <div className="delete-modal drop-shadow">
+                  <div className="modal-gradient"></div>
                   <div className="delete-confirm-message">
                     Are you sure you want to delete this ask?
                   </div>
-                  <button 
-                    className="yes-button"
-                    onClick={e => this.handleDelete(e, deleteAsk) }>
-                    Yes
-                  </button>
-                  <button 
-                    className="no-button"
-                    onClick={e => this.handleTrash(e)}>
-                    No
-                  </button>
+                  <div className="yes-no-button-container">
+                    <button 
+                      className="solid-pink-button yes-button"
+                      onClick={e => this.handleDelete(e, deleteAsk) }>
+                      Yes
+                    </button>
+                    <button 
+                      className="solid-pink-button no-button"
+                      onClick={e => this.handleTrash(e)}>
+                      No
+                    </button>
+                  </div>
                 </div>
               )
             } else {
@@ -159,7 +149,7 @@ class AsksIndex extends React.Component {
               )
           }}
         </ApolloConsumer>
-      </div>
+      </>
     )
   }
 }
