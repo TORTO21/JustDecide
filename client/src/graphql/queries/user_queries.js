@@ -5,8 +5,8 @@ export const FETCH_ASK_DETAILS = gql`
     askOptions @client
     askDate @client
     deadlineDate @client
-    # askInvitees @client
-    # askDetails @client
+    askInvitees @client
+    askDetails @client
   }
 `
 
