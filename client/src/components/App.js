@@ -13,7 +13,6 @@ import AuthRoute from '../util/route_util'
 import Deadline from './calendar/Deadline'
 import Login from './auth/Login'
 import Nav from './nav/Nav'
-import NewOption from './asks/NewOption'
 import React from 'react'
 import Register from './auth/Register'
 import SelectDate from './calendar/SelectDate'
@@ -27,7 +26,6 @@ const App = () => (
       <AuthRoute exact path="/login" component={Login} routeType="auth" />
       <Route path="/asks/new" component={AskQuestion} />
       <Route exact path="/asks/:ask_id" component={AskDetail} />
-      <Route exact path="/asks/:ask_id/new-option" component={NewOption} />
       <Route exact path="/selectDate" component={SelectDate} />
       <Route exact path="/deadlineDate" component={Deadline} />
       <Route exact path="/askOption" component={AskOption} />
