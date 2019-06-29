@@ -3,7 +3,9 @@ import './Calendar.css'
 import { ApolloConsumer } from 'react-apollo'
 import DblLeftArrow from '../icons/DblLeftArrow.png'
 import DblRightArrow from '../icons/DblRightArrow.png'
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
 import LeftArrow from '../icons/LeftArrow.png'
+import { Query } from 'react-apollo'
 import React from 'react'
 import RightArrow from '../icons/RightArrow.png'
 import TimePicker from './TimePicker'
@@ -12,12 +14,18 @@ import dateFns from 'date-fns'
 class SelectDate extends React.Component {
   constructor(props) {
     super(props)
+
+    const dateToUse = this.props.data.askDate
+      ? new Date(this.props.data.askDate)
+      : new Date()
+
     this.state = {
-      currentMonth: new Date(),
-      selectedDate: new Date(),
-      today: new Date(),
-      currentWeekStart: dateFns.startOfWeek(new Date()),
-      currentWeekEnd: dateFns.endOfWeek(new Date())
+      currentMonth: dateToUse,
+      selectedDate: dateToUse,
+      today: dateToUse,
+      currentWeekStart: dateFns.startOfWeek(dateToUse),
+      currentWeekEnd: dateFns.endOfWeek(dateToUse),
+      time: ''
     }
     this.updateCache = this.updateCache.bind(this)
     this.nextWeek = this.nextWeek.bind(this)
@@ -209,10 +217,11 @@ class SelectDate extends React.Component {
 
   updateCache(client) {
     const dateString = this.createDateString()
-    window.localStorage.setItem('date', dateString)
+
     client.writeData({
       data: { askDate: dateString }
     })
+
     this.props.history.push('/deadlineDate')
   }
 
@@ -228,7 +237,7 @@ class SelectDate extends React.Component {
                 {this.renderDays()}
                 {this.renderDates()}
               </div>
-              <TimePicker />
+              <TimePicker saveTime={this.saveTime} />
               <div className="cal-button-container">
                 <button
                   className="solid-pink-button calendar-button"
@@ -245,4 +254,12 @@ class SelectDate extends React.Component {
   }
 }
 
-export default SelectDate
+const WithExistingAnswers = ({ history }) => (
+  <Query query={FETCH_ASK_DETAILS}>
+    {({ data }) => {
+      return <SelectDate data={data} history={history} />
+    }}
+  </Query>
+)
+
+export default WithExistingAnswers

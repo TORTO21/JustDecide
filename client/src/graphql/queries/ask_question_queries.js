@@ -5,6 +5,7 @@ export const GET_USER_CONTACTS = gql`
     user(id: $id) {
       id
       contacts {
+        id
         name
         user {
           id

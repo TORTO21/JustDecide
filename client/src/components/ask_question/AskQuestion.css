@@ -28,13 +28,12 @@
   align-items: center;
 }
 
-.ask-questio-date-time-container {
+.ask-question-date-time-container {
   margin-top: 10%;
   max-width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .ask-question-date-time-title {

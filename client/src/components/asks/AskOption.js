@@ -1,17 +1,19 @@
-import React from 'react';
-import { ApolloConsumer } from 'react-apollo';
-import './AskOption.css';
-import Toggle from 'react-toggle';
+import './AskOption.css'
 import './Toggle.css'
 
+import { ApolloConsumer } from 'react-apollo'
+import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
+import { Query } from 'react-apollo'
+import React from 'react'
+import Toggle from 'react-toggle'
 
 class AskOption extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       checked: false,
-      options: [], 
-      newOption: '',
+      options: props.data.askOptions,
+      newOption: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.updateList = this.updateList.bind(this)
@@ -28,8 +30,8 @@ class AskOption extends React.Component {
   }
 
   handleInput() {
-    return (e) => {
-      this.setState({ newOption: e.target.value})
+    return e => {
+      this.setState({ newOption: e.target.value })
     }
   }
 
@@ -50,24 +52,28 @@ class AskOption extends React.Component {
       data: { askOptions: options }
     })
   }
-  
+
   resetForm() {
-    document.getElementById("option-input").value = "";
+    document.getElementById('option-input').value = ''
   }
-  
+
   handleContinue(client) {
     // console.log(client.cache.data.data.ROOT_QUERY.askOptions.json)
 
     if (this.state.checked === true) {
       client.writeData({
-        data: { askOptions: ["yes", "no"]}
+        data: { askOptions: ['yes', 'no'] }
+      })
+    } else {
+      client.writeData({
+        data: { askOptions: this.state.options }
       })
     }
-    console.log(client)
+    // console.log(client)
     // this.props.history.push('/invite')
-    this.props.history.push('/askSuccess')
+    this.props.history.push('/askInvite')
   }
-  
+
   render() {
     let optionList = this.state.options.map((option, i) => {
       return (
@@ -76,64 +82,77 @@ class AskOption extends React.Component {
         </li>
       )
     })
-    let listView;
+    let listView
     if (this.state.checked === false) {
-      listView = (
-        <ul className = "option-list-view drop-shadow">
-          { optionList }
-        </ul >
-      )
+      listView = <ul className="option-list-view drop-shadow">{optionList}</ul>
     } else {
       listView = (
         <ul className="option-list-view drop-shadow">
-          <li key="0" className="option-li">no</li>
-          <li key="1" className="option-li">yes</li>
+          <li key="0" className="option-li">
+            no
+          </li>
+          <li key="1" className="option-li">
+            yes
+          </li>
         </ul>
       )
     }
-    return(
+    return (
       <ApolloConsumer>
-        {(client) => {
+        {client => {
           return (
             <div className="background">
               <div className="overall-container">
                 <div className="top-container">
-                  <div className="section-header ask-option-header">Is this a yes or no question?</div>
-                  <Toggle 
+                  <div className="section-header ask-option-header">
+                    Is this a yes or no question?
+                  </div>
+                  <Toggle
                     defaultChecked={this.state.checked}
                     icons={false}
                     onChange={this.handleChange}
-                    className={this.state.checked === true ? `yes` : `no`} />
+                    className={this.state.checked === true ? `yes` : `no`}
+                  />
                 </div>
                 <div className="lower-container">
                   <input
                     className={`option-input drop-shadow 
-                      ${this.state.checked === true ? "hidden" : ""}`}
+                      ${this.state.checked === true ? 'hidden' : ''}`}
                     placeholder="option"
                     type="text"
                     onChange={this.handleInput()}
-                    id="option-input">
-                  </input>
+                    id="option-input"
+                  />
                   <button
                     className={`add-button green-gradient
-                      ${this.state.checked === true ? "hidden" : ""}`}
-                    onClick={() => this.updateList(client)}>
+                      ${this.state.checked === true ? 'hidden' : ''}`}
+                    onClick={() => this.updateList(client)}
+                  >
                     Add Option
                   </button>
                   <button
                     className="continue-button solid-pink-button"
-                    onClick={() => this.handleContinue(client)}>
+                    onClick={() => this.handleContinue(client)}
+                  >
                     Continue
                   </button>
-                  {listView}                 
+                  {listView}
                 </div>
               </div>
             </div>
           )
         }}
-        </ApolloConsumer>
+      </ApolloConsumer>
     )
   }
 }
 
-export default AskOption;
+const WithExistingAnswers = ({ history }) => (
+  <Query query={FETCH_ASK_DETAILS}>
+    {({ data }) => {
+      return <AskOption data={data} history={history} />
+    }}
+  </Query>
+)
+
+export default WithExistingAnswers

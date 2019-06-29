@@ -1,26 +1,24 @@
 import gql from 'graphql-tag'
 
-export const FETCH_ASK_DETAILS = gql`
-  query {
-    askQuestion @client
-    askUseDate @client
-    askAskingAs @client {
-      id
-      name
-      user {
-        id
-      }
-    }
-    askDate @client
-    askDeadline @client
-    askOptions @client
-    askInvitees @client
-  }
-`
-
-export const GET_ASK = gql`
-  query getAsk($id: ID!) {
-    ask(id: $id) {
+export const NEW_ASK = gql`
+  mutation NewAsk(
+    $author_id: ID!
+    $name_used_id: ID!
+    $question: String!
+    $use_date: Boolean
+    $use_time: Boolean
+    $date: String
+    $deadline: String
+  ) {
+    newAsk(
+      author_id: $author_id
+      name_used_id: $name_used_id
+      question: $question
+      use_date: $use_date
+      use_time: $use_time
+      date: $date
+      deadline: $deadline
+    ) {
       id
       author {
         id
