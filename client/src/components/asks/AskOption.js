@@ -64,7 +64,8 @@ class AskOption extends React.Component {
       })
     }
     console.log(client)
-    this.props.history.push('/invite')
+    // this.props.history.push('/invite')
+    this.props.history.push('/askSuccess')
   }
   
   render() {
@@ -124,8 +125,7 @@ class AskOption extends React.Component {
                     onClick={() => this.handleContinue(client)}>
                     Continue
                   </button>
-                  {listView}
-                  
+                  {listView}                 
                 </div>
               </div>
             </div>

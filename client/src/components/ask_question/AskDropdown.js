@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { Query , ApolloConsumer } from "react-apollo";
+import { ApolloConsumer, Query } from 'react-apollo'
+import React, { Component } from 'react'
+
 import { GET_USER_CONTACTS } from '../../graphql/queries/ask_question_queries'
 
 class AskDropdown extends Component {
@@ -7,68 +8,76 @@ class AskDropdown extends Component {
     super(props)
     this.state = {
       dropdown: false,
-      displayName: "Ask as ...",
+      selfRef: "Asking as ...",
+    }
+    this.referenceList = this.referenceList.bind(this)
+    this.selectRef = this.selectRef.bind(this)
+  }
+
+  referenceList(selfRefs, client) {
+    if (this.state.dropdown) {
+      return (
+        <div className="ask-question-dropdown drop-shadow">
+          { selfRefs.map((selfRef, i) => {
+            return (
+              <div
+                key={i}
+                className="ask-question-ref" 
+                onClick={ () => this.selectRef(selfRef, client) }
+              >
+                { selfRef }
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else {
+      return null
     }
   }
 
-
-
-  referenceList(selfRefs) {
-    return (
-      <div>
-        { selfRefs.map(ref => {
-          return <div>{`${ref.name}`}</div>
-        })}
-      </div>
-    )
+  openDropdown() {
+    this.setState({dropdown: true})
   }
 
-  toggleDropdown(){
-    return this.setState({dropdown: true})
+  selectRef(selfRef, client) {
+    this.setState({
+      selfRef,
+      dropdown: false
+    })
+    client.writeData({
+      data: { selfRef }
+    })
   }
 
   render() {
     return (
       <ApolloConsumer>
         { client => {
-          
+          console.log(client.cache.data.data.ROOT_QUERY)
+          const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
           return(
             <Query
               query={ GET_USER_CONTACTS }
-              variables={ { id: "5d1155722ec86b307d6dfa98" } } 
+              variables={ { id: currentUserId } } 
             >
-
-              { ({ loading, error, data }) => {
-                if (loading) return "Loading..."
-                if (error) return `Error! ${ error.message }`
-                
-                const { user } = data
-                const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
-                // console.log(currentUserId)
+              { ({ loading, error, data: { user } }) => {
+                if (loading) return "Asking as ..."
+                // if (error) return console.log(error.message)
                 
                 const selfRefs = user.contacts.filter(contact => {
-                  return contact.user.id === user.id
-                }).map(contact => {
-                  return {
-                    ref: contact.name,
-                    id: contact.user.id
-                  }
-                })
+                  return contact.user && contact.user.id === user.id
+                }).map(contact => contact.name)
 
-                return (
-                  <div
-                    className="ask-question-as drop-shadow"
-                    onClick={this.openDropdown}
-                  >
-                    { console.log(selfRefs) }
-                    <span>{ this.state.displayName }</span>
-                    <span className="ask-question-as-icon">
-                      <svg width="22" height="22" viewBox="0 -5 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g id="24 / music / player-play">
-                          <path id="icon" fillRule="evenodd" clipRule="evenodd" d="M43.75 10.4167L6.25002 10.4167C4.60176 10.4167 3.60626 12.2401 4.49757 13.6266L23.2476 42.7933C24.0676 44.0689 25.9324 44.0689 26.7525 42.7933L45.5025 13.6266C46.3938 12.2401 45.3983 10.4167 43.75 10.4167ZM25 37.8141L10.066 14.5834L39.934 14.5834L25 37.8141Z" fill="#979797"/>
-                        </g>
-                      </svg>
-                    </span>
+                return ( 
+                  <div>
+                    <div
+                      onClick={ () => this.openDropdown() }
+                      className="ask-question-selfref"  
+                    >
+                      { this.state.selfRef }
+                    </div>
+                    { this.referenceList(selfRefs, client) }
                   </div>
                 )
               }}
