@@ -76,6 +76,9 @@
   display: flex;
   flex-direction: column;
   margin: auto;
+  flex: 1;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .asks-li {

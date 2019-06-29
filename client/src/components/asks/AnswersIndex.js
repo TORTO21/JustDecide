@@ -10,6 +10,9 @@ import './AsksIndex.css';
 class AnswersIndex extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      data: this.props.data
+    }
     this.updateCache = this.updateCache.bind(this)
   }
 
@@ -38,44 +41,29 @@ class AnswersIndex extends React.Component {
 
   render() {
     const user_id = window.localStorage.getItem('current-user')
-    return(
-      <ApolloConsumer>
-        {client => {
-          return (
-            <Query query={GET_USER_ANSWERING} variables={{ id: user_id }}>
-              {({ loading, error, data }) => {
-                if (loading) return "Loading...";
-                if (error) return `Error! ${error.message}`;
-
-                let answeringCount = data.user.invited.length
-                this.updateCache(client, answeringCount)
-
-                let asks = data.user.invited.map(invite => {
-                  let date = this.formatDate(invite.ask.date)
-                  let time = this.formatTime(invite.ask.date)
-                  return (
-                    <li
-                      key={invite.id}
-                      className="asks-li drop-shadow"
-                      onClick={() => this.detailClick(invite.ask.id)}>
-                      <div className="ask-question">{invite.ask.question}</div>
-                      <div className="ask-date">{date}</div>
-                      <div className="ask-time">{time}</div>
-                      {/* <Votes props={ask.id} /> */}
-                    </li>
-                  )
-                })
-                return (
-                  <ul className="asks-ul">
-                    {asks}
-                  </ul>
-                )
-              }}
-            </Query>
-          )
-        }}
-      </ApolloConsumer>
+  
+    let asks = this.state.data.user.invited.map(invite => {
+      let date = this.formatDate(invite.ask.date)
+      let time = this.formatTime(invite.ask.date)
+      console.log(invite)
+      return (
+        <li
+          key={invite.ask.id}
+          className="asks-li drop-shadow"
+          onClick={() => this.detailClick(invite.ask.id)}>
+          <div className="ask-question">{invite.ask.question}</div>
+          <div className="ask-date">{date}</div>
+          <div className="ask-time">{time}</div>
+          {/* <Votes props={ask.id} /> */}
+        </li>
+      )
+    })
+    return (
+      <ul className="asks-ul">
+        {asks}
+      </ul>
     )
+
   }
 }
 
