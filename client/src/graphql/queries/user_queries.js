@@ -1,9 +1,9 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export const FETCH_ASK_DETAILS = gql`
   query {
-    askOptions @client 
-    askDate @client 
+    askOptions @client
+    askDate @client
     deadlineDate @client
     # askInvitees @client
     # askDetails @client
@@ -36,4 +36,4 @@ export const ASK_INVITEES = gql`
   query {
     askInvitees @client
   }
-
+`
