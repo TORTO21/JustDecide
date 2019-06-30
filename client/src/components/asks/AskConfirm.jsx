@@ -50,7 +50,8 @@ const saveAll = (client, data, currentUserId, history) => {
         })
       })
 
-      history.push(`/asks/${ask.id}`)
+      // history.push(`/asks/${ask.id}`)
+      history.push('/asks/')
     })
 }
 
@@ -84,8 +85,8 @@ const AskConfirm = ({ data, currentUserId, history }) => {
                   <div className="ask-details">{data.askQuestion}</div>
                   {data.askUseDate && (
                     <div className="date-time-group">
-                      <div className="ask-date">{date}</div>
-                      <div className="ask-time">{time}</div>
+                      <div className="confirm-ask-date">{date}</div>
+                      <div className="confirm-ask-time">{time}</div>
                     </div>
                   )}
                 </div>

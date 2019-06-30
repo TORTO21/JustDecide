@@ -49,7 +49,7 @@ class AnswersIndex extends React.Component {
       return (
         <li
           key={invite.ask.id}
-          className="asks-li drop-shadow"
+          className="asks-li index-drop-shadow"
           onClick={() => this.detailClick(invite.ask.id)}>
           <div className="ask-question">{invite.ask.question}</div>
           <div className="ask-date">{date}</div>
