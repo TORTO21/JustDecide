@@ -27,7 +27,7 @@ const saveAll = (client, data, currentUserId, history) => {
       }
     })
     .then(({ data: { newAsk: ask } }) => {
-      data.askOptions.forEach(option => {
+      JSON.parse(data.askOptions).forEach(option => {
         client.mutate({
           mutation: NEW_OPTION,
           variables: {
@@ -58,7 +58,7 @@ const AskConfirm = ({ data, currentUserId, history }) => {
   return (
     <ApolloConsumer>
       {client => {
-        let options = data.askOptions.map((option, i) => {
+        let options = JSON.parse(data.askOptions).map((option, i) => {
           return (
             <li key={i} className="invitee-li">
               {option}

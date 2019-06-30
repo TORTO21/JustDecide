@@ -225,11 +225,6 @@ class Deadline extends React.Component {
   }
 
   handleNext(client) {
-    console.log('localStorage')
-    console.log(window.localStorage.getItem('deadlineDate'))
-    console.log(window.localStorage.getItem('date'))
-    console.log('cache')
-    console.log(client)
     this.props.history.push('/askOption')
   }
 
