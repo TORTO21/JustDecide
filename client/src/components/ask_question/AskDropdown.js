@@ -63,7 +63,7 @@ class AskDropdown extends Component {
                 if (loading) return 'Asking as ...'
 
                 const selfRefs = user.contacts.filter(contact => {
-                  return contact.user && contact.user.id === user.id
+                  return contact.phone_number === user.phone_number
                 })
 
                 return (

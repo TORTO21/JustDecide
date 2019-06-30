@@ -17,8 +17,8 @@ const userMutations = {
     resolve: async (_, args) => {
       const registrant = await AuthService.register(args)
       const newContact = new Contact({
+        phone_number: args.phone_number,
         owner_id: registrant.id,
-        user_id: registrant.id,
         name: args.name
       })
       await newContact.save()
