@@ -112,10 +112,6 @@
   background: white;
 }
 
-.toggle .react-switch-bg {
-  background: red;
-}
-
 .react-switch-handle {
   background: linear-gradient(
     325deg,

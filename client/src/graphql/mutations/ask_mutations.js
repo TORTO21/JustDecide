@@ -1,5 +1,13 @@
 import gql from 'graphql-tag'
 
+export const DELETE_ASK = gql`
+  mutation DeleteAsk($id: ID!) {
+    deleteAsk(id: $id) {
+      id
+    }
+  }
+`
+
 export const NEW_ASK = gql`
   mutation NewAsk(
     $author_id: ID!
@@ -64,3 +72,4 @@ export const NEW_ASK = gql`
     }
   }
 `
+

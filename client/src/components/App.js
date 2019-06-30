@@ -17,6 +17,8 @@ import React from 'react'
 import Register from './auth/Register'
 import SelectDate from './calendar/SelectDate'
 import Splash from './splash/Splash'
+import AskAnswerIndex from './asks/AskAnswerIndex';
+import '../index.css';
 
 const App = () => (
   <div>
@@ -26,6 +28,8 @@ const App = () => (
       <AuthRoute exact path="/login" component={Login} routeType="auth" />
       <Route exact path="/asks/new" component={AskQuestion} />
       <Route exact path="/asks/:ask_id" component={AskDetail} />
+      <Route exact path="/asks/:ask_id/new-option" component={NewOption} />
+      <Route path="/asks" component= { AskAnswerIndex } />
       <Route exact path="/selectDate" component={SelectDate} />
       <Route exact path="/deadlineDate" component={Deadline} />
       <Route exact path="/askOption" component={AskOption} />
