@@ -18,6 +18,7 @@ import Register from './auth/Register'
 import SelectDate from './calendar/SelectDate'
 import Splash from './splash/Splash'
 import AskAnswerIndex from './asks/AskAnswerIndex';
+import NewOption from './asks/NewOption';
 import '../index.css';
 
 const App = () => (
