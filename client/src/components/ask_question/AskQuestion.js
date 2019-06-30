@@ -26,6 +26,7 @@ class AskQuestion extends Component {
         askUseDate: this.state.askUseDate
       }
     })
+    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   handleNext(client) {
@@ -95,6 +96,7 @@ class AskQuestion extends Component {
 const WithExistingAnswers = ({ history }) => (
   <Query query={FETCH_ASK_DETAILS}>
     {({ data }) => {
+      console.log(data)
       return <AskQuestion data={data} history={history} />
     }}
   </Query>

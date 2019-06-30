@@ -1,25 +1,64 @@
-import { ApolloConsumer, Query } from 'react-apollo'
+import { ApolloConsumer, Query, Mutation } from 'react-apollo'
 import React, { Component } from 'react'
-
-import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
 import { GET_USER_CONTACTS } from '../../graphql/queries/ask_question_queries'
+import { NEW_CONTACT } from '../../graphql/mutations/contact_mutations'
 
 class AskDropdown extends Component {
   constructor(props) {
     super(props)
     this.state = {
       dropdown: false,
-      selfRef: this.props.currentSelection
+      selfRef: this.props.currentSelection,
+      newRef: {}
     }
     this.referenceList = this.referenceList.bind(this)
     this.selectRef = this.selectRef.bind(this)
   }
 
-  referenceList(selfRefs, client) {
+  update(field) {
+    return e => this.setState({ [field]: e.target.value });
+  }
+
+  referenceList(selfRefs, client, user) {
+    // console.log(user)
     if (this.state.dropdown) {
       return (
         <div className="ask-question-dropdown drop-shadow">
+          <Mutation
+            mutation={ NEW_CONTACT }
+          >
+            { (newContact, { data }) => {
+              return (
+                <form
+                  onSubmit={ e => {
+                    // console.log(user)
+                    e.preventDefault()
+                    newContact({
+                      variables: {
+                        phone_number: user.phone_number,
+                        owner_id: user.id,
+                        name: this.state.newRef
+                      }
+                    })
+                    .then(({ data: { newContact } }) => {
+                      // console.log(newContact)
+                      this.selectRef(newContact, client)
+                    })
+                  }
+                }>
+                  <input
+                    className="ask-question-ref-new"
+                    placeholder="Something else... (ex. 'Dad')"
+                    onChange={ this.update("newRef") }
+                  >
+                  </input>
+                </form>
+              )
+            }}
+          </Mutation>
           {selfRefs.map((selfRef, i) => {
+            console.log("in ReferenceList:")
+            console.log(selfRef)
             return (
               <div
                 key={i}
@@ -37,21 +76,29 @@ class AskDropdown extends Component {
     }
   }
 
+
+
+  closeDropdown() {
+    this.setState({ dropdown: false })
+  }
+  
   openDropdown() {
     this.setState({ dropdown: true })
   }
 
   selectRef(selfRef, client) {
-    this.setState({
-      selfRef,
-      dropdown: false
-    })
-
+    this.setState({ selfRef })
+    this.closeDropdown()
+    console.log("selectRef")
+    console.log(selfRef)
     client.writeData({
       data: {
-        askAskingAs: selfRef
+        // askAskingAs: JSON.stringify(selfRef)
+        askAskingAsId: selfRef.id,
+        askAskingAsName: selfRef.name
       }
     })
+    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   render() {
@@ -65,7 +112,7 @@ class AskDropdown extends Component {
                 if (loading) return 'Asking as ...'
 
                 const selfRefs = user.contacts.filter(contact => {
-                  return contact.user && contact.user.id === user.id
+                  return contact.phone_number === user.phone_number
                 })
 
                 return (
@@ -102,7 +149,7 @@ class AskDropdown extends Component {
                         </svg>
                       </div>
                     </div>
-                    {this.referenceList(selfRefs, client)}
+                    {this.referenceList(selfRefs, client, user)}
                   </div>
                 )
               }}

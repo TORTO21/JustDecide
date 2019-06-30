@@ -13,12 +13,13 @@ import React from 'react'
 import dateFns from 'date-fns'
 
 const saveAll = (client, data, currentUserId, history) => {
+  console.log(data.askAskingAsId)
   client
     .mutate({
       mutation: NEW_ASK,
       variables: {
         author_id: currentUserId,
-        name_used_id: data.askAskingAs.id,
+        name_used_id: data.askAskingAsId,
         question: data.askQuestion,
         use_date: data.askUseDate,
         use_time: data.askUseDate,
@@ -31,7 +32,7 @@ const saveAll = (client, data, currentUserId, history) => {
         client.mutate({
           mutation: NEW_OPTION,
           variables: {
-            creator_id: data.askAskingAs.id,
+            creator_id: data.askAskingAsId,
             ask_id: ask.id,
             title: option
           }

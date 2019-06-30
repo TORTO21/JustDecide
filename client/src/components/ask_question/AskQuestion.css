@@ -70,3 +70,12 @@
   padding: 5px 0;
   border-bottom: 1px solid lightgray;
 }
+
+.ask-question-ref-new {
+  font-size: 16px;
+  width: 100%;
+  text-align: center;
+  border-style: none;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 5px;
+}
