@@ -66,3 +66,46 @@ export const GET_ASK = gql`
     }
   }
 `
+
+export const GET_ASKS = gql`
+  {
+    asks {
+      question 
+      date
+    }
+  }
+`
+
+export const GET_USER_ASKS = gql`
+  query getUserAsks($id: ID!) {
+    user(id: $id) {
+      asks {
+        question
+        date 
+        id
+      }
+    }
+  }
+`
+
+export const GET_USER_ANSWERING = gql`
+  query getUserAnswering($id: ID!) {
+    user(id: $id) {
+      phone_number
+      id
+      invited {
+        ask {
+          question
+          date
+          id
+        }
+      } 
+    }
+  }
+`
+export const BADGE_COUNT = gql`
+  query {
+    askCount @client
+    answeringCount @client
+  }
+`

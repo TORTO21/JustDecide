@@ -28,7 +28,7 @@ cache.writeData({
     askAskingAs: null,
     askDate: '',
     askDeadline: '',
-    askOptions: [],
+    askOptions: JSON.stringify([]),
     askInvitees: [],
     errors: [],
     isLoggedIn: Boolean(token),

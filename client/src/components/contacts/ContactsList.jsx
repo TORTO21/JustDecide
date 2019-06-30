@@ -29,6 +29,8 @@ const ContactsList = ({ currentUserId, history, currentInvitees }) => {
   }
 
   const saveInviteList = client => {
+    console.log(selected)
+
     client.writeData({
       data: { askInvitees: selected }
     })

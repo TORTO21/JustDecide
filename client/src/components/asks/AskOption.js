@@ -12,7 +12,7 @@ class AskOption extends React.Component {
     super(props)
     this.state = {
       checked: false,
-      options: props.data.askOptions,
+      options: JSON.parse(props.data.askOptions),
       newOption: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -40,17 +40,8 @@ class AskOption extends React.Component {
     if (!currentOptions.includes(this.state.newOption)) {
       currentOptions.push(this.state.newOption)
     }
-    this.setState({ options: currentOptions }, () => {
-      this.updateCache(client, currentOptions)
-    })
+    this.setState({ options: currentOptions })
     this.resetForm()
-  }
-
-  updateCache(client, options) {
-    console.log(options)
-    client.writeData({
-      data: { askOptions: options }
-    })
   }
 
   resetForm() {
@@ -58,19 +49,15 @@ class AskOption extends React.Component {
   }
 
   handleContinue(client) {
-    // console.log(client.cache.data.data.ROOT_QUERY.askOptions.json)
-
     if (this.state.checked === true) {
       client.writeData({
-        data: { askOptions: ['yes', 'no'] }
+        data: { askOptions: JSON.stringify(['yes', 'no']) }
       })
     } else {
       client.writeData({
-        data: { askOptions: this.state.options }
+        data: { askOptions: JSON.stringify(this.state.options) }
       })
     }
-    // console.log(client)
-    // this.props.history.push('/invite')
     this.props.history.push('/askInvite')
   }
 

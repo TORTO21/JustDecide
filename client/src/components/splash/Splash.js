@@ -6,17 +6,18 @@ import './Splash.css';
 const { IS_LOGGED_IN } = Queries;
 
 
+
 const Splash = props => {
   return (
     <div className="splash-container background">
       <div className="splash-title">just decide</div>
       <div className="splash-subtitle">Ask a question and invite friends and family to weigh in</div>
       <div className="splash-buttons">
-        <button
+        {/* <button
           className="create-ask-button button"
           onClick={ () => props.history.push("/asks/new") } >
             Create an Ask
-        </button>
+        </button> */}
         <div className="splash-auth-buttons-container">
           <Query query={ IS_LOGGED_IN }>
             {({ errors, data }) => {

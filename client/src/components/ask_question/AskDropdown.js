@@ -61,7 +61,6 @@ class AskDropdown extends Component {
             <Query query={GET_USER_CONTACTS} variables={{ id: currentUserId }}>
               {({ loading, error, data: { user } }) => {
                 if (loading) return 'Asking as ...'
-                // if (error) return console.log(error.message)
 
                 const selfRefs = user.contacts.filter(contact => {
                   return contact.user && contact.user.id === user.id

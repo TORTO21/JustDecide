@@ -39,7 +39,7 @@ const saveAll = (client, data, currentUserId, history) => {
       }
     })
     .then(({ data: { newAsk: ask } }) => {
-      data.askOptions.forEach(option => {
+      JSON.parse(data.askOptions).forEach(option => {
         client.mutate({
           mutation: NEW_OPTION,
           variables: {
@@ -65,7 +65,8 @@ const saveAll = (client, data, currentUserId, history) => {
         })
       })
 
-      history.push(`/asks/${ask.id}`)
+      // history.push(`/asks/${ask.id}`)
+      history.push('/asks/')
     })
 }
 
@@ -73,7 +74,7 @@ const AskConfirm = ({ data, currentUserId, history }) => {
   return (
     <ApolloConsumer>
       {client => {
-        let options = data.askOptions.map((option, i) => {
+        let options = JSON.parse(data.askOptions).map((option, i) => {
           return (
             <li key={i} className="invitee-li">
               {option}
@@ -81,7 +82,6 @@ const AskConfirm = ({ data, currentUserId, history }) => {
             </li>
           )
         })
-
         let arr = data.askDate.split(' ')
         let time = arr[3] + ' ' + arr[4]
         let d = new Date(data.askDate)
@@ -99,8 +99,8 @@ const AskConfirm = ({ data, currentUserId, history }) => {
                   <div className="ask-details">{data.askQuestion}</div>
                   {data.askUseDate && (
                     <div className="date-time-group">
-                      <div className="ask-date">{date}</div>
-                      <div className="ask-time">{time}</div>
+                      <div className="confirm-ask-date">{date}</div>
+                      <div className="confirm-ask-time">{time}</div>
                     </div>
                   )}
                 </div>
