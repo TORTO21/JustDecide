@@ -13,24 +13,24 @@ const AuthRoute = ({
 }) => (
   <Query query={ IS_LOGGED_IN }>
     {({ data }) => {
-      // renders if not logged in else send to root
+      // router renders if not logged in else send to index
       if (routeType === "auth") {
         return (
           <Route
             path={path}
             exact={exact}
             render={ props =>
-              !data.isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
+              !data.isLoggedIn ? <Component {...props} /> : <Redirect to="/asks" />
             }
           />
         );
       } else {
-        // renders if logged in else send to login
+        // route renders if logged in else send to root
         return (
           <Route
             {...rest}
             render={ props =>
-              data.isLoggedIn ? <Component {...props} /> : <Redirect to="/login" />
+              data.isLoggedIn ? <Component {...props} /> : <Redirect to="/" />
             }
           />
         );

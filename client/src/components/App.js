@@ -29,18 +29,17 @@ const App = () => (
     <Switch>
       <AuthRoute exact path="/register" component={Register} routeType="auth" />
       <AuthRoute exact path="/login" component={Login} routeType="auth" />
-      <Route exact path="/asks/new" component={AskQuestion} />
-      <Route exact path="/asks/:ask_id" component={AskDetail} />
-      <Route exact path="/asks/:ask_id/new-option" component={NewOption} />
-      <Route path="/asks" component= { AskAnswerIndex } />
-      <Route exact path="/selectDate" component={SelectDate} />
-      <Route exact path="/deadlineDate" component={Deadline} />
-      <Route exact path="/askOption" component={AskOption} />
-      <Route exact path="/askConfirm" component={AskConfirm} />
+      <AuthRoute exact path="/asks/new" component={AskQuestion} />
+      <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
+      <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
+      <AuthRoute exact path="/asks" component= { AskAnswerIndex } />
+      <AuthRoute exact path="/selectDate" component={SelectDate} />
+      <AuthRoute exact path="/deadlineDate" component={Deadline} />
+      <AuthRoute exact path="/askOption" component={AskOption} />
+      <AuthRoute exact path="/askConfirm" component={AskConfirm} />
+      <AuthRoute exact path="/askInvite" component={AskInvite} />
+      <AuthRoute exact path="/users/:user_id/newContact" component={AddContact} />
       <Route exact path="/" component={Splash} />
-      <Route exact path="/askInvite" component={AskInvite} />
-      <Route exact path="/users/:user_id/newContact" component={AddContact} />
-      {/* <Route path="/asks" component= { AsksIndex } /> */}
     </Switch>
   </div>
 )
