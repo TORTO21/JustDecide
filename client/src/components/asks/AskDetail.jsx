@@ -30,8 +30,11 @@ const AskDetail = props => {
                 className="section-header"
                 style={{
                   textAlign: 'center',
-                  fontSize: 41,
-                  lineHeight: '43px'
+                  fontSize: 38,
+                  lineHeight: '38px',
+                  marginLeft: 20,
+                  marginRight: 20,
+                  marginBottom: 20
                 }}
               >
                 {ask.question}
