@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
-import { onError } from "apollo-link-error";
 import './Errors.css'
 
 class Errors extends Component {
@@ -11,7 +10,7 @@ class Errors extends Component {
       <ApolloConsumer>
         { client => {
           const { errors } = client.cache.data.data.ROOT_QUERY
-          console.log(this.props.errors)
+          console.log(this.props)
           const errorsList = errors.length > 0
             ? errors.map(error => <div>{ error }</div>)
             : null

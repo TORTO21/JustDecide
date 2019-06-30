@@ -24,6 +24,18 @@ const saveAll = (client, data, currentUserId, history) => {
         use_time: data.askUseDate,
         date: data.askDate ? new Date(data.askDate).getTime().toString() : '',
         deadline: new Date(data.askDeadline).getTime().toString()
+      },
+      onCompleted: () => {
+        client.writeCache({
+          data: {
+            askQuestion: '',
+            askUseDate: true,
+            askDate: '',
+            askDeadline: '',
+            askOptions: [],
+            askInvitees: []
+          }
+        })
       }
     })
     .then(({ data: { newAsk: ask } }) => {
@@ -34,7 +46,10 @@ const saveAll = (client, data, currentUserId, history) => {
             creator_id: data.askAskingAs.id,
             ask_id: ask.id,
             title: option
-          }
+          },
+          // onCompleted: () => {
+          //   client
+          // }
         })
       })
 
