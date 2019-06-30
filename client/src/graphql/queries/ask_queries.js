@@ -4,13 +4,16 @@ export const FETCH_ASK_DETAILS = gql`
   query {
     askQuestion @client
     askUseDate @client
-    askAskingAs @client {
-      id
-      name
-      user {
-        id
-      }
-    }
+    # askAskingAs @client {
+    #   id
+    #   name
+    #   user {
+    #     id
+    #   }
+    # }
+    askAskingAsId @client
+    askAskingAsName @client
+
     askDate @client
     askDeadline @client
     askOptions @client

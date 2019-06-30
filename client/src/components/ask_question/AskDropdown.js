@@ -9,7 +9,7 @@ class AskDropdown extends Component {
     this.state = {
       dropdown: false,
       selfRef: this.props.currentSelection,
-      newRef: ""
+      newRef: {}
     }
     this.referenceList = this.referenceList.bind(this)
     this.selectRef = this.selectRef.bind(this)
@@ -20,6 +20,7 @@ class AskDropdown extends Component {
   }
 
   referenceList(selfRefs, client, user) {
+    // console.log(user)
     if (this.state.dropdown) {
       return (
         <div className="ask-question-dropdown drop-shadow">
@@ -30,6 +31,7 @@ class AskDropdown extends Component {
               return (
                 <form
                   onSubmit={ e => {
+                    // console.log(user)
                     e.preventDefault()
                     newContact({
                       variables: {
@@ -37,7 +39,9 @@ class AskDropdown extends Component {
                         owner_id: user.id,
                         name: this.state.newRef
                       }
-                    }).then(({ data: { newContact } }) => {
+                    })
+                    .then(({ data: { newContact } }) => {
+                      // console.log(newContact)
                       this.selectRef(newContact, client)
                     })
                   }
@@ -53,6 +57,7 @@ class AskDropdown extends Component {
             }}
           </Mutation>
           {selfRefs.map((selfRef, i) => {
+            console.log("in ReferenceList:")
             console.log(selfRef)
             return (
               <div
@@ -82,17 +87,18 @@ class AskDropdown extends Component {
   }
 
   selectRef(selfRef, client) {
-    this.setState({
-      selfRef,
-      // dropdown: false
-    })
+    this.setState({ selfRef })
     this.closeDropdown()
+    console.log("selectRef")
+    console.log(selfRef)
     client.writeData({
       data: {
-        askAskingAs: selfRef
+        // askAskingAs: JSON.stringify(selfRef)
+        askAskingAsId: selfRef.id,
+        askAskingAsName: selfRef.name
       }
     })
-    console.log(selfRef)
+    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   render() {
@@ -109,7 +115,6 @@ class AskDropdown extends Component {
                   return contact.phone_number === user.phone_number
                 })
 
-                console.log(selfRefs)
                 return (
                   <div>
                     <div

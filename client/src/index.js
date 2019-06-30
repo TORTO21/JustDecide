@@ -25,7 +25,9 @@ cache.writeData({
   data: {
     askQuestion: '',
     askUseDate: true,
-    askAskingAs: null,
+    // askAskingAs: null,
+    askAskingAsId: '',
+    askAskingAsName: '',
     askDate: '',
     askDeadline: '',
     askOptions: JSON.stringify([]),
