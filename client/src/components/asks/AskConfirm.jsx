@@ -67,7 +67,6 @@ const AskConfirm = ({ data, currentUserId, history }) => {
             </li>
           )
         })
-
         let arr = data.askDate.split(' ')
         let time = arr[3] + ' ' + arr[4]
         let d = new Date(data.askDate)
