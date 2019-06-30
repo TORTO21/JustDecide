@@ -26,6 +26,7 @@ class AskQuestion extends Component {
         askUseDate: this.state.askUseDate
       }
     })
+    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   handleNext(client) {
