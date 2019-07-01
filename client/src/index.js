@@ -47,16 +47,17 @@ const httpLink = createHttpLink({
   }
 })
 
-const errorLink = onError(error => console.log("hello from error index"))
-// (({ graphQLErrors, networkError }) => {
-//   if (graphQLErrors)
-//     graphQLErrors.map(({ message, locations, path }) =>
-//       console.log(
-//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-//       ),
-//     );
-//   if (networkError) console.log(`[Network error]: ${networkError}`);
-// });
+const errorLink = 
+// onError(error => console.log("hello from error index"))
+(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, locations, path }) =>
+      console.log(
+        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+      ),
+    );
+  if (networkError) console.log(`[Network error]: ${networkError}`);
+});
 
 // Create new Apollo client from link and cache.
 const client = new ApolloClient({

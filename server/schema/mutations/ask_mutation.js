@@ -19,9 +19,9 @@ const askMutations = {
       deadline: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      // if (!(await userLoggedIn(context))) {
-      //   throw new Error('You must be logged in before proceeding')
-      // }
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
+      }
       const ask = new Ask(data)
       return User.findById(data.author_id).then(user => {
         user.asks.push(ask)
@@ -35,9 +35,9 @@ const askMutations = {
     type: AskType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      // if (!(await userLoggedIn(context))) {
-      //   throw new Error('You must be logged in before proceeding')
-      // }
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
+      }
       return Ask.findById(id).then(ask => {
         User.findById(ask.owner_id).then(user => {
           user.asks.pull(ask)
@@ -59,9 +59,9 @@ const askMutations = {
       deadline: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      // if (!(await userLoggedIn(context))) {
-      //   throw new Error('You must be logged in before proceeding')
-      // }
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
+      }
       return Ask.findById(data.id).then(ask => {
         ask.name_used_id = data.name_used_id || ask.name_used_id
         ask.question = data.question || ask.question
