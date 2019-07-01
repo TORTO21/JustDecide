@@ -18,7 +18,7 @@ const Nav = ({ history }) => (
   >
     <div className="back-btn" onClick={() => history.goBack()} />
     <Logout />
-    <Link className="button" to="/asks">
+    <Link className="button" to="/asks" replace>
       <svg
         width="30"
         height="28"

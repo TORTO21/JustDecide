@@ -40,11 +40,13 @@ class AnswersIndex extends React.Component {
   }
 
   render() {
+    console.log("here we go")
+    console.log(this.state.data.user.invited)
     const user_id = window.localStorage.getItem('current-user')
-  
     let asks = this.state.data.user.invited.map(invite => {
-      let date = this.formatDate(invite.ask.date)
-      let time = this.formatTime(invite.ask.date)
+      console.log(invite)
+      let date = invite.ask ? this.formatDate(invite.ask.date) : null
+      let time = invite.ask ? this.formatTime(invite.ask.date) : null
       console.log(invite)
       return (
         <li
