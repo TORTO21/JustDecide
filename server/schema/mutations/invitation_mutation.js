@@ -25,18 +25,18 @@ const invitationMutations = {
       return Ask.findById(data.ask_id).then(ask => {
         ask.invitations.push(invitation)
         return Contact.findById(data.contact_id).then(contact => {
-          // return User.find({ phone_number: contact.phone_number }).then(
-          //   user => {
-          //     if (user) {
-          //       user.invitations.push(invitation)
-          return Promise.all([invitation.save(), ask.save()]).then(
-            ([invitation, ask]) => {
-              return invitation
+          return User.find({ phone_number: contact.phone_number }).then(
+            user => {
+              if (user[0]) {
+                user[0].invitations.push(invitation)
+                return Promise.all([invitation.save(), ask.save()]).then(
+                  ([invitation, ask]) => {
+                    return invitation
+                  }
+                )
+              }
             }
           )
-
-          // }
-          // )
         })
       })
     }
@@ -54,19 +54,19 @@ const invitationMutations = {
             return User.find({ phone_number: contact.phone_number }).then(
               user => {
                 ask.invitations.pull(invitation)
-                if (user) user.invitations.pull(invitation)
+                if (user[0]) user[0].invitations.pull(invitation)
                 invitation.remove()
 
-                if (user) {
+                if (user[0]) {
                   return Promise.all([
                     ask.save(),
-                    user.save(),
+                    user[0].save(),
                     invitation.save()
                   ]).then(([ask, user, invitation]) => {
                     return invitation
                   })
                 }
-                return Promise.all([ask.save(), invitation.save()]).then(
+                return Promise.all([ask.save(), user[0].save(), invitation.save()]).then(
                   ([ask, invitation]) => {
                     return invitation
                   }

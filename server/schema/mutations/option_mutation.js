@@ -23,8 +23,8 @@ const optionMutations = {
 
       const option = new Option(data)
       return Contact.findById(data.creator_id).then(contact => {
-        // return User.find({ phone_number: contact.phone_number }).then(user => {
-        // user.options.push(option)
+        return User.find({ phone_number: contact.phone_number }).then(user => {
+        user[0].options.push(option)
         return Ask.findById(data.ask_id).then(ask => {
           ask.options.push(option)
           return Promise.all([option.save(), ask.save()]).then(
@@ -32,7 +32,7 @@ const optionMutations = {
               return option
             }
           )
-          // })
+          })
         })
       })
     }
@@ -47,18 +47,18 @@ const optionMutations = {
       return Option.findById(id).then(option => {
         return Ask.findById(option.ask_id).then(ask => {
           return Contact.findById(option.creator_id).then(contact => {
-            // return User.find({ phone_number: contact.phone_number }).then(
-            // user => {
+            return User.find({ phone_number: contact.phone_number }).then(
+            user => {
             ask.options.pull(option)
-            // user.options.pull(option)
+            user[0].options.pull(option)
             option.remove()
             return Promise.all([
               ask.save(),
-              // user.save(),
+              user[0].save(),
               option.save()
             ]).then(([ask, user, option]) => {
               return option
-              // })
+              })
             })
           })
         })

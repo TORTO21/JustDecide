@@ -21,12 +21,12 @@ const contactMutations = {
       // phone number exists?
       return User.find({ phone_number }).then(user => {
         let contact
-        if (user) {
+        if (user[0]) {
           contact = new Contact({
             name,
             owner_id,
             phone_number,
-            user_id: user.id
+            user_id: user[0].id
           })
         } else {
           contact = new Contact({

@@ -57,11 +57,11 @@ const voteMutations = {
           return User.find({ phone_number: contact.phone_number }).then(
             user => {
               return Option.findById(vote.option_id).then(option => {
-                user.votes.pull(vote)
+                user[0].votes.pull(vote)
                 option.votes.pull(vote)
                 vote.remove()
                 return Promise.all([
-                  user.save(),
+                  user[0].save(),
                   option.save(),
                   vote.save()
                 ]).then(([user, option, vote]) => {
