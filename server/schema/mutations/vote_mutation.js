@@ -81,9 +81,9 @@ const voteMutations = {
       direction: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Vote.findById(data.id).then(vote => {
         vote.direction = data.direction || vote.direction
         return vote.save()
