@@ -18,23 +18,25 @@ const invitationMutations = {
       invite_url: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
       }
       const invitation = new Invitation(data)
       return Ask.findById(data.ask_id).then(ask => {
         ask.invitations.push(invitation)
         return Contact.findById(data.contact_id).then(contact => {
-          return User.findById(contact.user_id).then(user => {
-            user.invitations.push(invitation)
-            return Promise.all([
-              invitation.save(),
-              ask.save(),
-              user.save()
-            ]).then(([invitation, ask, user]) => {
+          // return User.find({ phone_number: contact.phone_number }).then(
+          //   user => {
+          //     if (user) {
+          //       user.invitations.push(invitation)
+          return Promise.all([invitation.save(), ask.save()]).then(
+            ([invitation, ask]) => {
               return invitation
-            })
-          })
+            }
+          )
+
+          // }
+          // )
         })
       })
     }
@@ -49,18 +51,28 @@ const invitationMutations = {
       return Invitation.findById(id).then(invitation => {
         return Ask.findById(invitation.ask_id).then(ask => {
           return Contact.findById(invitation.contact_id).then(contact => {
-            return User.findById(contact.user_id).then(user => {
-              ask.invitations.pull(invitation)
-              user.invitations.pull(invitation)
-              invitation.remove()
-              return Promise.all([
-                ask.save(),
-                user.save(),
-                invitation.save()
-              ]).then(([ask, user, invitation]) => {
-                return invitation
-              })
-            })
+            return User.find({ phone_number: contact.phone_number }).then(
+              user => {
+                ask.invitations.pull(invitation)
+                if (user) user.invitations.pull(invitation)
+                invitation.remove()
+
+                if (user) {
+                  return Promise.all([
+                    ask.save(),
+                    user.save(),
+                    invitation.save()
+                  ]).then(([ask, user, invitation]) => {
+                    return invitation
+                  })
+                }
+                return Promise.all([ask.save(), invitation.save()]).then(
+                  ([ask, invitation]) => {
+                    return invitation
+                  }
+                )
+              }
+            )
           })
         })
       })
@@ -73,8 +85,8 @@ const invitationMutations = {
       status: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
       }
       return Invitation.findById(data.id).then(invitation => {
         invitation.status = data.status || invitation.status

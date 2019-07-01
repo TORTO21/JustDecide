@@ -6,7 +6,7 @@ const Vote = require('../../models/Vote')
 const Option = require('../../models/Option')
 const Contact = require('../../models/Contact')
 const User = require('../../models/User')
-const { userLoggedIn } = require ('../../services/auth')
+const { userLoggedIn } = require('../../services/auth')
 
 const voteMutations = {
   newVote: {
@@ -16,22 +16,26 @@ const voteMutations = {
       contact_id: { type: GraphQLID },
       direction: { type: GraphQLString }
     },
-    resolve: async(parent, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
+    resolve: async (parent, data, context) => {
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
       }
       const vote = new Vote(data)
       return Option.findById(data.option_id).then(option => {
         option.votes.push(vote)
         return Contact.findById(data.contact_id).then(contact => {
-          return User.findById(contact.user_id).then(user => {
-            user.votes.push(vote)
-            return Promise.all([vote.save(), option.save(), user.save()]).then(
-              ([vote, option, user]) => {
+          return User.find({ phone_number: contact.phone_number }).then(
+            user => {
+              user.votes.push(vote)
+              return Promise.all([
+                vote.save(),
+                option.save(),
+                user.save()
+              ]).then(([vote, option, user]) => {
                 return vote
-              }
-            )
-          })
+              })
+            }
+          )
         })
       })
     }
@@ -40,25 +44,27 @@ const voteMutations = {
     type: VoteType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
       }
       return Vote.findById(id).then(vote => {
         return Contact.findById(vote.contact_id).then(contact => {
-          return User.findById(contact.user_id).then(user => {
-            return Option.findById(vote.option_id).then(option => {
-              user.votes.pull(vote)
-              option.votes.pull(vote)
-              vote.remove()
-              return Promise.all([
-                user.save(),
-                option.save(),
-                vote.save()
-              ]).then(([user, option, vote]) => {
-                return vote
+          return User.find({ phone_number: contact.phone_number }).then(
+            user => {
+              return Option.findById(vote.option_id).then(option => {
+                user.votes.pull(vote)
+                option.votes.pull(vote)
+                vote.remove()
+                return Promise.all([
+                  user.save(),
+                  option.save(),
+                  vote.save()
+                ]).then(([user, option, vote]) => {
+                  return vote
+                })
               })
-            })
-          })
+            }
+          )
         })
       })
     }
@@ -70,8 +76,8 @@ const voteMutations = {
       direction: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
       }
       return Vote.findById(data.id).then(vote => {
         vote.direction = data.direction || vote.direction
