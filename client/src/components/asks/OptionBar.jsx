@@ -20,12 +20,8 @@ const OptionBar = ({
     0
   )
 
-  const contactIds = currentUser.contacts
-    .filter(c => c.phone_number === currentUser.phone_number)
-    .map(c => c.id)
-
   const invitation = invitations.filter(
-    inv => contactIds.indexOf(inv.contact.id) >= 0
+    inv => inv.contact.phone_number === currentUser.phone_number
   )[0]
 
   const contact_id = invitation ? invitation.contact.id : -1
