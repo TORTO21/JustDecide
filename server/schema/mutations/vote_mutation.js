@@ -17,9 +17,9 @@ const voteMutations = {
       direction: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      // if (!(await userLoggedIn(context))) {
-      //   throw new Error('You must be logged in before proceeding')
-      // }
+      if (!(await userLoggedIn(context))) {
+        throw new Error('You must be logged in before proceeding')
+      }
       const vote = new Vote(data)
       console.log("vote_mutation.js:")
       // console.log(data)
@@ -82,7 +82,6 @@ const voteMutations = {
     },
     resolve: async (_, data, context) => {
       if (!(await userLoggedIn(context))) {
-        
         throw new Error('You must be logged in before proceeding')
       }
       return Vote.findById(data.id).then(vote => {
