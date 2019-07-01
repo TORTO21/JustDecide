@@ -16,7 +16,7 @@ const ContactType = new GraphQLObjectType({
 
     user: {
       type: require('../types/user_type'),
-      resolve: contact => User.findById(contact.user_id)
+      resolve: contact => User.find({ phone_number: contact.phone_number })
     },
 
     name: { type: GraphQLString },

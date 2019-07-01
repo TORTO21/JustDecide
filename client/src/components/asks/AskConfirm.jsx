@@ -118,6 +118,10 @@ const WithExistingAnswers = ({ history }) => (
     {({ data: { currentUserId } }) => (
       <Query query={FETCH_ASK_DETAILS}>
         {({ data }) => {
+          console.log('=============');
+          console.log(data);
+          console.log('=============');
+          
           return (
             <AskConfirm
               data={data}
