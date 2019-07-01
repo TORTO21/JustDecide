@@ -18,9 +18,9 @@ const invitationMutations = {
       invite_url: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       const invitation = new Invitation(data)
       return Ask.findById(data.ask_id).then(ask => {
         ask.invitations.push(invitation)
@@ -46,9 +46,9 @@ const invitationMutations = {
     type: InvitationType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Invitation.findById(id).then(invitation => {
         invitation.remove()
         invitation.save()
@@ -89,9 +89,9 @@ const invitationMutations = {
       status: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Invitation.findById(data.id).then(invitation => {
         invitation.status = data.status || invitation.status
         return invitation.save()

@@ -14,9 +14,9 @@ const groupMutations = {
       name: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
-      }
+      // if (!await userLoggedIn(context)) {
+      //   throw new Error("You must be logged in before proceeding")
+      // }
       const group = new Group(data)
       return User.findById(data.owner_id).then(user => {
         user.groups.push(group)
@@ -32,9 +32,9 @@ const groupMutations = {
     type: GroupType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
-      }
+      // if (!await userLoggedIn(context)) {
+      //   throw new Error("You must be logged in before proceeding")
+      // }
       return Group.findById(id).then(group => {
         User.findById(group.owner_id).then(user => {
           user.groups.pull(group)
@@ -51,9 +51,9 @@ const groupMutations = {
       name: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
-      }
+      // if (!await userLoggedIn(context)) {
+      //   throw new Error("You must be logged in before proceeding")
+      // }
       return Group.findById(data.id).then(group => {
         group.name = data.name || group.name
         return group.save()
@@ -67,9 +67,9 @@ const groupMutations = {
       user_id: { type: GraphQLID }
     },
     resolve: async (parent, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
-      }
+      // if (!await userLoggedIn(context)) {
+      //   throw new Error("You must be logged in before proceeding")
+      // }
       return Group.findById(data.id).then(group => {
         return User.findById(data.user_id).then(user => {
           group.members.push(user)
@@ -90,9 +90,9 @@ const groupMutations = {
       user_id: { type: GraphQLID }
     },
     resolve: async (parent, data, context) => {
-      if (!await userLoggedIn(context)) {
-        throw new Error("You must be logged in before proceeding")
-      }
+      // if (!await userLoggedIn(context)) {
+      //   throw new Error("You must be logged in before proceeding")
+      // }
       return Group.findById(data.id).then(group => {
         return User.findById(data.user_id).then(user => {
           group.members.pull(user)

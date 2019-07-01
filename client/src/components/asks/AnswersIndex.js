@@ -10,9 +10,9 @@ import './AsksIndex.css';
 class AnswersIndex extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      data: this.props.data
-    }
+    // this.state = {
+    //   data: this.props.data
+    // }
     this.updateCache = this.updateCache.bind(this)
   }
 
@@ -42,7 +42,8 @@ class AnswersIndex extends React.Component {
   render() {
     const user_id = window.localStorage.getItem('current-user')
   
-    let asks = this.state.data.user.invited.map(invite => {
+    let asks = this.props.data.user.invited.map(invite => {
+      console.log(invite)
       let date = this.formatDate(invite.ask.date)
       let time = this.formatTime(invite.ask.date)
       console.log(invite)
