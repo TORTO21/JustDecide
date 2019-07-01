@@ -19,14 +19,17 @@ const OptionBar = ({
 
   const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
 
-  const invitation = invitations.filter(
-    inv => inv.contact.user.id === currentUserId
-  )[0]
+  // const invitation = invitations.filter(
+  //   inv => inv.contact.user.id === currentUserId
+  // )[0]
+
+  const invitation = invitations[3]
   const contact_id = invitation ? invitation.contact.id : -1
 
   const isLoggedIn = client.cache.data.data.ROOT_QUERY.isLoggedIn
 
-  const vote = option.votes.filter(v => v.contact.user.id === currentUserId)[0]
+  // const vote = option.votes.filter(v => v.contact.user.id === currentUserId)[0]
+  const vote = option.votes[0]
 
   const upClass =
     vote && vote.direction === 'up' ? 'thumbs_up-active' : 'thumbs_up'

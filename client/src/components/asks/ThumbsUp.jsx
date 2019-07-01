@@ -29,14 +29,17 @@ export default ({ thumbClass, vote, option, contact_id, ask_id }) => {
       mutation={NEW_VOTE}
       refetchQueries={[{ query: GET_ASK, variables: { id: ask_id } }]}
     >
-      {(newVote, { data }) => (
+      {(newVote, result) => (
         <div
           className={thumbClass}
-          onClick={() =>
-            newVote({
-              variables: { option_id: option.id, contact_id, direction: 'up' }
-            })
-          }
+          onClick={() => {
+            console.log(result)
+            return (
+              newVote({
+                variables: { option_id: option.id, contact_id, direction: 'up' }}
+              )
+            )
+          }}
         />
       )}
     </Mutation>

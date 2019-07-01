@@ -61,6 +61,7 @@ class AskQuestion extends Component {
               />
               <div className="ask-question-as drop-shadow button">
                 <div style={{ flex: 1 }}>
+                  {console.log(this.client)}
                   <AskDropdown currentSelection={this.props.data.askAskingAs} />
                 </div>
               </div>

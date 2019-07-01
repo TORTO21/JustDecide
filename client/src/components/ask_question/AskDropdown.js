@@ -57,8 +57,6 @@ class AskDropdown extends Component {
             }}
           </Mutation>
           {selfRefs.map((selfRef, i) => {
-            console.log("in ReferenceList:")
-            console.log(selfRef)
             return (
               <div
                 key={i}
@@ -89,8 +87,6 @@ class AskDropdown extends Component {
   selectRef(selfRef, client) {
     this.setState({ selfRef })
     this.closeDropdown()
-    console.log("selectRef")
-    console.log(selfRef)
     client.writeData({
       data: {
         // askAskingAs: JSON.stringify(selfRef)
@@ -98,7 +94,6 @@ class AskDropdown extends Component {
         askAskingAsName: selfRef.name
       }
     })
-    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   render() {

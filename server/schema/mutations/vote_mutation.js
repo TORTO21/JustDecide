@@ -21,16 +21,21 @@ const voteMutations = {
         throw new Error('You must be logged in before proceeding')
       }
       const vote = new Vote(data)
+      console.log("vote_mutation.js:")
+      // console.log(data)
       return Option.findById(data.option_id).then(option => {
         option.votes.push(vote)
+        // console.log(option)
         return Contact.findById(data.contact_id).then(contact => {
+          // console.log(contact)
           return User.find({ phone_number: contact.phone_number }).then(
             user => {
-              user.votes.push(vote)
+              user[0].votes.push(vote)
+              console.log(user[0].votes)
               return Promise.all([
                 vote.save(),
                 option.save(),
-                user.save()
+                user[0].save()
               ]).then(([vote, option, user]) => {
                 return vote
               })
