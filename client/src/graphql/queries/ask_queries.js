@@ -39,6 +39,7 @@ export const GET_ASK = gql`
       invitations {
         id
         contact {
+          phone_number
           id
           user {
             id
@@ -58,6 +59,7 @@ export const GET_ASK = gql`
         votes {
           id
           contact {
+            phone_number
             user {
               id
             }
@@ -73,7 +75,7 @@ export const GET_ASK = gql`
 export const GET_ASKS = gql`
   {
     asks {
-      question 
+      question
       date
     }
   }
@@ -84,7 +86,7 @@ export const GET_USER_ASKS = gql`
     user(id: $id) {
       asks {
         question
-        date 
+        date
         id
       }
     }
@@ -102,7 +104,7 @@ export const GET_USER_ANSWERING = gql`
           date
           id
         }
-      } 
+      }
     }
   }
 `

@@ -24,16 +24,17 @@ const voteMutations = {
       return Option.findById(data.option_id).then(option => {
         option.votes.push(vote)
         return Contact.findById(data.contact_id).then(contact => {
-          return User.find({ phone_number: contact.phone_number }).then(
+          return User.findOne({ phone_number: contact.phone_number }).then(
             user => {
-              user.votes.push(vote)
-              return Promise.all([
-                vote.save(),
-                option.save(),
+              if (user) {
+                user.votes.push(vote)
                 user.save()
-              ]).then(([vote, option, user]) => {
-                return vote
-              })
+              }
+              return Promise.all([vote.save(), option.save()]).then(
+                ([vote, option]) => {
+                  return vote
+                }
+              )
             }
           )
         })
@@ -49,19 +50,20 @@ const voteMutations = {
       }
       return Vote.findById(id).then(vote => {
         return Contact.findById(vote.contact_id).then(contact => {
-          return User.find({ phone_number: contact.phone_number }).then(
+          return User.findOne({ phone_number: contact.phone_number }).then(
             user => {
               return Option.findById(vote.option_id).then(option => {
-                user.votes.pull(vote)
+                if (user) {
+                  user.votes.pull(vote)
+                  user.save()
+                }
                 option.votes.pull(vote)
                 vote.remove()
-                return Promise.all([
-                  user.save(),
-                  option.save(),
-                  vote.save()
-                ]).then(([user, option, vote]) => {
-                  return vote
-                })
+                return Promise.all([option.save(), vote.save()]).then(
+                  ([option, vote]) => {
+                    return vote
+                  }
+                )
               })
             }
           )

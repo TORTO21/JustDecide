@@ -18,29 +18,25 @@ const Contact = require('../../models/Contact')
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   fields: () => ({
-    
     id: { type: GraphQLID },
     phone_number: { type: GraphQLString },
     status: { type: GraphQLString },
     token: { type: GraphQLString },
     loggedIn: { type: GraphQLBoolean },
-    
+
     asks: {
       type: new GraphQLList(require('../types/ask_type')),
       resolve: user => Ask.find({ author_id: user.id })
     },
 
-    // to be fixed (fix user_id in invitation.js)
-    // invitations: {
-    //   type: new GraphQLList(require('../types/invitation_type')),
-    //   resolve: user => Invitation.find({ user_id: user.id })
-    // },
-
     invited: {
       type: new GraphQLList(require('../types/invitation_type')),
-      resolve: user => Contact.find({ phone_number: user.phone_number })
-        .then(contacts => contacts.map(c => c.id))
-        .then(contact_ids => Invitation.find({ contact_id: { $in: contact_ids } }))
+      resolve: user =>
+        Contact.find({ phone_number: user.phone_number })
+          .then(contacts => contacts.map(c => c.id))
+          .then(contact_ids =>
+            Invitation.find({ contact_id: { $in: contact_ids } })
+          )
     },
 
     groups: {

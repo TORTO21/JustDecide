@@ -19,7 +19,7 @@ const contactMutations = {
         throw new Error('You must be logged in before proceeding')
       }
       // phone number exists?
-      return User.find({ phone_number }).then(user => {
+      return User.findOne({ phone_number }).then(user => {
         let contact
         if (user) {
           contact = new Contact({

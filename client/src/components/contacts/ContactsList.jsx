@@ -114,7 +114,8 @@ const ContactsList = ({ currentUserId, history, currentInvitees }) => {
 
 const WithExistingAnswers = ({ currentUserId, history }) => (
   <Query query={FETCH_ASK_DETAILS}>
-    {({ data }) => {
+    {({ loading, data }) => {
+      if (loading) return null
       return (
         <ContactsList
           currentUserId={currentUserId}

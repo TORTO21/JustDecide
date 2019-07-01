@@ -256,7 +256,8 @@ class SelectDate extends React.Component {
 
 const WithExistingAnswers = ({ history }) => (
   <Query query={FETCH_ASK_DETAILS}>
-    {({ data }) => {
+    {({ loading, data }) => {
+      if (loading) return null
       return <SelectDate data={data} history={history} />
     }}
   </Query>

@@ -16,6 +16,20 @@ export const GET_CONTACTS = gql`
   }
 `
 
+export const CURRENT_USER_CONTACT_DATA = gql`
+  query currentUserContactData($id: ID!) {
+    user(id: $id) {
+      id
+      phone_number
+      contacts {
+        phone_number
+        id
+        name
+      }
+    }
+  }
+`
+
 export const CURRENT_USER_ID = gql`
   query {
     currentUserId @client

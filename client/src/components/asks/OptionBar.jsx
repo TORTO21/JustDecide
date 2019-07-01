@@ -1,3 +1,5 @@
+import { CURRENT_USER_CONTACT_DATA } from '../../graphql/queries/user_queries'
+import { Query } from 'react-apollo'
 import React from 'react'
 import ThumbsDn from './ThumbsDn'
 import ThumbsUp from './ThumbsUp'
@@ -10,23 +12,31 @@ const OptionBar = ({
   client,
   history,
   invitations,
-  ask_id
+  ask_id,
+  currentUser
 }) => {
   const voteCount = option.votes.reduce(
     (acc, vote) => acc + (vote.direction === 'up' ? 1 : 0),
     0
   )
 
-  const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
+  const contactIds = currentUser.contacts
+    .filter(c => c.phone_number === currentUser.phone_number)
+    .map(c => c.id)
 
   const invitation = invitations.filter(
-    inv => inv.contact.user.id === currentUserId
+    inv => contactIds.indexOf(inv.contact.id) >= 0
   )[0]
+
   const contact_id = invitation ? invitation.contact.id : -1
 
   const isLoggedIn = client.cache.data.data.ROOT_QUERY.isLoggedIn
 
-  const vote = option.votes.filter(v => v.contact.user.id === currentUserId)[0]
+  const votes = option.votes.filter(
+    v => v.contact.phone_number === currentUser.phone_number
+  )
+
+  const vote = votes[votes.length - 1]
 
   const upClass =
     vote && vote.direction === 'up' ? 'thumbs_up-active' : 'thumbs_up'
@@ -118,4 +128,17 @@ const OptionBar = ({
   )
 }
 
-export default withApollo(OptionBar)
+const WithCurrentUser = props => (
+  <Query
+    query={CURRENT_USER_CONTACT_DATA}
+    variables={{
+      id: props.client.cache.data.data.ROOT_QUERY.currentUserId
+    }}
+  >
+    {({ loading, data: { user } }) => {
+      if (loading) return null
+      return <OptionBar currentUser={user} {...props} />
+    }}
+  </Query>
+)
+export default withApollo(WithCurrentUser)
