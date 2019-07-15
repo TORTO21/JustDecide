@@ -52,8 +52,8 @@ const saveAll = (client, data, currentUserId, history) => {
       })
 
       // history.push(`/asks/${ask.id}`)
-      history.push('/asks/')
     })
+    .then(() => history.push('/asks/'))
 }
 
 const AskConfirm = ({ data, currentUserId, history }) => {
@@ -115,23 +115,22 @@ const AskConfirm = ({ data, currentUserId, history }) => {
 
 const WithExistingAnswers = ({ history }) => (
   <Query query={CURRENT_USER_ID}>
-    {({ data: { currentUserId } }) => (
-      <Query query={FETCH_ASK_DETAILS}>
-        {({ data }) => {
-          console.log('=============');
-          console.log(data);
-          console.log('=============');
-          
-          return (
-            <AskConfirm
-              data={data}
-              history={history}
-              currentUserId={currentUserId}
-            />
-          )
-        }}
-      </Query>
-    )}
+    {({ loading, data: { currentUserId } }) => {
+      if (loading) return null
+      return (
+        <Query query={FETCH_ASK_DETAILS}>
+          {({ data }) => {
+            return (
+              <AskConfirm
+                data={data}
+                history={history}
+                currentUserId={currentUserId}
+              />
+            )
+          }}
+        </Query>
+      )
+    }}
   </Query>
 )
 

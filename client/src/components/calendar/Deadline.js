@@ -267,7 +267,8 @@ class Deadline extends React.Component {
 
 const WithExistingAnswers = ({ history }) => (
   <Query query={FETCH_ASK_DETAILS}>
-    {({ data }) => {
+    {({ loading, data }) => {
+      if (loading) return null
       return <Deadline data={data} history={history} />
     }}
   </Query>

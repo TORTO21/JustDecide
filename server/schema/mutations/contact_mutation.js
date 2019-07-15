@@ -19,7 +19,7 @@ const contactMutations = {
         throw new Error('You must be logged in before proceeding')
       }
       // phone number exists?
-      return User.find({ phone_number }).then(user => {
+      return User.findOne({ phone_number }).then(user => {
         let contact
         if (user) {
           contact = new Contact({
@@ -51,9 +51,9 @@ const contactMutations = {
     type: ContactType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Contact.findById(id).then(contact => {
         User.findById(contact.owner_id).then(user => {
           user.contacts.pull(contact)
@@ -70,9 +70,9 @@ const contactMutations = {
       name: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Contact.findById(data.id).then(contact => {
         contact.name = data.name || contact.name
         return contact.save()

@@ -17,23 +17,28 @@ const optionMutations = {
       title: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
 
       const option = new Option(data)
       return Contact.findById(data.creator_id).then(contact => {
-        // return User.find({ phone_number: contact.phone_number }).then(user => {
-        // user.options.push(option)
-        return Ask.findById(data.ask_id).then(ask => {
-          ask.options.push(option)
-          return Promise.all([option.save(), ask.save()]).then(
-            ([option, user, ask]) => {
-              return option
+        return User.findOne({ phone_number: contact.phone_number }).then(
+          user => {
+            if (user) {
+              user.options.push(option)
+              user.save()
             }
-          )
-          // })
-        })
+            return Ask.findById(data.ask_id).then(ask => {
+              ask.options.push(option)
+              return Promise.all([option.save(), ask.save()]).then(
+                ([option, ask]) => {
+                  return option
+                }
+              )
+            })
+          }
+        )
       })
     }
   },
@@ -41,25 +46,27 @@ const optionMutations = {
     type: OptionType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Option.findById(id).then(option => {
         return Ask.findById(option.ask_id).then(ask => {
           return Contact.findById(option.creator_id).then(contact => {
-            // return User.find({ phone_number: contact.phone_number }).then(
-            // user => {
-            ask.options.pull(option)
-            // user.options.pull(option)
-            option.remove()
-            return Promise.all([
-              ask.save(),
-              // user.save(),
-              option.save()
-            ]).then(([ask, user, option]) => {
-              return option
-              // })
-            })
+            return User.findOne({ phone_number: contact.phone_number }).then(
+              user => {
+                if (user) {
+                  user.options.pull(option)
+                  user.save()
+                }
+                ask.options.pull(option)
+                option.remove()
+                return Promise.all([ask.save(), option.save()]).then(
+                  ([ask, option]) => {
+                    return option
+                  }
+                )
+              }
+            )
           })
         })
       })
@@ -72,9 +79,9 @@ const optionMutations = {
       title: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Option.findById(data.id).then(option => {
         option.title = data.title || option.title
         return option.save()

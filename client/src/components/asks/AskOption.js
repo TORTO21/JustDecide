@@ -136,7 +136,8 @@ class AskOption extends React.Component {
 
 const WithExistingAnswers = ({ history }) => (
   <Query query={FETCH_ASK_DETAILS}>
-    {({ data }) => {
+    {({ loading, data }) => {
+      if (loading) return null
       return <AskOption data={data} history={history} />
     }}
   </Query>

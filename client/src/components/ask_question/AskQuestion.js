@@ -95,8 +95,8 @@ class AskQuestion extends Component {
 
 const WithExistingAnswers = ({ history }) => (
   <Query query={FETCH_ASK_DETAILS}>
-    {({ data }) => {
-      console.log(data)
+    {({ loading, data }) => {
+      if (loading) return null
       return <AskQuestion data={data} history={history} />
     }}
   </Query>

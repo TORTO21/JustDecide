@@ -17,23 +17,24 @@ const voteMutations = {
       direction: { type: GraphQLString }
     },
     resolve: async (parent, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       const vote = new Vote(data)
       return Option.findById(data.option_id).then(option => {
         option.votes.push(vote)
         return Contact.findById(data.contact_id).then(contact => {
-          return User.find({ phone_number: contact.phone_number }).then(
+          return User.findOne({ phone_number: contact.phone_number }).then(
             user => {
-              user.votes.push(vote)
-              return Promise.all([
-                vote.save(),
-                option.save(),
+              if (user) {
+                user.votes.push(vote)
                 user.save()
-              ]).then(([vote, option, user]) => {
-                return vote
-              })
+              }
+              return Promise.all([vote.save(), option.save()]).then(
+                ([vote, option]) => {
+                  return vote
+                }
+              )
             }
           )
         })
@@ -44,24 +45,25 @@ const voteMutations = {
     type: VoteType,
     args: { id: { type: GraphQLID } },
     resolve: async (_, { id }, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Vote.findById(id).then(vote => {
         return Contact.findById(vote.contact_id).then(contact => {
-          return User.find({ phone_number: contact.phone_number }).then(
+          return User.findOne({ phone_number: contact.phone_number }).then(
             user => {
               return Option.findById(vote.option_id).then(option => {
-                user.votes.pull(vote)
+                if (user) {
+                  user.votes.pull(vote)
+                  user.save()
+                }
                 option.votes.pull(vote)
                 vote.remove()
-                return Promise.all([
-                  user.save(),
-                  option.save(),
-                  vote.save()
-                ]).then(([user, option, vote]) => {
-                  return vote
-                })
+                return Promise.all([option.save(), vote.save()]).then(
+                  ([option, vote]) => {
+                    return vote
+                  }
+                )
               })
             }
           )
@@ -76,9 +78,9 @@ const voteMutations = {
       direction: { type: GraphQLString }
     },
     resolve: async (_, data, context) => {
-      if (!(await userLoggedIn(context))) {
-        throw new Error('You must be logged in before proceeding')
-      }
+      // if (!(await userLoggedIn(context))) {
+      //   throw new Error('You must be logged in before proceeding')
+      // }
       return Vote.findById(data.id).then(vote => {
         vote.direction = data.direction || vote.direction
         return vote.save()
