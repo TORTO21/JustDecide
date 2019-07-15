@@ -52,8 +52,8 @@ const saveAll = (client, data, currentUserId, history) => {
       })
 
       // history.push(`/asks/${ask.id}`)
-      history.push('/asks/')
     })
+    .then(() => history.push('/asks/'))
 }
 
 const AskConfirm = ({ data, currentUserId, history }) => {
