@@ -40,14 +40,13 @@ cache.writeData({
 
 // Link to access backend with token from local storage,
 // passed into header of each request
-if (process.env.NODE_ENV === 'production') {
-
-} else {
-}
+const graphQLRoute = process.env.NODE_ENV === 'production'
+  ? '/graphql'
+  : 'http://localhost:5000/graphql'
 
 const httpLink = createHttpLink({
   // uri: 'http://localhost:5000/graphql',
-  uri: '/graphql',
+  uri: graphQLRoute,
   headers: {
     authorization: localStorage.getItem('auth-token')
   }
