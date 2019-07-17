@@ -1,14 +1,14 @@
-import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import { HashRouter } from 'react-router-dom';
-import App from './App';
+import { ApolloProvider } from 'react-apollo'
+import App from './App'
+import { BrowserRouter } from 'react-router-dom'
+import React from 'react'
 
 const Root = ({ client }) => (
-  <ApolloProvider client={ client }>
-    <HashRouter>
+  <ApolloProvider client={client}>
+    <BrowserRouter>
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </ApolloProvider>
-);
+)
 
-export default Root;
+export default Root
