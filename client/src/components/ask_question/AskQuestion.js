@@ -47,6 +47,7 @@ class AskQuestion extends Component {
   }
 
   render() {
+    const rows = window.innerWidth < 500 ? 2 : 1
     return (
       <ApolloConsumer>
         {client => {
@@ -54,6 +55,7 @@ class AskQuestion extends Component {
             <div className="ask-question-container background">
               <div className="ask-question-title section-header">Ask</div>
               <textarea
+                rows={rows}
                 className="ask-question-field"
                 onChange={this.update('askQuestion')}
                 value={this.state.askQuestion}
