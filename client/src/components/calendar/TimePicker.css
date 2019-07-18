@@ -41,3 +41,10 @@
   height: auto;
   margin: 50% 0px;
 }
+
+/* added */
+
+.time-picker-container {
+  max-width: 500px;
+  margin-top: 2rem;
+}

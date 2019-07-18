@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.lower-container {
+/* .lower-container {
   width: 100%;
   background-color: white;
   display: flex;
@@ -18,7 +18,7 @@
   align-items: center;
   margin-top: 50px;
   flex: 1;
-}
+} */
 
 .ask-details-container {
   width: 75%;

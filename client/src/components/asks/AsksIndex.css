@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.lower-container {
+/* .lower-container {
   width: 100%;
   background-color: white;
   display: flex;
@@ -18,7 +18,7 @@
   align-items: center;
   margin-top: 10%;
   flex: 1;
-}
+} */
 
 .asks-index-button {
   width: 40%;
@@ -31,7 +31,7 @@
   color: white;
   font-weight: bolder;
   margin-top: 10%;
-  transition: .25s;
+  transition: 0.25s;
 }
 
 .index-header-container {
@@ -65,7 +65,7 @@
   height: 5px;
   width: 120px;
   opacity: 1;
-  transition: .1s ease-out;
+  transition: 0.1s ease-out;
 }
 
 .asks-ul {
@@ -119,12 +119,12 @@
   font-size: 18px;
 }
 
-.ask-date  {
+.ask-date {
   padding: 2% 0 0 5%;
   font-size: 12px;
 }
 
-.ask-time  {
+.ask-time {
   padding: 2% 0 0 5%;
   font-size: 12px;
 }
@@ -169,8 +169,12 @@
 }
 
 .modal-gradient {
-  background: rgb(103,223,147);
-  background: linear-gradient(27deg, rgba(103,223,147,1) 0%, rgba(3,173,172,1) 39%);
+  background: rgb(103, 223, 147);
+  background: linear-gradient(
+    27deg,
+    rgba(103, 223, 147, 1) 0%,
+    rgba(3, 173, 172, 1) 39%
+  );
   width: 100%;
   height: 5%;
 }

@@ -26,19 +26,7 @@ const AskDetail = props => {
                 position: 'relative'
               }}
             >
-              <div
-                className="section-header"
-                style={{
-                  textAlign: 'center',
-                  fontSize: 38,
-                  lineHeight: '38px',
-                  marginLeft: 20,
-                  marginRight: 20,
-                  marginBottom: 20
-                }}
-              >
-                {ask.question}
-              </div>
+              <div className="section-header">{ask.question}</div>
               <div
                 style={{
                   background: 'white',

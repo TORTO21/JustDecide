@@ -285,17 +285,23 @@ main {
 
 /* added */
 
+.arrow {
+  width: 30px;
+}
+
+.section-header {
+  margin-top: 6rem;
+}
+
 .month-year {
   padding: 0.6rem;
   max-height: 47px;
-}
-
-.arrow {
-  width: 35px;
+  margin: 0 5px;
 }
 
 .dbl-left-arrow {
-  width: 35px;
+  margin-right: 5px;
+  width: 30px;
 }
 
 .col-start {
@@ -309,7 +315,17 @@ main {
 }
 
 .dbl-right-arrow {
-  width: 35px;
+  margin-left: 5px;
+  width: 30px;
+}
+
+.calendar {
+  margin: 10px;
+}
+
+.calendar .header {
+  flex-wrap: nowrap;
+  padding: 1.5rem;
 }
 
 .calendar .body .cell .number {
@@ -334,4 +350,39 @@ main {
 .dates-row {
   margin-top: 5px;
   justify-content: space-around;
+}
+
+.cal-button-container {
+  margin-top: 3rem;
+}
+
+@media screen and (min-width: 900px) {
+  .calendar {
+    margin: auto;
+    max-width: 600px;
+  }
+
+  .dbl-left-arrow {
+    width: 40px;
+    margin-right: 10px;
+  }
+
+  .dbl-right-arrow {
+    margin-left: 10px;
+    width: 40px;
+  }
+
+  .arrow {
+    width: 40px;
+  }
+
+  .section-header {
+    margin-top: 7rem;
+    margin-bottom: 2rem;
+  }
+
+  .month-year {
+    padding: 0.8rem 2rem;
+    max-height: unset;
+  }
 }

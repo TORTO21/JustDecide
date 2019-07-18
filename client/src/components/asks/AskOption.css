@@ -3,7 +3,7 @@
 }
 
 .react-toggle.yes:before {
-  content: "yes";
+  content: 'yes';
   position: absolute;
   padding-left: 3px;
   left: 2px;
@@ -12,7 +12,7 @@
 }
 
 .react-toggle.no:before {
-  content: "no";
+  content: 'no';
   position: absolute;
   padding-right: 5px;
   right: 2px;
@@ -49,7 +49,7 @@
   padding-left: 10px;
   color: #595959;
   opacity: 1;
-  transition: .25s ease-out;
+  transition: 0.25s ease-out;
 }
 
 .lower-container {
@@ -76,14 +76,14 @@
   color: white;
   font-size: 15px;
   border: none;
-  box-shadow: 1px 3px 3px #00000035; 
-  margin-top: 10%;
+  box-shadow: 1px 3px 3px #00000035;
+  margin-top: 1rem;
   opacity: 1;
-  transition: .25s ease-out;
+  transition: 0.25s ease-out;
 }
 
 .continue-button {
-  margin-top: 10%;
+  margin-top: 1.5rem;
 }
 
 .option-list-view {
@@ -104,7 +104,7 @@
 .option-li {
   margin-top: 10%;
   list-style: none;
-  color: #595959
+  color: #595959;
 }
 
 .toggle {
@@ -123,5 +123,43 @@
 .hidden {
   opacity: 0;
   height: 0;
-  transition: .25s ease-out;
+  transition: 0.25s ease-out;
+}
+
+/* added */
+
+.option-list-view {
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.option-li {
+  margin-top: unset;
+  padding: 10px;
+}
+
+@media screen and (min-width: 900px) {
+  .overall-container {
+    align-items: center;
+    max-width: 500px;
+    justify-content: center;
+    margin: auto;
+  }
+
+  .lower-container {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .option-input {
+    margin-top: -4%;
+  }
+
+  .add-button {
+    margin-top: 1rem;
+  }
+
+  .continue-button {
+    margin-top: 2rem;
+  }
 }

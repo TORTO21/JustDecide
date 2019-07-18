@@ -59,3 +59,18 @@
   justify-content: space-between;
   height: 100px;
 }
+
+/* added */
+
+.splash-container {
+  align-items: center;
+}
+
+.splash-subtitle {
+  padding: 0 2rem;
+}
+
+.create-ask-button {
+  width: unset;
+  padding: 10px 3rem;
+}

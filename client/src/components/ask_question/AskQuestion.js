@@ -47,7 +47,7 @@ class AskQuestion extends Component {
   }
 
   render() {
-    const rows = window.innerWidth < 500 ? 2 : 1
+    const rows = window.innerWidth < 1000 ? 2 : 1
     return (
       <ApolloConsumer>
         {client => {
