@@ -194,7 +194,7 @@ renderDates() {
   
   #### Features to Implement:
   
-   * Invite priveleges
+   * Invite privileges
    * Karma points for good/winning choices
    * Invite via social media contact list
    * Avatar
