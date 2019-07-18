@@ -1,3 +1,5 @@
+import './AskInvite.css'
+
 import { CURRENT_USER_ID } from '../../graphql/queries/user_queries'
 import ContactsList from '../contacts/ContactsList'
 import { Query } from 'react-apollo'
@@ -16,27 +18,10 @@ const AskInvite = ({ history }) => {
               alignItems: 'center'
             }}
           >
-            <div
-              className="section-header"
-              style={{
-                marginTop: '20%',
-                fontSize: '35px',
-                color: 'white',
-                lineHeight: '38px',
-                textAlign: 'center',
-                width: '80%'
-              }}
-            >
+            <div className="section-header invite">
               Invite others to cast their votes and share options
             </div>
-            <div
-              style={{
-                background: 'white',
-                width: '100%',
-                flex: 1,
-                marginTop: 21
-              }}
-            >
+            <div className="list-outer-wrapper">
               <ContactsList currentUserId={currentUserId} history={history} />
             </div>
           </div>

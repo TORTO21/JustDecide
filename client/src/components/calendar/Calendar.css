@@ -377,8 +377,10 @@ main {
   }
 
   .section-header {
+    margin: auto;
     margin-top: 7rem;
     margin-bottom: 2rem;
+    max-width: 500px;
   }
 
   .month-year {

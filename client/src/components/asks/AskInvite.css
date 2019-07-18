@@ -1,0 +1,14 @@
+.section-header.invite {
+  margin-top: 7rem;
+  font-size: 35px;
+  color: white;
+  line-height: 38px;
+  text-align: center;
+  width: 80%;
+}
+
+.list-outer-wrapper {
+  background: white;
+  width: 100%;
+  flex: 1;
+}
