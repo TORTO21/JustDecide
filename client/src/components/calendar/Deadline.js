@@ -136,7 +136,7 @@ class Deadline extends React.Component {
         day = dateFns.addDays(day, 1)
       }
       rows.push(
-        <div className="row" key={day}>
+        <div className="row dates-row" key={day}>
           {days}
         </div>
       )
