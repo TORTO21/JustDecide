@@ -38,10 +38,15 @@ cache.writeData({
   }
 })
 
+// create uri value for httpLink basd on production mode
+const graphQLRoute = process.env.NODE_ENV === 'production'
+? '/graphql'
+: 'http://localhost:5000/graphql'
+
 // Link to access backend with token from local storage,
 // passed into header of each request
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000/graphql',
+  uri: graphQLRoute,
   headers: {
     authorization: localStorage.getItem('auth-token')
   }
