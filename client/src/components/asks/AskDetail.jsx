@@ -35,7 +35,8 @@ const AskDetail = props => {
                   width: '100%',
                   display: 'flex',
                   flexDirection: 'column',
-                  alignItems: 'center'
+                  alignItems: 'center',
+                  maxWidth: '600px'
                 }}
               >
                 <div

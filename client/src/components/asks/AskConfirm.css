@@ -22,9 +22,9 @@
 
 .ask-details-container {
   width: 75%;
-  height: 150px;
+  /* height: 150px; */
   background: white;
-  margin-top: 8%;
+  /* margin-top: 8%; */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@
 }
 
 .ask-deadline-counter {
-  margin-top: -7%;
+  margin-top: -1rem;
   height: 10%;
   width: 50%;
   display: flex;
@@ -50,14 +50,14 @@
 
 .ask-invitees-list {
   width: 80%;
-  margin-top: 10%;
+  margin-top: 1rem;
   display: flex;
   flex: 1;
 }
 
 .ask-button {
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .ask-invitees-ul {
@@ -74,8 +74,8 @@
 }
 
 .invitee-li {
-  margin-top: 10%;
-  padding-bottom: 5%;
+  /* margin-top: 10%; */
+  padding: 0.5rem;
   list-style: none;
   color: #595959;
   border-bottom: 1px solid grey;
@@ -99,6 +99,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 2rem;
 }
 
 .confirm-ask-date {
@@ -107,4 +108,11 @@
 
 .confirm-ask-time {
   margin-bottom: 20px;
+}
+
+/* added */
+
+.section-header.confirm {
+  margin-bottom: 2rem;
+  margin-top: 4rem;
 }
