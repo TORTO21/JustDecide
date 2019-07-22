@@ -9,7 +9,9 @@ To optimize the app's primary use case, it is important that a user can access i
 </br>
 </br>
 
-![Wireframes](client/public/images/JD_wireframes.png)
+<p align="center">
+    <img src="client/public/images/JD_wireframes.png" width="451" height="334"/>
+</p>
 
 </br>
 </br>
@@ -55,73 +57,6 @@ To optimize the app's primary use case, it is important that a user can access i
     * Use the JavaScript date libarary date-fns to implement the calendar.
     * Custom time picker.
     
-
-
-#### Ask Detail Screen:
-This screen shows all the details of the Ask: description, date, time, participants, options, and a timer which counts down to the deadline date. 
-Participants are able to upvote or downvote options, and the current standing of each option is indicated by it’s progress bar. Users can also opt out of the event or Ask, as well as contribute their own idea or alternative option. 
-
-The Ask Detail component was implemented with React State Hooks and the use of sibling components to display each major element of the AskDetail screen, allowing for cleaner and easily legible code.
-The use of components also allowed for re-use of components, which DRYs out the overall codebase. For example, the countdown timer is it’s own component, which allowed it to be used in the Ask Confirm component as well as here in the Ask Detail component. 
-
-The Options List component receives Ask details from it’s parent Ask Detail component, which provides option details   stored as part of the OptionType. The Options List uses this data to calculate the net vote count for each option, sets a length for the bar according to it’s standing amongst the other options, then sorts the bars in descending order.
-It passes this information to the OptionBar component, which renders each option bar, along with the ‘thumbs up’ and ‘thumbs down’ buttons for voting. 
-Each ThumbsUp and ThumbsDown elements are also their own components, which handle the mutation to the backend to update the Option vote count in the Option Type.
-
-```
-const OptionsList = ({ ask, history }) => {
-  const barColors = ['ochre', 'pink', 'turquoise', 'plum']
-
-  const { options, invitations } = ask
-
-  const netVote = option => {
-    return option.votes.reduce(
-      (acc, vote) => acc + (vote.direction === 'up' ? 1 : 0),
-      0
-    )
-  }
-
-  const winningVotes = options.reduce((acc, option) => {
-    const opt_vote = netVote(option)
-    if (opt_vote > acc) return opt_vote
-    return acc
-  }, 0)
-
-  const barPct = option => Math.max(netVote(option) / winningVotes, 0.15)
-
-  const orderedOptions = options.sort((a, b) => barPct(b) - barPct(a))
-
-  return (
-    <div
-      style={{
-        paddingTop: 37,
-        width: '100%'
-      }}
-    >
-      {orderedOptions.map((option, idx) => (
-        <OptionBar
-          key={option.id}
-          option={option}
-          colorClass={barColors[idx % 4]}
-          barPct={barPct(option)}
-          history={history}
-          invitations={invitations}
-          ask_id={ask.id}
-        />
-      ))}
-    </div>
-  )
-}
-```
-
-</br>  
-</br>
-
-![AskDetailScreen](client/public/images/JD_askDetailScreen.png)
-
-</br>
-</br>
-
 
 #### Calendar and Deadline Screen
 
@@ -187,11 +122,84 @@ renderDates() {
   </br>
   </br>
   
-  ![CalendarScreen](client/public/images/JD_calendarScreen.png)
+  <p align="center">
+    <img src="client/public/images/JD_calendarScreen.png" width="238" height="478"/>
+  </p>
   
   </br>
   </br>
   
+
+
+#### Ask Detail Screen:
+This screen shows all the details of the Ask: description, date, time, participants, options, and a timer which counts down to the deadline date. 
+Participants are able to upvote or downvote options, and the current standing of each option is indicated by it’s progress bar. Users can also opt out of the event or Ask, as well as contribute their own idea or alternative option. 
+
+The Ask Detail component was implemented with React State Hooks and the use of sibling components to display each major element of the AskDetail screen, allowing for cleaner and easily legible code.
+The use of components also allowed for re-use of components, which DRYs out the overall codebase. For example, the countdown timer is it’s own component, which allowed it to be used in the Ask Confirm component as well as here in the Ask Detail component. 
+
+The Options List component receives Ask details from it’s parent Ask Detail component, which provides option details   stored as part of the OptionType. The Options List uses this data to calculate the net vote count for each option, sets a length for the bar according to it’s standing amongst the other options, then sorts the bars in descending order.
+It passes this information to the OptionBar component, which renders each option bar, along with the ‘thumbs up’ and ‘thumbs down’ buttons for voting. 
+Each ThumbsUp and ThumbsDown elements are also their own components, which handle the mutation to the backend to update the Option vote count in the Option Type.
+
+```
+const OptionsList = ({ ask, history }) => {
+  const barColors = ['ochre', 'pink', 'turquoise', 'plum']
+
+  const { options, invitations } = ask
+
+  const netVote = option => {
+    return option.votes.reduce(
+      (acc, vote) => acc + (vote.direction === 'up' ? 1 : 0),
+      0
+    )
+  }
+
+  const winningVotes = options.reduce((acc, option) => {
+    const opt_vote = netVote(option)
+    if (opt_vote > acc) return opt_vote
+    return acc
+  }, 0)
+
+  const barPct = option => Math.max(netVote(option) / winningVotes, 0.15)
+
+  const orderedOptions = options.sort((a, b) => barPct(b) - barPct(a))
+
+  return (
+    <div
+      style={{
+        paddingTop: 37,
+        width: '100%'
+      }}
+    >
+      {orderedOptions.map((option, idx) => (
+        <OptionBar
+          key={option.id}
+          option={option}
+          colorClass={barColors[idx % 4]}
+          barPct={barPct(option)}
+          history={history}
+          invitations={invitations}
+          ask_id={ask.id}
+        />
+      ))}
+    </div>
+  )
+}
+```
+
+</br>  
+</br>
+
+<p align="center">
+  <img src="client/public/images/JD_askDetailScreen.png" width="238" height="478"/>
+</p>
+
+</br>
+</br>
+
+
+
   #### Features to Implement:
   
    * Invite privileges
