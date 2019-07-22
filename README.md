@@ -9,7 +9,7 @@ To optimize the app's primary use case, it is important that a user can access i
 </br>
 </br>
 
-![Wireframes](/public/images/JD_wireframes.png)
+![Wireframes](client/public/images/JD_wireframes.png)
 
 </br>
 </br>
@@ -117,7 +117,7 @@ const OptionsList = ({ ask, history }) => {
 </br>  
 </br>
 
-![AskDetailScreen](/public/images/JD_askDetailScreen.png)
+![AskDetailScreen](client/public/images/JD_askDetailScreen.png)
 
 </br>
 </br>
@@ -187,7 +187,7 @@ renderDates() {
   </br>
   </br>
   
-  ![CalendarScreen](/public/images/JD_calendarScreen.png)
+  ![CalendarScreen](client/public/images/JD_calendarScreen.png)
   
   </br>
   </br>
