@@ -136,7 +136,7 @@ class Deadline extends React.Component {
         day = dateFns.addDays(day, 1)
       }
       rows.push(
-        <div className="row" key={day}>
+        <div className="row dates-row" key={day}>
           {days}
         </div>
       )
@@ -234,13 +234,7 @@ class Deadline extends React.Component {
         {client => {
           return (
             <div className="background">
-              <div
-                className="section-header deadline-header"
-                style={{
-                  marginLeft: 20,
-                  marginRight: 20
-                }}
-              >
+              <div className="section-header deadline-header">
                 When do you need to know by?
               </div>
               <div className="calendar">

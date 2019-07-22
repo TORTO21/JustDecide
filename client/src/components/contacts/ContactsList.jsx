@@ -44,7 +44,9 @@ const ContactsList = ({ currentUserId, history, currentInvitees }) => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              maxWidth: 550,
+              margin: 'auto'
             }}
           >
             <Query query={GET_CONTACTS} variables={{ id: currentUserId }}>

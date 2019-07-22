@@ -197,7 +197,7 @@ input[type='text']:focus {
 }
 
 .detail-text {
-  font-size: 13px;
+  font-size: 1.2rem;
   color: #595959;
 }
 

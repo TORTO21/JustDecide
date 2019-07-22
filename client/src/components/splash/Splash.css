@@ -1,7 +1,7 @@
 .splash-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start
+  justify-content: flex-start;
 }
 
 .splash-title {
@@ -37,17 +37,17 @@
   color: white;
   font-weight: bolder;
   margin-top: 20%;
-  transition: .25s;
+  transition: 0.25s;
 }
 
 .create-ask-button:hover {
-  color: rgba(3,173,172,1);
+  color: rgba(3, 173, 172, 1);
   background-color: white;
 }
 
 .create-ask-button:focus {
-  color: rgba(3,173,172,1);
-  background-color: rgba(255, 255, 255, .75);
+  color: rgba(3, 173, 172, 1);
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 .splash-auth-buttons-container {
@@ -58,4 +58,19 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100px;
+}
+
+/* added */
+
+.splash-container {
+  align-items: center;
+}
+
+.splash-subtitle {
+  padding: 0 2rem;
+}
+
+.create-ask-button {
+  width: unset;
+  padding: 10px 3rem;
 }
