@@ -1,13 +1,13 @@
 import { ApolloProvider } from 'react-apollo'
 import App from './App'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import React from 'react'
 
 const Root = ({ client }) => (
   <ApolloProvider client={client}>
-    <BrowserRouter>
+    <HashRouter>
       <App />
-    </BrowserRouter>
+    </HashRouter>
   </ApolloProvider>
 )
 
