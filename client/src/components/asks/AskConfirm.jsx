@@ -14,6 +14,7 @@ import dateFns from 'date-fns'
 
 const saveAll = (client, data, currentUserId, history) => {
   console.log(data.askAskingAsId)
+  console.log(client.cache.data.data.ROOT_QUERY)
   client
     .mutate({
       mutation: NEW_ASK,
