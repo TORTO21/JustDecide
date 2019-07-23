@@ -3,6 +3,7 @@ import './index.css'
 import ApolloClient from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import Mutations from './graphql/mutations/auth_mutations'
+import AuthQueries from './graphql/queries/auth_queries'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/Root'
@@ -11,6 +12,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { onError } from "apollo-link-error";
 
 const { VERIFY_USER } = Mutations
+const { CURRENT_USER_ID } = AuthQueries
 
 // declare new cache and normalize the data by object id
 const cache = new InMemoryCache({
@@ -34,7 +36,7 @@ cache.writeData({
     askInvitees: [],
     errors: [],
     isLoggedIn: Boolean(token),
-    currentUserId
+    currentUserId: {__typename: "currentUserId", id: currentUserId}
   }
 })
 
@@ -53,32 +55,24 @@ const httpLink = createHttpLink({
 })
 
 const errorLink = onError(error => console.log("hello from error index"))
-// (({ graphQLErrors, networkError }) => {
-//   if (graphQLErrors)
-//     graphQLErrors.map(({ message, locations, path }) =>
-//       console.log(
-//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-//       ),
-//     );
-//   if (networkError) console.log(`[Network error]: ${networkError}`);
-// });
 
 // Create new Apollo client from link and cache.
 const client = new ApolloClient({
   link: httpLink,
   cache,
-  onError: 
-  errorLink
-  // ({ networkError, graphQLErrors }) => {
-  //   console.log('graphQLErrors', graphQLErrors)
-  //   console.log('networkError', networkError)
-  //   ReactDOM.render(
-  //     <Errors
-  //       client={ client }
-  //       networkError={ networkError }
-  //       graphQLErrors={ graphQLErrors }
-  //       />, document.getElementById('root'))
-  // }
+  onError: errorLink,
+  resolvers: {
+    Query: {
+      currentUserId: (parent, args, { getCacheKey }) => {
+        return getCacheKey({__typename: "currentUserId"})
+        
+        // const anyShit = cache.readQuery({ CURRENT_USER_ID })
+        // console.log(anyShit)
+
+        return null
+      }
+    }
+  }
 })
 
 // if token exists in local stroage, apply backend mutation,
@@ -94,7 +88,8 @@ if (token) {
       cache.writeData({
         data: {
           isLoggedIn: data.verifyUser.loggedIn,
-          currentUserId: data.verifyUser.id
+          currentUserId: {__typename: "currentUserId", id: data.verifyUser.id}
+          // currentUserId: data.verifyUser.id
         }
       })
     })
