@@ -33,6 +33,7 @@
   align-items: center;
   margin-left: 1rem;
   margin-right: 1rem;
+  width: 100%;
 }
 
 .option-input {
@@ -56,6 +57,7 @@
   display: flex;
   text-align: center;
   margin-bottom: 5%;
+  width: 80%;
 }
 
 .add-button {

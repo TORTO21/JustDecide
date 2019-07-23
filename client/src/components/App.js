@@ -47,6 +47,7 @@ const App = () => (
             component={AddContact}
           />
           <Route exact path="/" component={Splash} />
+          <AuthRoute exact path="/askConfirm" component={AskConfirm} />
         </Switch>
       </div>
       {/*
@@ -54,7 +55,6 @@ const App = () => (
     <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
     <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
     <AuthRoute exact path="/asks" component={AskAnswerIndex} />
-    <AuthRoute exact path="/askConfirm" component={AskConfirm} />
   */}
     </div>
   </div>

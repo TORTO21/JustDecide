@@ -1,14 +1,12 @@
 .ask-details-container {
-  width: 75%;
-  /* height: 150px; */
   background: white;
-  /* margin-top: 8%; */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  align-content: center;
+  width: 90%;
+  padding: 1rem;
 }
 
 .ask-deadline-counter {
@@ -34,8 +32,8 @@
 }
 
 .ask-button {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 .ask-invitees-ul {
@@ -70,14 +68,16 @@
 
 .ask-details {
   text-align: center;
-  margin: 25px 10px 0px 10px;
+  font-size: 1.2rem;
+  color: #000000ab;
 }
 
 .date-time-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  color: #000000ab;
 }
 
 .confirm-ask-date {
@@ -86,4 +86,26 @@
 
 .confirm-ask-time {
   margin-bottom: 20px;
+}
+
+.section-header.confirm {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.top-container.confirm {
+  margin-bottom: 3rem;
+}
+
+.lower-container.confirm {
+  margin-top: 0;
+}
+
+.countdown {
+  padding: 10px;
+  border: 1px solid #c2c2c2;
+  border-radius: 5px;
+  background: white;
+  text-align: center;
+  margin-top: -28px;
 }
