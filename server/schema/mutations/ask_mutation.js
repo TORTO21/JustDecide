@@ -34,8 +34,9 @@ const askMutations = {
   deleteAsk: {
     type: AskType,
     args: { id: { type: GraphQLID } },
-    resolve: async (_, { id }, context) => {
-      // if (!(await userLoggedIn(context))) {
+    resolve: (_, { id }, context) => {
+    // resolve: async (_, { id }, context) => {
+    // if (!(await userLoggedIn(context))) {
       //   throw new Error('You must be logged in before proceeding')
       // }
       return Ask.findById(id).then(ask => {

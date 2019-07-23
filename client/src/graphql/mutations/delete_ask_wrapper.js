@@ -16,8 +16,8 @@ export default props => (
     {mutationDeleteAsk => {
       const deleteAsk = id => {
         return mutationDeleteAsk({
-          variables: { id },
-          refetchQueries: () => [{ query: GET_USER_ASKS }]
+          variables: { id: id },
+          // refetchQueries: () => [{ query: GET_USER_ASKS }]
         })
       }
       const { children, ...otherProps } = props

@@ -1,12 +1,7 @@
 import gql from 'graphql-tag'
-
-export const DELETE_ASK = gql`
-  mutation DeleteAsk($id: ID!) {
-    deleteAsk(id: $id) {
-      id
-    }
-  }
-`
+import React from 'react';
+import { Mutation } from 'react-apollo'
+import { GET_USER_ASKS, GET_USER_ANSWERING } from '../queries/ask_queries'
 
 export const NEW_ASK = gql`
   mutation NewAsk(
@@ -73,3 +68,25 @@ export const NEW_ASK = gql`
   }
 `
 
+export default props => (
+  <Mutation mutation={ NEW_ASK }>
+    {mutationNewAsk => {
+      const newAsk = ask => {
+        return mutationNewAsk({
+          variables: { ...ask },
+          refetchQueries: () => [
+            { query: GET_USER_ASKS },
+            { query: GET_USER_ANSWERING },
+          ]
+        })
+      }
+      const { children, ...otherProps } = props
+      const InnerComponent = React.cloneElement(children, {
+        ...otherProps,
+        newAsk
+      })
+
+      return InnerComponent
+    }}
+  </Mutation>
+)
