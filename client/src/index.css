@@ -184,12 +184,6 @@ input[type='text']:focus {
 }
 
 /* === text === */
-.section-header {
-  margin-top: 20%;
-  font-size: 45px;
-  color: white;
-  line-height: 45px;
-}
 
 .text {
   font-size: 25px;
@@ -289,4 +283,61 @@ code {
   background-size: contain;
   cursor: pointer;
   background-repeat: no-repeat;
+}
+
+/* //////////////////// */
+
+.section-header {
+  margin-top: 3rem;
+  font-size: 45px;
+  color: white;
+  line-height: 45px;
+}
+
+@media screen and (min-width: 500px) {
+  .app {
+    background: white;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .outer-demo-frame,
+  .outer-phone-frame {
+    background-image: url(./images/iphone.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 350px;
+    height: 689px;
+    position: relative;
+  }
+
+  .inner-demo-frame,
+  .inner-phone-frame {
+    background: linear-gradient(
+      225deg,
+      rgba(103, 223, 147, 1) 0%,
+      rgba(48, 196, 161, 1) 55%,
+      rgba(3, 173, 172, 1) 100%
+    );
+    position: absolute;
+    top: 22px;
+    left: 30px;
+    z-index: 1;
+    width: 292px;
+    height: 632px;
+    border-radius: 26px;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+  }
 }

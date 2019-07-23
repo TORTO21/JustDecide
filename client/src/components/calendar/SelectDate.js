@@ -39,7 +39,8 @@ class SelectDate extends React.Component {
   }
 
   renderHeader() {
-    const dateFormat = 'MMMM YYYY'
+    const monthOnly = 'MMMM'
+    const yearOnly = 'YYYY'
 
     return (
       <div className="header row flex-middle">
@@ -58,7 +59,9 @@ class SelectDate extends React.Component {
           />
         </div>
         <div className="col col-center month-year">
-          {dateFns.format(this.state.currentMonth, dateFormat)}
+          {dateFns.format(this.state.currentMonth, monthOnly)}
+          <br />
+          {dateFns.format(this.state.currentMonth, yearOnly)}
         </div>
         <div className="col col-end">
           <img
@@ -230,7 +233,7 @@ class SelectDate extends React.Component {
       <ApolloConsumer>
         {client => {
           return (
-            <div className="background">
+            <div>
               <div className="section-header cal-header">Set the Date</div>
               <div className="calendar">
                 {this.renderHeader()}

@@ -88,43 +88,41 @@ class AskOption extends React.Component {
       <ApolloConsumer>
         {client => {
           return (
-            <div className="background">
-              <div className="overall-container">
-                <div className="top-container">
-                  <div className="section-header ask-option-header">
-                    Is this a yes or no question?
-                  </div>
-                  <Toggle
-                    defaultChecked={this.state.checked}
-                    icons={false}
-                    onChange={this.handleChange}
-                    className={this.state.checked === true ? `yes` : `no`}
-                  />
+            <div className="overall-container">
+              <div className="top-container">
+                <div className="section-header ask-option-header">
+                  Is this a yes or no question?
                 </div>
-                <div className="lower-container">
-                  <input
-                    className={`option-input drop-shadow 
+                <Toggle
+                  defaultChecked={this.state.checked}
+                  icons={false}
+                  onChange={this.handleChange}
+                  className={this.state.checked === true ? `yes` : `no`}
+                />
+              </div>
+              <div className="lower-container">
+                <input
+                  className={`option-input drop-shadow 
                       ${this.state.checked === true ? 'hidden' : ''}`}
-                    placeholder="option"
-                    type="text"
-                    onChange={this.handleInput()}
-                    id="option-input"
-                  />
-                  <button
-                    className={`add-button green-gradient
+                  placeholder="option"
+                  type="text"
+                  onChange={this.handleInput()}
+                  id="option-input"
+                />
+                <button
+                  className={`add-button green-gradient
                       ${this.state.checked === true ? 'hidden' : ''}`}
-                    onClick={() => this.updateList(client)}
-                  >
-                    Add Option
-                  </button>
-                  <button
-                    className="continue-button solid-pink-button"
-                    onClick={() => this.handleContinue(client)}
-                  >
-                    Continue
-                  </button>
-                  {listView}
-                </div>
+                  onClick={() => this.updateList(client)}
+                >
+                  Add Option
+                </button>
+                <button
+                  className="continue-button solid-pink-button"
+                  onClick={() => this.handleContinue(client)}
+                >
+                  Continue
+                </button>
+                {listView}
               </div>
             </div>
           )

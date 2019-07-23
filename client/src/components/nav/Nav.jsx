@@ -4,18 +4,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 
 const Nav = ({ history }) => (
-  <div
-    style={{
-      position: 'fixed',
-      zIndex: 10,
-      display: 'flex',
-      alignItems: 'center',
-      left: 0,
-      right: 0,
-      padding: 10,
-      justifyContent: 'space-between'
-    }}
-  >
+  <div className="nav">
     <div className="back-btn" onClick={() => history.goBack()} />
     <Logout />
     <Link className="button" to="/asks">

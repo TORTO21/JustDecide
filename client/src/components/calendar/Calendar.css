@@ -160,8 +160,8 @@ main {
 }
 
 .calendar .body .cell .number {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   background-color: #67df93;
   color: white;
@@ -234,16 +234,6 @@ main {
   justify-content: center;
 }
 
-.month-year {
-  line-height: 1;
-  padding: 2%;
-  background-color: #03adac;
-  border-radius: 15px;
-  min-width: 160px;
-  max-height: 35px;
-  color: white;
-}
-
 .arrow {
   width: 30px;
   height: auto;
@@ -272,6 +262,9 @@ main {
   justify-content: center;
   text-align: center;
   font-size: 35px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  line-height: 37px;
 }
 
 .calendar .body .cell .number.selected {
@@ -287,16 +280,6 @@ main {
 
 .arrow {
   width: 30px;
-}
-
-.section-header {
-  margin-top: 6rem;
-}
-
-.month-year {
-  padding: 0.6rem;
-  max-height: 47px;
-  margin: 0 5px;
 }
 
 .dbl-left-arrow {
@@ -325,7 +308,6 @@ main {
 
 .calendar .header {
   flex-wrap: nowrap;
-  padding: 1.5rem;
 }
 
 .calendar .body .cell .number {
@@ -356,7 +338,7 @@ main {
   margin-top: 3rem;
 }
 
-@media screen and (min-width: 900px) {
+/* @media screen and (min-width: 900px) {
   .calendar {
     margin: auto;
     max-width: 600px;
@@ -376,15 +358,14 @@ main {
     width: 40px;
   }
 
-  .section-header {
-    margin: auto;
-    margin-top: 7rem;
-    margin-bottom: 2rem;
-    max-width: 500px;
-  }
+} */
 
-  .month-year {
-    padding: 0.8rem 2rem;
-    max-height: unset;
-  }
+.month-year {
+  padding: 5px 20px;
+  margin: 0 5px;
+  line-height: 1.4;
+  background-color: #03adac;
+  border-radius: 5px;
+  min-width: 133px;
+  color: white;
 }

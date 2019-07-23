@@ -19,7 +19,7 @@ const CreateContact = props => {
       refetchQueries={[{ query: GET_CONTACTS, variables: { id: owner_id } }]}
     >
       {newContact => (
-        <div className="auth-container background">
+        <div className="auth-container">
           <div className="auth-form-title"> Add Someone New</div>
           <div className="auth-form-container">
             <form

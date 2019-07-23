@@ -1,25 +1,3 @@
-.overall-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.top-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* .lower-container {
-  width: 100%;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  flex: 1;
-} */
-
 .ask-details-container {
   width: 75%;
   /* height: 150px; */
@@ -108,11 +86,4 @@
 
 .confirm-ask-time {
   margin-bottom: 20px;
-}
-
-/* added */
-
-.section-header.confirm {
-  margin-bottom: 2rem;
-  margin-top: 4rem;
 }

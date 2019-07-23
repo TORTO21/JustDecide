@@ -11,7 +11,6 @@ const AskInvite = ({ history }) => {
       {({ data: { currentUserId } }) => {
         return (
           <div
-            className="background"
             style={{
               display: 'flex',
               flexDirection: 'column',
