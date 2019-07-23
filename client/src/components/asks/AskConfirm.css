@@ -33,7 +33,7 @@
 
 .ask-button {
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .ask-invitees-ul {
@@ -51,7 +51,7 @@
 
 .invitee-li {
   /* margin-top: 10%; */
-  padding: 0.5rem;
+  padding: 0;
   list-style: none;
   color: #595959;
   border-bottom: 1px solid grey;
@@ -76,7 +76,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   color: #000000ab;
 }
 
@@ -85,11 +85,10 @@
 }
 
 .confirm-ask-time {
-  margin-bottom: 20px;
 }
 
 .section-header.confirm {
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 1.5rem;
 }
 
