@@ -3,11 +3,8 @@ import React from 'react'
 import gql from 'graphql-tag'
 
 export const GET_CURRENT_USER = gql`
-  query getCurrentUser {
-    currentUserId @client {
-      id
-    }
-    loggedIn @client
+  query {
+    currentUserId @client
   }
 `
 
@@ -20,14 +17,12 @@ export default props => (
       }
       if (loading) return null
 
-      console.log(data)
-      // return
-      // const user_answering = data.user.invited
+      const { currentUserId } = data
 
       const { children, ...otherProps } = props
       const innerComponent = React.cloneElement(children, {
         ...otherProps,
-        // user_answering
+        currentUserId
       })
 
       return innerComponent

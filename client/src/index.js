@@ -1,15 +1,15 @@
 import './index.css'
 
 import ApolloClient from 'apollo-client'
+import AuthQueries from './graphql/queries/auth_queries'
+import Errors from './components/errors/Errors'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import Mutations from './graphql/mutations/auth_mutations'
-import AuthQueries from './graphql/queries/auth_queries'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Root from './components/Root'
-import Errors from './components/errors/Errors'
 import { createHttpLink } from 'apollo-link-http'
-import { onError } from "apollo-link-error";
+import { onError } from 'apollo-link-error'
 
 const { VERIFY_USER } = Mutations
 const { CURRENT_USER_ID } = AuthQueries
@@ -36,14 +36,15 @@ cache.writeData({
     askInvitees: [],
     errors: [],
     isLoggedIn: Boolean(token),
-    currentUserId: {__typename: "currentUserId", id: currentUserId}
+    currentUserId
   }
 })
 
 // create uri value for httpLink basd on production mode
-const graphQLRoute = process.env.NODE_ENV === 'production'
-? '/graphql'
-: 'http://localhost:5000/graphql'
+const graphQLRoute =
+  process.env.NODE_ENV === 'production'
+    ? '/graphql'
+    : 'http://localhost:5000/graphql'
 
 // Link to access backend with token from local storage,
 // passed into header of each request
@@ -54,25 +55,13 @@ const httpLink = createHttpLink({
   }
 })
 
-const errorLink = onError(error => console.log("hello from error index"))
+const errorLink = onError(error => console.log('hello from error index'))
 
 // Create new Apollo client from link and cache.
 const client = new ApolloClient({
   link: httpLink,
   cache,
-  onError: errorLink,
-  resolvers: {
-    Query: {
-      currentUserId: (parent, args, { getCacheKey }) => {
-        return getCacheKey({__typename: "currentUserId"})
-        
-        // const anyShit = cache.readQuery({ CURRENT_USER_ID })
-        // console.log(anyShit)
-
-        return null
-      }
-    }
-  }
+  onError: errorLink
 })
 
 // if token exists in local stroage, apply backend mutation,
@@ -88,7 +77,7 @@ if (token) {
       cache.writeData({
         data: {
           isLoggedIn: data.verifyUser.loggedIn,
-          currentUserId: {__typename: "currentUserId", id: data.verifyUser.id}
+          currentUserId: data.verifyUser.id
           // currentUserId: data.verifyUser.id
         }
       })
