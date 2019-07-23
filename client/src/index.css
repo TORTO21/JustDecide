@@ -292,6 +292,7 @@ code {
   font-size: 45px;
   color: white;
   line-height: 45px;
+  text-align: center;
 }
 
 @media screen and (min-width: 500px) {
@@ -332,6 +333,11 @@ code {
     width: 292px;
     height: 632px;
     border-radius: 26px;
+  }
+
+  .inner-phone-frame {
+    display: flex;
+    flex-direction: column;
   }
 
   .nav {

@@ -116,13 +116,13 @@ class AskOption extends React.Component {
                 >
                   Add Option
                 </button>
+                {listView}
                 <button
-                  className="continue-button solid-pink-button"
+                  className="continue-button option-continue solid-pink-button"
                   onClick={() => this.handleContinue(client)}
                 >
                   Continue
                 </button>
-                {listView}
               </div>
             </div>
           )

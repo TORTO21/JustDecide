@@ -40,15 +40,7 @@ const ContactsList = ({ currentUserId, history, currentInvitees }) => {
     <ApolloConsumer>
       {client => {
         return (
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              maxWidth: 550,
-              margin: 'auto'
-            }}
-          >
+          <div className="list-outer-wrapper">
             <Query query={GET_CONTACTS} variables={{ id: currentUserId }}>
               {({ loading, data }) => {
                 if (loading) return null
@@ -58,21 +50,21 @@ const ContactsList = ({ currentUserId, history, currentInvitees }) => {
                 return (
                   <div
                     style={{
-                      boxShadow: '0px 4px 15px #00000059',
+                      // boxShadow: '0px 4px 15px #00000059',
                       display: 'flex',
                       flexDirection: 'column',
-                      marginTop: 17,
-                      padding: '10px',
+                      //   padding: '10px',
                       width: '87%',
                       alignItems: 'center',
-                      paddingBottom: 42
+                      marginTop: 20
                     }}
                   >
                     <div
                       style={{
-                        maxHeight: 219,
+                        flex: 1,
+                        maxHeight: 175,
                         overflowY: 'scroll',
-                        marginBottom: 10,
+                        marginBottom: '1rem',
                         alignSelf: 'stretch',
                         padding: '0px 20px'
                       }}
@@ -86,9 +78,11 @@ const ContactsList = ({ currentUserId, history, currentInvitees }) => {
                         />
                       ))}
                     </div>
-                    <Link to={`/users/${currentUserId}/newContact`}>
+                    <Link
+                      to={`/users/${currentUserId}/newContact`}
+                      style={{ marginTop: '20px' }}
+                    >
                       <button
-                        style={{ marginTop: 30 }}
                         className="gradient-green-button"
                         onClick={() => saveInviteList(client)}
                       >

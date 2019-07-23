@@ -1,5 +1,19 @@
 .list-outer-wrapper {
   background: white;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex: 1;
+  border-bottom-left-radius: 26px;
+  border-bottom-right-radius: 26px;
+  padding-bottom: 1rem;
+}
+
+.invite {
+  font-size: 35px;
+  line-height: 1;
+  margin-top: 2.5rem;
+  width: 90%;
+  margin-bottom: 2rem;
 }

@@ -222,12 +222,6 @@ main {
   z-index: 10;
 }
 
-.cal-button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20%;
-}
-
 .calendar-button {
   display: flex;
   box-shadow: 0px 4px 15px #00000059;
@@ -265,6 +259,7 @@ main {
   margin-left: 1rem;
   margin-right: 1rem;
   line-height: 37px;
+  margin-top: 2rem;
 }
 
 .calendar .body .cell .number.selected {
@@ -335,7 +330,9 @@ main {
 }
 
 .cal-button-container {
-  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 
 /* @media screen and (min-width: 900px) {
