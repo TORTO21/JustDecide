@@ -41,6 +41,11 @@ const App = () => (
           <AuthRoute exact path="/deadlineDate" component={Deadline} />
           <AuthRoute exact path="/askOption" component={AskOption} />
           <AuthRoute exact path="/askInvite" component={AskInvite} />
+          <AuthRoute
+            exact
+            path="/users/:user_id/newContact"
+            component={AddContact}
+          />
           <Route exact path="/" component={Splash} />
         </Switch>
       </div>
@@ -50,11 +55,6 @@ const App = () => (
     <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
     <AuthRoute exact path="/asks" component={AskAnswerIndex} />
     <AuthRoute exact path="/askConfirm" component={AskConfirm} />
-    <AuthRoute
-    exact
-    path="/users/:user_id/newContact"
-    component={AddContact}
-    />
   */}
     </div>
   </div>
