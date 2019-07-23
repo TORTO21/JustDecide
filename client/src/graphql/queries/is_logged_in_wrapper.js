@@ -2,24 +2,14 @@ import { Query } from 'react-apollo'
 import React from 'react'
 import gql from 'graphql-tag'
 
-export const GET_USER_ANSWERING = gql`
-  query getUserAnswering($id: ID!) {
-    user(id: $id) {
-      phone_number
-      id
-      invited {
-        ask {
-          question
-          date
-          id
-        }
-      }
-    }
+export const IS_LOGGED_IN = gql`
+  query {
+    isLoggedIn @client
   }
 `
 
 export default props => (
-  <Query query={GET_USER_ANSWERING} variables={{ id: props.currentUserId }}>
+  <Query query={IS_LOGGED_IN}>
     {({ loading, error, data }) => {
       if (error) {
         console.error(error)
@@ -27,12 +17,12 @@ export default props => (
       }
       if (loading) return null
 
-      const user_answering = data.user.invited
+      const { isLoggedIn } = data
 
       const { children, ...otherProps } = props
       const innerComponent = React.cloneElement(children, {
         ...otherProps,
-        user_answering
+        isLoggedIn
       })
 
       return innerComponent

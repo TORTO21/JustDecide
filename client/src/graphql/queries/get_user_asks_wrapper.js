@@ -15,7 +15,7 @@ export const GET_USER_ASKS = gql`
 `
 
 export default props => (
-  <Query query={GET_USER_ASKS} variables={{ id: props.user_id }}>
+  <Query query={GET_USER_ASKS} variables={{ id: props.currentUserId }}>
     {({ loading, error, data }) => {
       if (error) {
         console.error(error)
