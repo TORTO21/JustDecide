@@ -48,12 +48,12 @@ const App = () => (
           />
           <AuthRoute exact path="/askConfirm" component={AskConfirm} />
           <AuthRoute exact path="/asks" component={AskAnswerIndex} />
+          <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
           <Route exact path="/" component={Splash} />
         </Switch>
       </div>
       {/*
     
-    <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
     <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
   */}
     </div>

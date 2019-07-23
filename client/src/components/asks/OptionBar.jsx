@@ -63,18 +63,18 @@ const OptionBar = ({
           className="drop-shadow"
           style={{
             flex: 1,
-            borderRadius: 50,
+            borderRadius: 30,
             marginRight: 10
           }}
         >
           <div
             className={colorClass}
             style={{
-              borderRadius: 50,
-              height: 40,
+              borderRadius: 30,
+              height: 35,
               width: barPct * 100 + '%',
               display: 'flex',
-              alignItems: 'middle',
+              alignItems: 'center',
               justifyContent: 'flex-end'
             }}
           >
@@ -83,7 +83,6 @@ const OptionBar = ({
                 background: 'white',
                 borderRadius: '50%',
                 marginRight: 10,
-                marginTop: 10,
                 height: 20,
                 minWidth: 20,
                 display: 'flex',
