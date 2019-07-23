@@ -46,15 +46,15 @@ const App = () => (
             path="/users/:user_id/newContact"
             component={AddContact}
           />
-          <Route exact path="/" component={Splash} />
           <AuthRoute exact path="/askConfirm" component={AskConfirm} />
+          <AuthRoute exact path="/asks" component={AskAnswerIndex} />
+          <Route exact path="/" component={Splash} />
         </Switch>
       </div>
       {/*
     
     <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
     <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
-    <AuthRoute exact path="/asks" component={AskAnswerIndex} />
   */}
     </div>
   </div>

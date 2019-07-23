@@ -109,3 +109,7 @@
   text-align: center;
   margin-top: -28px;
 }
+
+.lower-container.index {
+  margin-top: 0;
+}

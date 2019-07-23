@@ -1,9 +1,8 @@
 .outer-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-width: 600px;
-  margin: auto;
+  flex: 1;
+  align-items: center;
 }
 
 .asks-index-button {
@@ -55,7 +54,6 @@
 
 .asks-ul {
   list-style: none;
-  margin-top: 30px;
   padding: 0;
   width: 80%;
   display: flex;
@@ -75,6 +73,7 @@
   font-size: 15px;
   flex-direction: column;
   position: relative;
+  background: #00ff9436;
 }
 
 .hidden {
