@@ -45,10 +45,10 @@ const AskDetail = props => {
                 Something Else
               </button>
               <AskSummaryPanel ask={ask} />
+              {showAddOption && (
+                <NewOption cancel={() => setShowAddOption(false)} ask={ask} />
+              )}
             </div>
-            {/* {showAddOption && (
-              <NewOption cancel={() => setShowAddOption(false)} ask={ask} />
-            )} */}
           </div>
         )
       }}
