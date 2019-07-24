@@ -38,18 +38,18 @@ class Countdown extends React.Component {
   render() {
     return (
       <div
-        className="drop-shadow"
-        style={{
-          background: 'white',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          border: '1px solid #c2c2c2',
-          borderRadius: 5,
-          padding: 5,
-          minWidth: 176,
-          marginTop: 10
-        }}
+        className="drop-shadow countdown"
+        // style={{
+        //   background: 'white',
+        //   display: 'flex',
+        //   flexDirection: 'column',
+        //   alignItems: 'center',
+        //   border: '1px solid #c2c2c2',
+        //   borderRadius: 5,
+        //   padding: 5,
+        //   minWidth: 176,
+        //   marginTop: 10
+        // }}
       >
         <p
           className="detail-text"
@@ -61,9 +61,7 @@ class Countdown extends React.Component {
         </p>
         <div
           style={{
-            minWidth: 150,
-            margin: 'auto',
-            textAlign: 'center'
+            marginTop: 3
           }}
         >
           <span>{`${this.state.days} ${

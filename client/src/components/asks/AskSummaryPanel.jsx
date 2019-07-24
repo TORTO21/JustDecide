@@ -10,7 +10,8 @@ const AskSummaryPanel = ({ ask }) => (
       alignItems: 'center',
       margin: '19px 30px',
       padding: '18px',
-      alignSelf: 'stretch'
+      alignSelf: 'stretch',
+      fontSize: '1rem'
     }}
   >
     {ask.use_date && (
@@ -50,7 +51,8 @@ const AskSummaryPanel = ({ ask }) => (
                 padding: ' 0 7px',
                 borderRadius: '14px',
                 margin: '2px',
-                textTransform: 'uppercase'
+                textTransform: 'uppercase',
+                fontSize: '.9rem'
               }}
             >
               {name}

@@ -1,17 +1,3 @@
-.splash-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.splash-title {
-  font-size: 55px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  margin-top: 25%;
-}
-
 .splash-subtitle {
   font-size: 20px;
   color: white;
@@ -62,10 +48,6 @@
 
 /* added */
 
-.splash-container {
-  align-items: center;
-}
-
 .splash-subtitle {
   padding: 0 2rem;
 }
@@ -73,4 +55,21 @@
 .create-ask-button {
   width: unset;
   padding: 10px 3rem;
+}
+
+/* //////////// */
+
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.splash-title {
+  font-size: 55px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
 }

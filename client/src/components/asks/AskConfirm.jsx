@@ -78,34 +78,30 @@ const AskConfirm = ({ data, currentUserId, history }) => {
         let milliseconds = new Date(data.askDeadline).getTime()
 
         return (
-          <div className="background">
-            <div className="overall-container">
-              <div className="top-container">
-                <div className="section-header">Confirm!</div>
-                <div className="ask-details-container">
-                  <div className="ask-details">{data.askQuestion}</div>
-                  {data.askUseDate && (
-                    <div className="date-time-group">
-                      <div className="confirm-ask-date">{date}</div>
-                      <div className="confirm-ask-time">{time}</div>
-                    </div>
-                  )}
-                </div>
+          <div className="overall-container">
+            <div className="top-container confirm">
+              <div className="section-header confirm">Confirm!</div>
+              <div className="ask-details-container">
+                <div className="ask-details">{data.askQuestion}</div>
+                {data.askUseDate && (
+                  <div className="date-time-group">
+                    <div className="confirm-ask-date">{date}</div>
+                    <div className="confirm-ask-time">{time}</div>
+                  </div>
+                )}
               </div>
-              <div className="lower-container">
-                <div className="ask-deadline-counter">
-                  <Countdown deadline={milliseconds} />
-                </div>
-                <div className="ask-invitees-list">
-                  <ul className="ask-invitees-ul">{options}</ul>
-                </div>
-                <button
-                  className="ask-button solid-pink-button"
-                  onClick={() => saveAll(client, data, currentUserId, history)}
-                >
-                  Ask!
-                </button>
+            </div>
+            <div className="lower-container confirm">
+              <Countdown deadline={milliseconds} />
+              <div className="ask-invitees-list">
+                <ul className="ask-invitees-ul">{options}</ul>
               </div>
+              <button
+                className="ask-button solid-pink-button"
+                onClick={() => saveAll(client, data, currentUserId, history)}
+              >
+                Ask!
+              </button>
             </div>
           </div>
         )

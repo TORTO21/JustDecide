@@ -19,57 +19,35 @@ const AskDetail = props => {
         if (loading) return <div>Loading...</div>
 
         return (
-          <>
-            <div
-              className="background vertical-flex"
-              style={{
-                position: 'relative'
-              }}
-            >
-              <div className="section-header">{ask.question}</div>
-              <div
+          <div
+            className="vertical-flex detail"
+            style={{
+              overflow: 'scroll'
+            }}
+          >
+            <div className="section-header detail">{ask.question}</div>
+            <div className="detail-lower">
+              <Countdown deadline={parseInt(ask.deadline)} />
+              <OptionsList ask={ask} history={props.history} />
+              <NotInterestedButton
+                invitations={ask.invitations}
+                history={props.history}
+              />
+              <button
+                className="solid-pink-button"
                 style={{
-                  background: 'white',
-                  marginTop: 44,
-                  position: 'relative',
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  maxWidth: '600px'
+                  marginTop: 17
                 }}
+                onClick={() => setShowAddOption(true)}
               >
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: -38,
-                    left: '50%',
-                    transform: 'translateX(-50%)'
-                  }}
-                >
-                  <Countdown deadline={parseInt(ask.deadline)} />
-                </div>
-                <OptionsList ask={ask} history={props.history} />
-                <NotInterestedButton
-                  invitations={ask.invitations}
-                  history={props.history}
-                />
-                <button
-                  className="solid-pink-button"
-                  style={{
-                    marginTop: 17
-                  }}
-                  onClick={() => setShowAddOption(true)}
-                >
-                  Something Else
-                </button>
-                <AskSummaryPanel ask={ask} />
-              </div>
+                Something Else
+              </button>
+              <AskSummaryPanel ask={ask} />
+              {showAddOption && (
+                <NewOption cancel={() => setShowAddOption(false)} ask={ask} />
+              )}
             </div>
-            {showAddOption && (
-              <NewOption cancel={() => setShowAddOption(false)} ask={ask} />
-            )}
-          </>
+          </div>
         )
       }}
     </Query>

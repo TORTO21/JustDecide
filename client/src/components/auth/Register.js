@@ -46,17 +46,17 @@ class Register extends Component {
   render() {
     return (
       <Mutation
-        mutation={ REGISTER_USER }
-        onCompleted={ data => {
-          const { token, id } = data.register;
-          localStorage.setItem("auth-token", token);
-          localStorage.setItem("current-user", id);
+        mutation={REGISTER_USER}
+        onCompleted={data => {
+          const { token, id } = data.register
+          localStorage.setItem('auth-token', token)
+          localStorage.setItem('current-user', id)
           this.props.history.push('/asks/new')
         }}
         update={(cache, result) => this.updateCache(cache, result)}
       >
         {registerUser => (
-          <div className="auth-container background">
+          <div className="auth-container">
             <div className="auth-form-title"> Create Your Account </div>
             <div className="auth-form-container">
               <form

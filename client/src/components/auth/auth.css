@@ -1,8 +1,31 @@
-.auth-container {
+.auth-field-title {
+  padding-top: 5%;
+  padding-bottom: 2%;
+}
+
+.auth-field {
+  border: 1px solid rgba(0, 0, 0, 0.44);
+  border-radius: 6px;
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 15px;
+}
+
+.continue-button-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 10%;
+}
+
+/* ////////////////// */
+
+.auth-container,
+.new-contact-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  flex: 1;
 }
 
 .auth-form-title {
@@ -10,14 +33,15 @@
   color: white;
   display: flex;
   justify-content: center;
-  margin-top: 25%;
-  margin-bottom: 15%
+  margin-top: 2rem;
+  margin-bottom: 15%;
+  text-align: center;
 }
 
 .auth-form-container {
-  background-color:white;
+  background-color: white;
   border-radius: 25px;
-  max-height: 67%;
+  /* max-height: 67%; */
   width: 90%;
   font-size: 15px;
 }
@@ -30,23 +54,28 @@
   margin: 20px;
 }
 
-.auth-field-title {
-  padding-top: 5%;
-  padding-bottom: 2%;
-}
-
-.auth-field {
-  border: 1px solid rgba(0,0,0,.44);
-  border-radius: 6px;
-  height: 30px;
-  height: 50%;
-  width: 100%;
-  padding-left: 10px;
-  font-size: 15px;
-}
-
-.continue-button-container {
+.new-contact-title {
+  font-size: 33px;
+  color: white;
   display: flex;
   justify-content: center;
-  padding-top: 10%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  width: 90%;
+}
+
+.new-contact-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 25px;
+  width: 90%;
+  font-size: 15px;
+  padding: 20px;
+}
+
+.new-contact-field {
+  align-self: stretch;
 }

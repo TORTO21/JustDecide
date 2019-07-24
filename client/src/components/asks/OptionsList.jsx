@@ -26,7 +26,7 @@ const OptionsList = ({ ask, history }) => {
   return (
     <div
       style={{
-        paddingTop: 37,
+        marginTop: '1rem',
         width: '100%'
       }}
     >

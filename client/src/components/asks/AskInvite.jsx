@@ -10,20 +10,11 @@ const AskInvite = ({ history }) => {
     <Query query={CURRENT_USER_ID}>
       {({ data: { currentUserId } }) => {
         return (
-          <div
-            className="background"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}
-          >
+          <div className="overall-container">
             <div className="section-header invite">
               Invite others to cast their votes and share options
             </div>
-            <div className="list-outer-wrapper">
-              <ContactsList currentUserId={currentUserId} history={history} />
-            </div>
+            <ContactsList currentUserId={currentUserId} history={history} />
           </div>
         )
       }}
