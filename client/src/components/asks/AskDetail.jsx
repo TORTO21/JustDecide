@@ -20,10 +20,8 @@ const AskDetail = props => {
 
         return (
           <div
-            className="vertical-flex"
+            className="vertical-flex detail"
             style={{
-              borderBottomLeftRadius: 26,
-              borderBottomRightRadius: 26,
               overflow: 'scroll'
             }}
           >

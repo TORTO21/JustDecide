@@ -335,28 +335,6 @@ main {
   margin-top: 2rem;
 }
 
-/* @media screen and (min-width: 900px) {
-  .calendar {
-    margin: auto;
-    max-width: 600px;
-  }
-
-  .dbl-left-arrow {
-    width: 40px;
-    margin-right: 10px;
-  }
-
-  .dbl-right-arrow {
-    margin-left: 10px;
-    width: 40px;
-  }
-
-  .arrow {
-    width: 40px;
-  }
-
-} */
-
 .month-year {
   padding: 5px 20px;
   margin: 0 5px;

@@ -176,9 +176,3 @@
 .index-drop-shadow {
   box-shadow: 0px 2px 2px #00000059;
 }
-/* 
-@media screen and (min-width: 900px) {
-  .asks-index-button {
-    margin-top: 0;
-  }
-} */
