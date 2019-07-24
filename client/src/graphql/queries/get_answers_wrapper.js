@@ -2,28 +2,24 @@ import { Query } from 'react-apollo'
 import React from 'react'
 import gql from 'graphql-tag'
 
-export const GET_VOTES = gql`
-  query getVotes($ask_id: ID!) {
-    ask(id: $ask_id) {
-      id
-      question {
-        options {
-          votes {
-            direction
-            id
-            contact {
-              user {
-                id
-              }
-            }
+// Can't find this query anywhere. It hasn't been tested.
+export const GET_ANSWERS = gql`
+  query FindAnswers($user_id: ID!) {
+    user(id: $user_id) {
+      votes {
+        option {
+          ask {
+            question
+            date
           }
         }
       }
     }
   }
 `
+
 export default props => (
-  <Query query={GET_VOTES} variables={{ ask_id: props.ask_id }}>
+  <Query query={GET_ANSWERS} variables={{ id: props.currentUserId }}>
     {({ loading, error, data }) => {
       if (error) {
         console.error(error)
@@ -31,12 +27,12 @@ export default props => (
       }
       if (loading) return null
 
-      const votes = data.id
+      const answers = data.user.votes.option
 
       const { children, ...otherProps } = props
       const innerComponent = React.cloneElement(children, {
         ...otherProps,
-        votes
+        answers
       })
 
       return innerComponent

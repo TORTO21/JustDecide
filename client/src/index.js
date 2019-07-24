@@ -25,16 +25,8 @@ const token = localStorage.getItem('auth-token')
 const currentUserId = localStorage.getItem('current-user')
 cache.writeData({
   data: {
-    askQuestion: '',
-    askUseDate: true,
-    // askAskingAs: null,
-    askAskingAsId: '',
-    askAskingAsName: '',
-    askDate: '',
-    askDeadline: '',
-    askOptions: JSON.stringify([]),
-    askInvitees: [],
-    errors: [],
+    answerCount: 0,
+    newAsk: { __typename: 'NewAsk', id: 1111111 },
     isLoggedIn: Boolean(token),
     currentUserId
   }
@@ -78,7 +70,6 @@ if (token) {
         data: {
           isLoggedIn: data.verifyUser.loggedIn,
           currentUserId: data.verifyUser.id
-          // currentUserId: data.verifyUser.id
         }
       })
     })
@@ -86,6 +77,8 @@ if (token) {
   // otherwise isLoggedIn and currentUserId defaults to false and e
   cache.writeData({
     data: {
+      answerCount: 0,
+      newAsk: { __typename: 'NewAsk', id: 1111111 },
       isLoggedIn: false,
       currentUserId: ''
     }

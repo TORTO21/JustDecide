@@ -1,17 +1,21 @@
+import AnswerCountWrapper from '../graphql/queries/answer_count_wrapper'
 import CurrentUserWrapper from '../graphql/queries/current_user_wrapper'
 import DeleteAskWrapper from '../graphql/mutations/delete_ask_wrapper'
 import GetUserAnsweringWrapper from '../graphql/queries/get_user_answering_wrapper'
 import GetUserAsksWrapper from '../graphql/queries/get_user_asks_wrapper'
+// import VotesQueriesWrapper from '../graphql/queries/votes_queries'
+import GetUserContactsWrapper from '../graphql/queries/get_user_contacts_wrapper'
 import IsLoggedInWrapper from '../graphql/queries/is_logged_in_wrapper'
-import NewAskWrapper from '../graphql/mutations/new_ask_wrapper'
+import NewAskDetailsWrapper from '../graphql/queries/new_ask_details_wrapper'
 import React from 'react'
+import SaveNewAskWrapper from '../graphql/mutations/new_ask_wrapper'
 
 const MyRealInnerComponent = props => {
-  const ask = props.user_asks[0]
+  // const ask = props.user_asks[0]
   return (
     <div>
       <h1>Hello</h1>
-      <p>
+      {/* <p>
         {props.deleteAsk
           ? 'deleteAsk available here (from DeleteAskWrapper)'
           : ''}
@@ -27,24 +31,32 @@ const MyRealInnerComponent = props => {
           : ''}
       </p>
       <p>See console log</p>
+      <button onClick={() => props.deleteAsk(ask.id)}>DeleteAsk</button> */}
       {console.log(props)}
-      <button onClick={() => props.deleteAsk(ask.id)}>DeleteAsk</button>
     </div>
   )
 }
 
 export default props => (
   <CurrentUserWrapper>
-    <IsLoggedInWrapper>
-      <NewAskWrapper>
-        <GetUserAnsweringWrapper>
-          <DeleteAskWrapper>
-            <GetUserAsksWrapper>
-              <MyRealInnerComponent />
-            </GetUserAsksWrapper>
-          </DeleteAskWrapper>
-        </GetUserAnsweringWrapper>
-      </NewAskWrapper>
-    </IsLoggedInWrapper>
+    <AnswerCountWrapper>
+      <IsLoggedInWrapper>
+        <GetUserContactsWrapper>
+          {/* <VotesQueriesWrapper> */}
+          <SaveNewAskWrapper>
+            <GetUserAnsweringWrapper>
+              <DeleteAskWrapper>
+                <GetUserAsksWrapper>
+                  <NewAskDetailsWrapper>
+                    <MyRealInnerComponent />
+                  </NewAskDetailsWrapper>
+                </GetUserAsksWrapper>
+              </DeleteAskWrapper>
+            </GetUserAnsweringWrapper>
+          </SaveNewAskWrapper>
+        </GetUserContactsWrapper>
+        {/* </VotesQueriesWrapper> */}
+      </IsLoggedInWrapper>
+    </AnswerCountWrapper>
   </CurrentUserWrapper>
 )

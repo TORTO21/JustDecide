@@ -6,16 +6,11 @@ export const GET_ANSWERS = gql`
       votes {
         option {
           ask {
-            question 
+            question
             date
           }
         }
       }
     }
-  }
-`
-export const ANSWER_COUNT = gql`
-  query {
-    answerCount @client
   }
 `
