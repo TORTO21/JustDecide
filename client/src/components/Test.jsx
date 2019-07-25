@@ -10,6 +10,7 @@ import NewAskDetailsWrapper from '../graphql/queries/new_ask_details_wrapper'
 import React from 'react'
 import SaveNewAskWrapper from '../graphql/mutations/new_ask_wrapper'
 import GetAskWrapper from '../graphql/queries/get_ask_wrapper'
+import AskInviteesWrapper from '../graphql/queries/ask_invitees_wrapper'
 
 
 const MyRealInnerComponent = props => {
@@ -48,13 +49,15 @@ export default props => (
             <GetUserAnsweringWrapper>
               <DeleteAskWrapper>
                 <GetUserAsksWrapper>
-                  <GetAskWrapper id="5d38cf64fc2e560748136d98">
-                    <VotesQueriesWrapper id="5d38cf64fc2e560748136d98">
-                      <NewAskDetailsWrapper>
-                        <MyRealInnerComponent />
-                      </NewAskDetailsWrapper>
-                    </VotesQueriesWrapper>
-                  </GetAskWrapper>
+                  <AskInviteesWrapper>
+                    <GetAskWrapper id="5d38cf64fc2e560748136d98">
+                      <VotesQueriesWrapper id="5d38cf64fc2e560748136d98">
+                        <NewAskDetailsWrapper>
+                          <MyRealInnerComponent />
+                        </NewAskDetailsWrapper>
+                      </VotesQueriesWrapper>
+                    </GetAskWrapper>
+                  </AskInviteesWrapper>
                 </GetUserAsksWrapper>
               </DeleteAskWrapper>
             </GetUserAnsweringWrapper>

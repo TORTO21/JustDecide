@@ -1,7 +1,5 @@
-import {
-  GET_USER_ANSWERING,
-  GET_USER_ASKS
-} from '../../graphql/queries/ask_queries'
+import { GET_USER_ANSWERING } from '../../graphql/queries/get_user_answering_wrapper'
+import { GET_USER_ASKS } from '../../graphql/queries/get_user_asks_wrapper'
 
 import AnswersIndex from './AnswersIndex'
 import AsksIndex from './AsksIndex'

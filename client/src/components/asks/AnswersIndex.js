@@ -2,7 +2,7 @@ import React from 'react';
 import { Query, withApollo, ApolloConsumer } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
-import { GET_USER_ANSWERING } from '../../graphql/queries/ask_queries';
+import { GET_USER_ANSWERING } from '../../graphql/queries/get_user_answering_wrapper';
 import Votes from './Votes.js'
 import './AsksIndex.css';
 

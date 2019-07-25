@@ -1,7 +1,8 @@
 import gql from 'graphql-tag'
 import React from 'react';
 import { Mutation } from 'react-apollo'
-import { GET_USER_ASKS, GET_USER_ANSWERING } from '../queries/ask_queries'
+import { GET_USER_ANSWERING } from '../queries/get_user_answering_wrapper'
+import { GET_USER_ASKS } from '../queries/get_user_asks_wrapper'
 
 export const NEW_ASK = gql`
   mutation NewAsk(
