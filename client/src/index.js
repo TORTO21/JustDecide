@@ -26,7 +26,7 @@ const currentUserId = localStorage.getItem('current-user')
 cache.writeData({
   data: {
     answerCount: 0,
-    newAsk: { __typename: 'NewAsk', id: 1111111 },
+    newAsk: { __typename: 'NewAsk', id: 'new_ask_1' },
     isLoggedIn: Boolean(token),
     currentUserId
   }
@@ -78,7 +78,7 @@ if (token) {
   cache.writeData({
     data: {
       answerCount: 0,
-      newAsk: { __typename: 'NewAsk', id: 1111111 },
+      newAsk: { __typename: 'NewAsk', id: 'new_ask_1' },
       isLoggedIn: false,
       currentUserId: ''
     }

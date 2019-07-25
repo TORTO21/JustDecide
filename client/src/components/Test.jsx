@@ -7,6 +7,7 @@ import GetUserAsksWrapper from '../graphql/queries/get_user_asks_wrapper'
 import GetUserContactsWrapper from '../graphql/queries/get_user_contacts_wrapper'
 import IsLoggedInWrapper from '../graphql/queries/is_logged_in_wrapper'
 import NewAskDetailsWrapper from '../graphql/queries/new_ask_details_wrapper'
+import NewOptionWrapper from '../graphql/mutations/new_option_wrapper'
 import React from 'react'
 import SaveNewAskWrapper from '../graphql/mutations/new_ask_wrapper'
 
@@ -40,23 +41,25 @@ const MyRealInnerComponent = props => {
 export default props => (
   <CurrentUserWrapper>
     <AnswerCountWrapper>
-      <IsLoggedInWrapper>
-        <GetUserContactsWrapper>
-          {/* <VotesQueriesWrapper> */}
-          <SaveNewAskWrapper>
-            <GetUserAnsweringWrapper>
-              <DeleteAskWrapper>
-                <GetUserAsksWrapper>
-                  <NewAskDetailsWrapper>
-                    <MyRealInnerComponent />
-                  </NewAskDetailsWrapper>
-                </GetUserAsksWrapper>
-              </DeleteAskWrapper>
-            </GetUserAnsweringWrapper>
-          </SaveNewAskWrapper>
-        </GetUserContactsWrapper>
-        {/* </VotesQueriesWrapper> */}
-      </IsLoggedInWrapper>
+      <NewOptionWrapper>
+        <IsLoggedInWrapper>
+          <GetUserContactsWrapper>
+            {/* <VotesQueriesWrapper> */}
+            <SaveNewAskWrapper>
+              <GetUserAnsweringWrapper>
+                <DeleteAskWrapper>
+                  <GetUserAsksWrapper>
+                    <NewAskDetailsWrapper>
+                      <MyRealInnerComponent />
+                    </NewAskDetailsWrapper>
+                  </GetUserAsksWrapper>
+                </DeleteAskWrapper>
+              </GetUserAnsweringWrapper>
+            </SaveNewAskWrapper>
+          </GetUserContactsWrapper>
+          {/* </VotesQueriesWrapper> */}
+        </IsLoggedInWrapper>
+      </NewOptionWrapper>
     </AnswerCountWrapper>
   </CurrentUserWrapper>
 )
