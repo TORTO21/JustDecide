@@ -72,15 +72,17 @@ export const FETCH_ASK_DETAILS = gql`
 //   }
 // `
 
-export const GET_ASKS = gql`
-  {
-    asks {
-      question
-      date
-    }
-  }
-`
+// export const GET_ASKS = gql`
+//   {
+//     asks {
+//       question
+//       date
+//     }
+//   }
+// `
 
+// this isn't commented out, because the import of this in new_ask_wrapper will cause errors
+// but it already has a wrapper in get_user_asks_wrapper
 export const GET_USER_ASKS = gql`
   query getUserAsks($id: ID!) {
     user(id: $id) {
@@ -93,6 +95,8 @@ export const GET_USER_ASKS = gql`
   }
 `
 
+// this isn't commented out, because the import of this in new_ask_wrapper will cause errors
+// but it already has a wrapper in get_user_answering_wrapper
 export const GET_USER_ANSWERING = gql`
   query getUserAnswering($id: ID!) {
     user(id: $id) {

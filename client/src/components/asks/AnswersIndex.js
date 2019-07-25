@@ -3,7 +3,6 @@ import { Query, withApollo, ApolloConsumer } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
 import { GET_USER_ANSWERING } from '../../graphql/queries/ask_queries';
-import { GET_VOTES } from '../../graphql/queries/votes_queries';
 import Votes from './Votes.js'
 import './AsksIndex.css';
 
