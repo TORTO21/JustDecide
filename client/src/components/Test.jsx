@@ -1,6 +1,7 @@
 import AnswerCountWrapper from '../graphql/queries/answer_count_wrapper'
 import CurrentUserWrapper from '../graphql/queries/current_user_wrapper'
 import DeleteAskWrapper from '../graphql/mutations/delete_ask_wrapper'
+import DeleteInvitationWrapper from '../graphql/mutations/delete_invitation_wrapper'
 import GetUserAnsweringWrapper from '../graphql/queries/get_user_answering_wrapper'
 import GetUserAsksWrapper from '../graphql/queries/get_user_asks_wrapper'
 // import VotesQueriesWrapper from '../graphql/queries/votes_queries'
@@ -14,10 +15,10 @@ const MyRealInnerComponent = props => {
   // const ask = props.user_asks[0]
   return (
     <div>
-      <h1>Hello</h1>
-      {/* <p>
-        {props.deleteAsk
-          ? 'deleteAsk available here (from DeleteAskWrapper)'
+      {/* <h1>Hello</h1> */}
+      <p>
+        {props.deleteInvitation
+          ? 'deleteInvitation available here (from DeleteInvitationWrapper)'
           : ''}
       </p>
       <p>
@@ -31,7 +32,7 @@ const MyRealInnerComponent = props => {
           : ''}
       </p>
       <p>See console log</p>
-      <button onClick={() => props.deleteAsk(ask.id)}>DeleteAsk</button> */}
+      {/* <button onClick={() => props.deleteAsk(ask.id)}>DeleteAsk</button> */}
       {console.log(props)}
     </div>
   )
@@ -39,24 +40,26 @@ const MyRealInnerComponent = props => {
 
 export default props => (
   <CurrentUserWrapper>
-    <AnswerCountWrapper>
-      <IsLoggedInWrapper>
-        <GetUserContactsWrapper>
-          {/* <VotesQueriesWrapper> */}
-          <SaveNewAskWrapper>
-            <GetUserAnsweringWrapper>
-              <DeleteAskWrapper>
-                <GetUserAsksWrapper>
-                  <NewAskDetailsWrapper>
-                    <MyRealInnerComponent />
-                  </NewAskDetailsWrapper>
-                </GetUserAsksWrapper>
-              </DeleteAskWrapper>
-            </GetUserAnsweringWrapper>
-          </SaveNewAskWrapper>
-        </GetUserContactsWrapper>
-        {/* </VotesQueriesWrapper> */}
-      </IsLoggedInWrapper>
-    </AnswerCountWrapper>
+    <DeleteInvitationWrapper>
+      <AnswerCountWrapper>
+        <IsLoggedInWrapper>
+          <GetUserContactsWrapper>
+            {/* <VotesQueriesWrapper> */}
+            <SaveNewAskWrapper>
+              <GetUserAnsweringWrapper>
+                <DeleteAskWrapper>
+                  <GetUserAsksWrapper>
+                    <NewAskDetailsWrapper>
+                      <MyRealInnerComponent />
+                    </NewAskDetailsWrapper>
+                  </GetUserAsksWrapper>
+                </DeleteAskWrapper>
+              </GetUserAnsweringWrapper>
+            </SaveNewAskWrapper>
+          </GetUserContactsWrapper>
+          {/* </VotesQueriesWrapper> */}
+        </IsLoggedInWrapper>
+      </AnswerCountWrapper>
+    </DeleteInvitationWrapper>
   </CurrentUserWrapper>
 )
