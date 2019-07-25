@@ -49,7 +49,7 @@ export default props => (
             <GetUserAnsweringWrapper>
               <DeleteAskWrapper>
                 <GetUserAsksWrapper>
-                  <AskInviteesWrapper>
+                  {/* <AskInviteesWrapper> */}
                     <GetAskWrapper id="5d38cf64fc2e560748136d98">
                       <VotesQueriesWrapper id="5d38cf64fc2e560748136d98">
                         <NewAskDetailsWrapper>
@@ -57,7 +57,7 @@ export default props => (
                         </NewAskDetailsWrapper>
                       </VotesQueriesWrapper>
                     </GetAskWrapper>
-                  </AskInviteesWrapper>
+                  {/* </AskInviteesWrapper> */}
                 </GetUserAsksWrapper>
               </DeleteAskWrapper>
             </GetUserAnsweringWrapper>
