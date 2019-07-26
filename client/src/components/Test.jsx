@@ -1,8 +1,13 @@
 import AnswerCountWrapper from '../graphql/queries/answer_count_wrapper'
 import CurrentUserWrapper from '../graphql/queries/current_user_wrapper'
 import DeleteAskWrapper from '../graphql/mutations/delete_ask_wrapper'
+import NewContactWrapper from '../graphql/mutations/new_contact_wrapper'
+import NewInvitationWrapper from '../graphql/mutations/new_invitation_wrapper'
+import DeleteInvitationWrapper from '../graphql/mutations/delete_invitation_wrapper'
 import GetUserAnsweringWrapper from '../graphql/queries/get_user_answering_wrapper'
 import GetUserAsksWrapper from '../graphql/queries/get_user_asks_wrapper'
+import GetContactsWrapper from '../graphql/queries/get_contacts_wrapper'
+import GetCurrentUserContactDataWrapper from '../graphql/queries/get_current_user_contact_data_wrapper'
 import VotesQueriesWrapper from '../graphql/queries/votes_queries'
 import GetUserContactsWrapper from '../graphql/queries/get_user_contacts_wrapper'
 import IsLoggedInWrapper from '../graphql/queries/is_logged_in_wrapper'
@@ -20,10 +25,10 @@ const MyRealInnerComponent = props => {
   // const ask = props.user_asks[0]
   return (
     <div>
-      <h1>Hello</h1>
-      {/* <p>
-        {props.deleteAsk
-          ? 'deleteAsk available here (from DeleteAskWrapper)'
+      {/* <h1>Hello</h1> */}
+      <p>
+        {props.contacts
+          ? 'contacts available here (from DeleteInvitationWrapper)'
           : ''}
       </p>
       <p>
@@ -37,7 +42,7 @@ const MyRealInnerComponent = props => {
           : ''}
       </p>
       <p>See console log</p>
-      <button onClick={() => props.deleteAsk(ask.id)}>DeleteAsk</button> */}
+      {/* <button onClick={() => props.deleteAsk(ask.id)}>DeleteAsk</button> */}
       {console.log(props)}
     </div>
   )
