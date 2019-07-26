@@ -36,8 +36,8 @@ export const CURRENT_USER_ID = gql`
   }
 `
 
-export const ASK_INVITEES = gql`
-  query {
-    askInvitees @client
-  }
-`
+// export const ASK_INVITEES = gql`
+//   query {
+//     askInvitees @client
+//   }
+// `

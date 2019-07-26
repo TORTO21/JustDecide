@@ -2,9 +2,9 @@ import React from 'react';
 import { Query, withApollo, ApolloConsumer, Mutation } from 'react-apollo';
 import { withRouter } from 'react-router-dom'
 import dateFns from 'date-fns';
-import { GET_USER_ASKS, GET_ASKS } from '../../graphql/queries/ask_queries';
+import { GET_ASKS } from '../../graphql/queries/ask_queries';
+import { GET_USER_ASKS } from '../../graphql/queries/get_user_asks_wrapper'
 import { DELETE_ASK } from '../../graphql/mutations/delete_ask_wrapper';
-import { GET_VOTES } from '../../graphql/queries/votes_queries';
 import Votes from './Votes.js'
 import './AsksIndex.css';
 import TrashIcon from '../icons/Trash.png';
