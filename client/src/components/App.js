@@ -16,10 +16,9 @@ import { Route, Switch } from 'react-router-dom'
 import Nav from './nav/Nav'
 // import NewOption from './asks/NewOption'
 import React from 'react'
-
 // import Register from './auth/Register'
 // import SelectDate from './calendar/SelectDate'
-// import Splash from './splash/Splash'
+import Splash from './splash/Splash'
 
 const AppWrapper = ({ children }) => {
   const width = window.innerWidth
@@ -42,6 +41,7 @@ const AppWrapper = ({ children }) => {
 const App = () => (
   <AppWrapper>
     <Nav />
+    <Route exact path="/" component={Splash} />
     {/* 
      <Switch>
       <AuthRoute exact path="/register" component={Register} routeType="auth" />
@@ -62,7 +62,6 @@ const App = () => (
       <AuthRoute exact path="/askConfirm" component={AskConfirm} />
       <AuthRoute exact path="/asks" component={AskAnswerIndex} />
       <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
-      <Route exact path="/" component={Splash} />
     </Switch> */}
   </AppWrapper>
 )

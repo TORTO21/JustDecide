@@ -4,8 +4,6 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 
 const Logout = props => {
-  console.log(props)
-
   return (
     <ApolloConsumer>
       {clientCache => {
