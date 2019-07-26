@@ -1,4 +1,4 @@
-import { GET_ASK } from '../queries/ask_queries'
+import { GET_ASK } from '../queries/get_ask_wrapper'
 import { Mutation } from 'react-apollo'
 import React from 'react'
 import gql from 'graphql-tag'
