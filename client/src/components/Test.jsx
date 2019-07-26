@@ -7,10 +7,13 @@ import VotesQueriesWrapper from '../graphql/queries/votes_queries'
 import GetUserContactsWrapper from '../graphql/queries/get_user_contacts_wrapper'
 import IsLoggedInWrapper from '../graphql/queries/is_logged_in_wrapper'
 import NewAskDetailsWrapper from '../graphql/queries/new_ask_details_wrapper'
+import NewOptionWrapper from '../graphql/mutations/new_option_wrapper'
+import NewVoteWrapper from '../graphql/mutations/new_vote_wrapper'
 import React from 'react'
 import SaveNewAskWrapper from '../graphql/mutations/new_ask_wrapper'
 import GetAskWrapper from '../graphql/queries/get_ask_wrapper'
 import AskInviteesWrapper from '../graphql/queries/ask_invitees_wrapper'
+import UpdateVoteWrapper from '../graphql/mutations/update_vote_wrapper'
 
 
 const MyRealInnerComponent = props => {
@@ -43,27 +46,29 @@ const MyRealInnerComponent = props => {
 export default props => (
   <CurrentUserWrapper>
     <AnswerCountWrapper>
-      <IsLoggedInWrapper>
-        <GetUserContactsWrapper>
-          <SaveNewAskWrapper>
-            <GetUserAnsweringWrapper>
-              <DeleteAskWrapper>
-                <GetUserAsksWrapper>
-                  {/* <AskInviteesWrapper> */}
-                    <GetAskWrapper id="5d38cf64fc2e560748136d98">
-                      <VotesQueriesWrapper id="5d38cf64fc2e560748136d98">
+      <NewOptionWrapper>
+        <NewVoteWrapper>
+          <UpdateVoteWrapper>
+            <IsLoggedInWrapper>
+              <GetUserContactsWrapper>
+                {/* <VotesQueriesWrapper> */}
+                <SaveNewAskWrapper>
+                  <GetUserAnsweringWrapper>
+                    <DeleteAskWrapper>
+                      <GetUserAsksWrapper>
                         <NewAskDetailsWrapper>
                           <MyRealInnerComponent />
                         </NewAskDetailsWrapper>
-                      </VotesQueriesWrapper>
-                    </GetAskWrapper>
-                  {/* </AskInviteesWrapper> */}
-                </GetUserAsksWrapper>
-              </DeleteAskWrapper>
-            </GetUserAnsweringWrapper>
-          </SaveNewAskWrapper>
-        </GetUserContactsWrapper>
-      </IsLoggedInWrapper>
+                      </GetUserAsksWrapper>
+                    </DeleteAskWrapper>
+                  </GetUserAnsweringWrapper>
+                </SaveNewAskWrapper>
+              </GetUserContactsWrapper>
+              {/* </VotesQueriesWrapper> */}
+            </IsLoggedInWrapper>
+          </UpdateVoteWrapper>
+        </NewVoteWrapper>
+      </NewOptionWrapper>
     </AnswerCountWrapper>
   </CurrentUserWrapper>
 )
