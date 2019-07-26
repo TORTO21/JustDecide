@@ -16,7 +16,7 @@ export default props => (
     {mutationDeleteInvitation => {
       const deleteInvitation = id => {
         return mutationDeleteInvitation({
-          variables: { id: id },
+          variables: { id },
           // refetchQueries: () => [{ query: GET_USER_ASKS }]
         })
       }
