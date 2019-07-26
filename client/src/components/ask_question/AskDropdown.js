@@ -1,7 +1,10 @@
-import { ApolloConsumer, Query, Mutation } from 'react-apollo'
 import React, { Component } from 'react'
-import { GET_USER_CONTACTS } from '../../graphql/queries/ask_question_queries'
-import { NEW_CONTACT } from '../../graphql/mutations/contact_mutations'
+
+import { ApolloConsumer } from 'react-apollo'
+import CurrentUserWrapper from '../../graphql/queries/current_user_wrapper'
+import GetUserContactsWrapper from '../../graphql/queries/get_user_contacts_wrapper'
+import { NEW_ASK_DETAILS } from '../../graphql/queries/new_ask_details_wrapper'
+import NewContactWrapper from '../../graphql/mutations/new_contact_wrapper'
 
 class AskDropdown extends Component {
   constructor(props) {
@@ -16,49 +19,32 @@ class AskDropdown extends Component {
   }
 
   update(field) {
-    return e => this.setState({ [field]: e.target.value });
+    return e => this.setState({ [field]: e.target.value })
   }
 
-  referenceList(selfRefs, client, user) {
-    // console.log(user)
+  referenceList(selfRefs, client, user_and_contacts, newContact) {
     if (this.state.dropdown) {
       return (
         <div className="ask-question-dropdown drop-shadow">
-          <Mutation
-            mutation={ NEW_CONTACT }
-          >
-            { (newContact, { data }) => {
-              return (
-                <form
-                  onSubmit={ e => {
-                    // console.log(user)
-                    e.preventDefault()
-                    newContact({
-                      variables: {
-                        phone_number: user.phone_number,
-                        owner_id: user.id,
-                        name: this.state.newRef
-                      }
-                    })
-                    .then(({ data: { newContact } }) => {
-                      // console.log(newContact)
-                      this.selectRef(newContact, client)
-                    })
-                  }
-                }>
-                  <input
-                    className="ask-question-ref-new"
-                    placeholder="Something else... (ex. 'Dad')"
-                    onChange={ this.update("newRef") }
-                  >
-                  </input>
-                </form>
-              )
+          <form
+            onSubmit={e => {
+              e.preventDefault()
+              newContact({
+                phone_number: user_and_contacts.phone_number,
+                owner_id: user_and_contacts.id,
+                name: this.state.newRef
+              }).then(({ data: { newContact } }) => {
+                this.selectRef(newContact, client)
+              })
             }}
-          </Mutation>
+          >
+            <input
+              className="ask-question-ref-new"
+              placeholder="Something else... (ex. 'Dad')"
+              onChange={this.update('newRef')}
+            />
+          </form>
           {selfRefs.map((selfRef, i) => {
-            console.log("in ReferenceList:")
-            console.log(selfRef)
             return (
               <div
                 key={i}
@@ -76,12 +62,10 @@ class AskDropdown extends Component {
     }
   }
 
-
-
   closeDropdown() {
     this.setState({ dropdown: false })
   }
-  
+
   openDropdown() {
     this.setState({ dropdown: true })
   }
@@ -89,76 +73,80 @@ class AskDropdown extends Component {
   selectRef(selfRef, client) {
     this.setState({ selfRef })
     this.closeDropdown()
-    console.log("selectRef")
-    console.log(selfRef)
+
+    const { newAsk } = client.readQuery({ query: NEW_ASK_DETAILS })
+
     client.writeData({
       data: {
-        // askAskingAs: JSON.stringify(selfRef)
-        askAskingAsId: selfRef.id,
-        askAskingAsName: selfRef.name
+        newAsk: {
+          ...newAsk,
+          askAskingAsId: selfRef.id,
+          askAskingAsName: selfRef.name
+        }
       }
     })
-    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   render() {
+    const { user_and_contacts, newContact } = this.props
+
+    const selfRefs = user_and_contacts.contacts.filter(contact => {
+      return contact.phone_number === user_and_contacts.phone_number
+    })
+
     return (
       <ApolloConsumer>
-        {client => {
-          const currentUserId = client.cache.data.data.ROOT_QUERY.currentUserId
-          return (
-            <Query query={GET_USER_CONTACTS} variables={{ id: currentUserId }}>
-              {({ loading, error, data: { user } }) => {
-                if (loading) return 'Asking as ...'
-
-                const selfRefs = user.contacts.filter(contact => {
-                  return contact.phone_number === user.phone_number
-                })
-
-                return (
-                  <div>
-                    <div
-                      onClick={() => this.openDropdown()}
-                      className="ask-question-selfref"
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}
-                    >
-                      {this.state.selfRef
-                        ? this.state.selfRef.name
-                        : 'Asking as ...'}
-                      <div className="ask-question-as-icon">
-                        <svg
-                          width="22"
-                          height="22"
-                          viewBox="0 -5 50 50"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <g id="24 / music / player-play">
-                            <path
-                              id="icon"
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M43.75 10.4167L6.25002 10.4167C4.60176 10.4167 3.60626 12.2401 4.49757 13.6266L23.2476 42.7933C24.0676 44.0689 25.9324 44.0689 26.7525 42.7933L45.5025 13.6266C46.3938 12.2401 45.3983 10.4167 43.75 10.4167ZM25 37.8141L10.066 14.5834L39.934 14.5834L25 37.8141Z"
-                              fill="#979797"
-                            />
-                          </g>
-                        </svg>
-                      </div>
-                    </div>
-                    {this.referenceList(selfRefs, client, user)}
-                  </div>
-                )
+        {client => (
+          <div>
+            <div
+              onClick={() => this.openDropdown()}
+              className="ask-question-selfref"
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
               }}
-            </Query>
-          )
-        }}
+            >
+              {this.state.selfRef ? this.state.selfRef.name : 'Asking as ...'}
+              <div className="ask-question-as-icon">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 -5 50 50"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="24 / music / player-play">
+                    <path
+                      id="icon"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M43.75 10.4167L6.25002 10.4167C4.60176 10.4167 3.60626 12.2401 4.49757 13.6266L23.2476 42.7933C24.0676 44.0689 25.9324 44.0689 26.7525 42.7933L45.5025 13.6266C46.3938 12.2401 45.3983 10.4167 43.75 10.4167ZM25 37.8141L10.066 14.5834L39.934 14.5834L25 37.8141Z"
+                      fill="#979797"
+                    />
+                  </g>
+                </svg>
+              </div>
+            </div>
+            {this.referenceList(
+              selfRefs,
+              client,
+              user_and_contacts,
+              newContact
+            )}
+          </div>
+        )}
       </ApolloConsumer>
     )
   }
 }
 
-export default AskDropdown
+export default props => (
+  <CurrentUserWrapper {...props}>
+    <GetUserContactsWrapper>
+      <NewContactWrapper>
+        <AskDropdown />
+      </NewContactWrapper>
+    </GetUserContactsWrapper>
+  </CurrentUserWrapper>
+)

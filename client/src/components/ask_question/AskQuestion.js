@@ -4,29 +4,34 @@ import React, { Component } from 'react'
 
 import { ApolloConsumer } from 'react-apollo'
 import AskDropdown from './AskDropdown'
-import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
-import { Query } from 'react-apollo'
+import { NEW_ASK_DETAILS } from '../../graphql/queries/new_ask_details_wrapper'
+import NewAskDetailsWrapper from '../../graphql/queries/new_ask_details_wrapper'
 import Toggle from 'react-toggle'
+import { gql } from 'graphql-tag'
 import { withRouter } from 'react-router-dom'
 
 class AskQuestion extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      askQuestion: this.props.data.askQuestion,
-      askUseDate: this.props.data.askUseDate
+      askQuestion: this.props.newAsk.askQuestion,
+      askUseDate: this.props.newAsk.askUseDate
     }
     this.toggle = this.toggle.bind(this)
   }
 
   updateCache(client) {
+    const { newAsk } = client.readQuery({ query: NEW_ASK_DETAILS })
+
     client.writeData({
       data: {
-        askQuestion: this.state.askQuestion,
-        askUseDate: this.state.askUseDate
+        newAsk: {
+          ...newAsk,
+          askQuestion: this.state.askQuestion,
+          askUseDate: this.state.askUseDate
+        }
       }
     })
-    console.log(client.cache.data.data.ROOT_QUERY)
   }
 
   handleNext(client) {
@@ -61,7 +66,10 @@ class AskQuestion extends Component {
               />
               <div className="ask-question-as drop-shadow button">
                 <div style={{ flex: 1 }}>
-                  <AskDropdown currentSelection={this.props.data.askAskingAs} />
+                  <AskDropdown
+                    // currentSelection={this.props.newAsk.askAskingAs}
+                    {...this.props}
+                  />
                 </div>
               </div>
               <div className="ask-question-date-time-container">
@@ -93,13 +101,10 @@ class AskQuestion extends Component {
   }
 }
 
-const WithExistingAnswers = ({ history }) => (
-  <Query query={FETCH_ASK_DETAILS}>
-    {({ loading, data }) => {
-      if (loading) return null
-      return <AskQuestion data={data} history={history} />
-    }}
-  </Query>
-)
+const AskQuestionPage = withRouter(AskQuestion)
 
-export default withRouter(WithExistingAnswers)
+export default () => (
+  <NewAskDetailsWrapper>
+    <AskQuestionPage />
+  </NewAskDetailsWrapper>
+)

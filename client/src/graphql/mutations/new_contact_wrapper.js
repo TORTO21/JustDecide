@@ -1,7 +1,7 @@
-import gql from 'graphql-tag'
-import React from 'react';
+import { GET_USER_CONTACTS } from '../queries/get_user_contacts_wrapper'
 import { Mutation } from 'react-apollo'
-import { GET_USER_ASKS } from '../queries/get_user_asks_wrapper'
+import React from 'react'
+import gql from 'graphql-tag'
 
 export const NEW_CONTACT = gql`
   mutation NewContact($name: String!, $owner_id: ID!, $phone_number: String!) {
@@ -13,27 +13,30 @@ export const NEW_CONTACT = gql`
   }
 `
 
-
-export default props => (
-  <Mutation mutation={ NEW_CONTACT }>
-    {mutationNewContact => {
-      const newContact = (owner_id, name, phone_number) => {
-        return mutationNewContact({
-          variables: {
-            owner_id,
-            name,
-            phone_number
-          }
-          // refetchQueries: () => [{ query: GET_USER_ASKS }]
+export default props => {
+  return (
+    <Mutation mutation={NEW_CONTACT}>
+      {mutationNewContact => {
+        const newContact = ({ owner_id, name, phone_number }) => {
+          return mutationNewContact({
+            variables: {
+              owner_id,
+              name,
+              phone_number
+            },
+            refetchQueries: () => [
+              { query: GET_USER_CONTACTS, variables: { id: owner_id } }
+            ]
+          })
+        }
+        const { children, ...otherProps } = props
+        const InnerComponent = React.cloneElement(children, {
+          ...otherProps,
+          newContact
         })
-      }
-      const { children, ...otherProps } = props
-      const InnerComponent = React.cloneElement(children, {
-        ...otherProps,
-        newContact
-      })
 
-      return InnerComponent
-    }}
-  </Mutation>
-)
+        return InnerComponent
+      }}
+    </Mutation>
+  )
+}

@@ -8,24 +8,26 @@ export const GET_CURRENT_USER = gql`
   }
 `
 
-export default props => (
-  <Query query={GET_CURRENT_USER}>
-    {({ loading, error, data }) => {
-      if (error) {
-        console.error(error)
-        return null
-      }
-      if (loading) return null
+export default props => {
+  return (
+    <Query query={GET_CURRENT_USER}>
+      {({ loading, error, data }) => {
+        if (error) {
+          console.error(error)
+          return null
+        }
+        if (loading) return null
 
-      const { currentUserId } = data
+        const { currentUserId } = data
 
-      const { children, ...otherProps } = props
-      const innerComponent = React.cloneElement(children, {
-        ...otherProps,
-        currentUserId
-      })
+        const { children, ...otherProps } = props
+        const innerComponent = React.cloneElement(children, {
+          ...otherProps,
+          currentUserId
+        })
 
-      return innerComponent
-    }}
-  </Query>
-)
+        return innerComponent
+      }}
+    </Query>
+  )
+}

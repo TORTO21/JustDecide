@@ -4,6 +4,7 @@ import { Mutation, withApollo } from 'react-apollo'
 import React, { Component } from 'react'
 
 import Mutations from '../../graphql/mutations/auth_mutations'
+
 const { LOGIN_USER } = Mutations
 
 class Login extends Component {
@@ -49,13 +50,6 @@ class Login extends Component {
           localStorage.setItem('current-user', id)
           this.props.history.push('/asks/new')
         }}
-        // onError={errors => {
-        //   const cacheErrors = this.props.client.cache.data.data.ROOT_QUERY.errors.json
-        //   // cacheErrors.push(error)
-        //   console.log(errors.graphQLErrors.concat(errors.networkError))
-        //   // console.log(newErrors)
-        //   // this.props.client.writeData({ data: { errors: newErrors } })
-        // } }
         update={(cache, result) => this.updateCache(cache, result)}
       >
         {loginUser => (

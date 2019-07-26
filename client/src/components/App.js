@@ -8,15 +8,16 @@ import { Route, Switch } from 'react-router-dom'
 // import AskDetail from './asks/AskDetail'
 // import AskInvite from './asks/AskInvite'
 // import AskOption from './asks/AskOption'
-// import AskQuestion from './ask_question/AskQuestion'
-// import AuthRoute from '../util/route_util'
+import AskQuestion from './ask_question/AskQuestion'
+import AuthRoute from '../util/route_util'
+import CurrentUserWrapper from '../graphql/queries/current_user_wrapper'
 // import Deadline from './calendar/Deadline'
 // import Errors from './errors/Errors'
-// import Login from './auth/Login'
+import Login from './auth/Login'
 import Nav from './nav/Nav'
 // import NewOption from './asks/NewOption'
 import React from 'react'
-// import Register from './auth/Register'
+import Register from './auth/Register'
 // import SelectDate from './calendar/SelectDate'
 import Splash from './splash/Splash'
 
@@ -39,14 +40,22 @@ const AppWrapper = ({ children }) => {
 }
 
 const App = () => (
-  <AppWrapper>
-    <Nav />
-    <Route exact path="/" component={Splash} />
-    {/* 
-     <Switch>
-      <AuthRoute exact path="/register" component={Register} routeType="auth" />
-      <AuthRoute exact path="/login" component={Login} routeType="auth" />
-      <AuthRoute exact path="/asks/new" component={AskQuestion} />
+  <CurrentUserWrapper>
+    <AppWrapper>
+      <Nav />
+      <Switch>
+        <Route exact path="/" component={Splash} />
+        <AuthRoute exact path="/login" component={Login} routeType="auth" />
+        <AuthRoute
+          exact
+          path="/register"
+          component={Register}
+          routeType="auth"
+        />
+        <AuthRoute exact path="/asks/new" component={AskQuestion} />
+      </Switch>
+
+      {/* 
       <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
       <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
       <AuthRoute exact path="/asks" component={AskAnswerIndex} />
@@ -63,7 +72,8 @@ const App = () => (
       <AuthRoute exact path="/asks" component={AskAnswerIndex} />
       <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
     </Switch> */}
-  </AppWrapper>
+    </AppWrapper>
+  </CurrentUserWrapper>
 )
 
 export default App

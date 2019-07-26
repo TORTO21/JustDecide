@@ -16,7 +16,7 @@ export const GET_USER_CONTACTS = gql`
   }
 `
 export default props => (
-  <Query query={ GET_USER_CONTACTS } variables={{ id: props.currentUserId }}>
+  <Query query={GET_USER_CONTACTS} variables={{ id: props.currentUserId }}>
     {({ loading, error, data }) => {
       if (error) {
         console.error(error)
@@ -24,12 +24,12 @@ export default props => (
       }
       if (loading) return null
 
-      const user_contacts = data.user.contacts
+      const user_and_contacts = data.user
 
       const { children, ...otherProps } = props
       const innerComponent = React.cloneElement(children, {
         ...otherProps,
-        user_contacts
+        user_and_contacts
       })
 
       return innerComponent

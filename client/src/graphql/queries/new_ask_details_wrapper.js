@@ -3,9 +3,13 @@ import React from 'react'
 import gql from 'graphql-tag'
 
 export const NEW_ASK_DETAILS = gql`
-  query {
+  query NewAsk {
     newAsk @client {
       id
+      askQuestion
+      askUseDate
+      askAskingAsId
+      askAskingAsName
     }
   }
 `
