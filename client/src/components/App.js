@@ -13,13 +13,13 @@ import { Route, Switch } from 'react-router-dom'
 // import Deadline from './calendar/Deadline'
 // import Errors from './errors/Errors'
 // import Login from './auth/Login'
-// import Nav from './nav/Nav'
+import Nav from './nav/Nav'
 // import NewOption from './asks/NewOption'
 import React from 'react'
+
 // import Register from './auth/Register'
 // import SelectDate from './calendar/SelectDate'
 // import Splash from './splash/Splash'
-import Test from './Test'
 
 const AppWrapper = ({ children }) => {
   const width = window.innerWidth
@@ -41,10 +41,8 @@ const AppWrapper = ({ children }) => {
 
 const App = () => (
   <AppWrapper>
-    <Test />
-
+    <Nav />
     {/* 
-     <Nav />
      <Switch>
       <AuthRoute exact path="/register" component={Register} routeType="auth" />
       <AuthRoute exact path="/login" component={Login} routeType="auth" />
