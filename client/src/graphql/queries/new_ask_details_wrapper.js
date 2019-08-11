@@ -8,8 +8,11 @@ export const NEW_ASK_DETAILS = gql`
       id
       askQuestion
       askUseDate
-      askAskingAsId
-      askAskingAsName
+      askAskingAs {
+        id
+        name
+      }
+      askDate
     }
   }
 `

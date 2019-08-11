@@ -3,9 +3,9 @@ import './Calendar.css'
 import { ApolloConsumer } from 'react-apollo'
 import DblLeftArrow from '../icons/DblLeftArrow.png'
 import DblRightArrow from '../icons/DblRightArrow.png'
-import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
 import LeftArrow from '../icons/LeftArrow.png'
-import { Query } from 'react-apollo'
+import { NEW_ASK_DETAILS } from '../../graphql/queries/new_ask_details_wrapper'
+import NewAskDetailsWrapper from '../../graphql/queries/new_ask_details_wrapper'
 import React from 'react'
 import RightArrow from '../icons/RightArrow.png'
 import TimePicker from './TimePicker'
@@ -15,8 +15,8 @@ class SelectDate extends React.Component {
   constructor(props) {
     super(props)
 
-    const dateToUse = this.props.data.askDate
-      ? new Date(this.props.data.askDate)
+    const dateToUse = this.props.newAsk.askDate
+      ? new Date(this.props.newAsk.askDate)
       : new Date()
 
     this.state = {
@@ -41,7 +41,6 @@ class SelectDate extends React.Component {
   renderHeader() {
     const monthOnly = 'MMMM'
     const yearOnly = 'YYYY'
-
     return (
       <div className="header row flex-middle">
         <div className="col col-start">
@@ -84,9 +83,7 @@ class SelectDate extends React.Component {
   renderDays() {
     const dateFormat = 'ddd'
     const days = []
-
     let startDate = dateFns.startOfWeek(this.state.currentMonth)
-
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="col col-center" key={i}>
@@ -100,17 +97,13 @@ class SelectDate extends React.Component {
   renderDates() {
     const { currentMonth, selectedDate } = this.state
     const monthStart = dateFns.startOfMonth(currentMonth)
-
     const currentWeekStart = this.state.currentWeekStart
     const currentWeekEnd = this.state.currentWeekEnd
-
     const dateFormat = 'D'
     const rows = []
-
     let days = []
     let day = currentWeekStart
     let formattedDate = ''
-
     while (day <= currentWeekEnd) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat)
@@ -212,7 +205,6 @@ class SelectDate extends React.Component {
       dateFns.format(this.state.selectedDate, dateFormat) +
       ' ' +
       dateFns.format(this.state.currentMonth, yrFormat)
-
     const time = window.localStorage.getItem('time')
     const dateString = date + ' ' + time
     return dateString
@@ -220,9 +212,15 @@ class SelectDate extends React.Component {
 
   updateCache(client) {
     const dateString = this.createDateString()
+    const { newAsk } = client.readQuery({ query: NEW_ASK_DETAILS })
 
     client.writeData({
-      data: { askDate: dateString }
+      data: {
+        newAsk: {
+          ...newAsk,
+          askDate: dateString
+        }
+      }
     })
 
     this.props.history.push('/deadlineDate')
@@ -257,13 +255,8 @@ class SelectDate extends React.Component {
   }
 }
 
-const WithExistingAnswers = ({ history }) => (
-  <Query query={FETCH_ASK_DETAILS}>
-    {({ loading, data }) => {
-      if (loading) return null
-      return <SelectDate data={data} history={history} />
-    }}
-  </Query>
+export default props => (
+  <NewAskDetailsWrapper {...props}>
+    <SelectDate />
+  </NewAskDetailsWrapper>
 )
-
-export default WithExistingAnswers

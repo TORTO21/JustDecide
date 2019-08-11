@@ -31,8 +31,12 @@ cache.writeData({
       id: 'new_ask_1',
       askQuestion: '',
       askUseDate: true,
-      askAskingAsId: '',
-      askAskingAsName: ''
+      askAskingAs: {
+        __typename: 'AskingAs',
+        id: '',
+        name: ''
+      },
+      askDate: ''
     },
     isLoggedIn: Boolean(token),
     currentUserId
@@ -90,8 +94,12 @@ if (token) {
         id: 'new_ask_1',
         askQuestion: '',
         askUseDate: true,
-        askAskingAsId: '',
-        askAskingAsName: ''
+        askAskingAs: {
+          __typename: 'AskingAs',
+          id: '',
+          name: ''
+        },
+        askDate: ''
       },
       isLoggedIn: false,
       currentUserId: ''

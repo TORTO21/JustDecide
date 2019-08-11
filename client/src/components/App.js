@@ -18,7 +18,7 @@ import Nav from './nav/Nav'
 // import NewOption from './asks/NewOption'
 import React from 'react'
 import Register from './auth/Register'
-// import SelectDate from './calendar/SelectDate'
+import SelectDate from './calendar/SelectDate'
 import Splash from './splash/Splash'
 
 const AppWrapper = ({ children }) => {
@@ -53,13 +53,13 @@ const App = () => (
           routeType="auth"
         />
         <AuthRoute exact path="/asks/new" component={AskQuestion} />
+        <AuthRoute exact path="/selectDate" component={SelectDate} />
       </Switch>
 
       {/* 
       <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
       <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
       <AuthRoute exact path="/asks" component={AskAnswerIndex} />
-      <AuthRoute exact path="/selectDate" component={SelectDate} />
       <AuthRoute exact path="/deadlineDate" component={Deadline} />
       <AuthRoute exact path="/askOption" component={AskOption} />
       <AuthRoute exact path="/askInvite" component={AskInvite} />

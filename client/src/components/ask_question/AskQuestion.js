@@ -67,7 +67,7 @@ class AskQuestion extends Component {
               <div className="ask-question-as drop-shadow button">
                 <div style={{ flex: 1 }}>
                   <AskDropdown
-                    // currentSelection={this.props.newAsk.askAskingAs}
+                    currentSelection={this.props.newAsk.askAskingAs}
                     {...this.props}
                   />
                 </div>
@@ -103,8 +103,8 @@ class AskQuestion extends Component {
 
 const AskQuestionPage = withRouter(AskQuestion)
 
-export default () => (
-  <NewAskDetailsWrapper>
+export default props => (
+  <NewAskDetailsWrapper {...props}>
     <AskQuestionPage />
   </NewAskDetailsWrapper>
 )

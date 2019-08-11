@@ -9,6 +9,7 @@ import NewContactWrapper from '../../graphql/mutations/new_contact_wrapper'
 class AskDropdown extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       dropdown: false,
       selfRef: this.props.currentSelection,
@@ -76,12 +77,13 @@ class AskDropdown extends Component {
 
     const { newAsk } = client.readQuery({ query: NEW_ASK_DETAILS })
 
+    const { name, id } = selfRef
+
     client.writeData({
       data: {
         newAsk: {
           ...newAsk,
-          askAskingAsId: selfRef.id,
-          askAskingAsName: selfRef.name
+          askAskingAs: { __typename: 'AskingAs', name, id }
         }
       }
     })
