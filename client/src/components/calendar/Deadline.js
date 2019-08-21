@@ -4,9 +4,9 @@ import { ApolloConsumer } from 'react-apollo'
 import DblLeftArrow from '../icons/DblLeftArrow.png'
 import DblRightArrow from '../icons/DblRightArrow.png'
 import DeadlineTimePicker from './DeadlineTimePicker'
-import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
 import LeftArrow from '../icons/LeftArrow.png'
-import { Query } from 'react-apollo'
+import { NEW_ASK_DETAILS } from '../../graphql/queries/new_ask_details_wrapper'
+import NewAskDetailsWrapper from '../../graphql/queries/new_ask_details_wrapper'
 import React from 'react'
 import RightArrow from '../icons/RightArrow.png'
 import dateFns from 'date-fns'
@@ -15,8 +15,8 @@ class Deadline extends React.Component {
   constructor(props) {
     super(props)
 
-    const dateToUse = this.props.data.askDeadline
-      ? new Date(this.props.data.askDeadline)
+    const dateToUse = this.props.newAsk.askDeadline
+      ? new Date(this.props.newAsk.askDeadline)
       : new Date()
 
     this.state = {
@@ -26,7 +26,6 @@ class Deadline extends React.Component {
       currentWeekStart: dateFns.startOfWeek(dateToUse),
       currentWeekEnd: dateFns.endOfWeek(dateToUse)
     }
-    this.handleNext = this.handleNext.bind(this)
     this.updateCache = this.updateCache.bind(this)
     this.nextWeek = this.nextWeek.bind(this)
     this.prevWeek = this.prevWeek.bind(this)
@@ -220,14 +219,17 @@ class Deadline extends React.Component {
 
   updateCache(client) {
     const dateString = this.createDateString()
-    window.localStorage.setItem('deadlineDate', dateString)
-    client.writeData({
-      data: { askDeadline: dateString }
-    })
-    this.handleNext(client)
-  }
+    const { newAsk } = client.readQuery({ query: NEW_ASK_DETAILS })
 
-  handleNext(client) {
+    client.writeData({
+      data: {
+        newAsk: {
+          ...newAsk,
+          askDeadline: dateString
+        }
+      }
+    })
+
     this.props.history.push('/askOption')
   }
 
@@ -262,13 +264,8 @@ class Deadline extends React.Component {
   }
 }
 
-const WithExistingAnswers = ({ history }) => (
-  <Query query={FETCH_ASK_DETAILS}>
-    {({ loading, data }) => {
-      if (loading) return null
-      return <Deadline data={data} history={history} />
-    }}
-  </Query>
+export default props => (
+  <NewAskDetailsWrapper {...props}>
+    <Deadline />
+  </NewAskDetailsWrapper>
 )
-
-export default WithExistingAnswers

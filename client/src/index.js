@@ -36,7 +36,8 @@ cache.writeData({
         id: '',
         name: ''
       },
-      askDate: ''
+      askDate: '',
+      askDeadline: ''
     },
     isLoggedIn: Boolean(token),
     currentUserId
@@ -99,7 +100,8 @@ if (token) {
           id: '',
           name: ''
         },
-        askDate: ''
+        askDate: '',
+        askDeadline: ''
       },
       isLoggedIn: false,
       currentUserId: ''

@@ -11,7 +11,7 @@ import { Route, Switch } from 'react-router-dom'
 import AskQuestion from './ask_question/AskQuestion'
 import AuthRoute from '../util/route_util'
 import CurrentUserWrapper from '../graphql/queries/current_user_wrapper'
-// import Deadline from './calendar/Deadline'
+import Deadline from './calendar/Deadline'
 // import Errors from './errors/Errors'
 import Login from './auth/Login'
 import Nav from './nav/Nav'
@@ -54,13 +54,14 @@ const App = () => (
         />
         <AuthRoute exact path="/asks/new" component={AskQuestion} />
         <AuthRoute exact path="/selectDate" component={SelectDate} />
+        <AuthRoute exact path="/deadlineDate" component={Deadline} />
       </Switch>
 
       {/* 
       <AuthRoute exact path="/asks/:ask_id" component={AskDetail} />
       <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
       <AuthRoute exact path="/asks" component={AskAnswerIndex} />
-      <AuthRoute exact path="/deadlineDate" component={Deadline} />
+
       <AuthRoute exact path="/askOption" component={AskOption} />
       <AuthRoute exact path="/askInvite" component={AskInvite} />
       <AuthRoute
