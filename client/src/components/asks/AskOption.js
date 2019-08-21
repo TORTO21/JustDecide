@@ -2,17 +2,18 @@ import './AskOption.css'
 import './Toggle.css'
 
 import { ApolloConsumer } from 'react-apollo'
-import { FETCH_ASK_DETAILS } from '../../graphql/queries/ask_queries'
-import { Query } from 'react-apollo'
+import { NEW_ASK_DETAILS } from '../../graphql/queries/new_ask_details_wrapper'
+import NewAskDetailsWrapper from '../../graphql/queries/new_ask_details_wrapper'
 import React from 'react'
 import Toggle from 'react-toggle'
 
 class AskOption extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      checked: false,
-      options: JSON.parse(props.data.askOptions),
+      checked: props.newAsk.askOptions.yes_no,
+      options: props.newAsk.askOptions.values,
       newOption: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -22,10 +23,15 @@ class AskOption extends React.Component {
   }
 
   handleChange(checked, client) {
+    let newOptions = this.props.newAsk.askOptions.values
     if (this.state.checked === false) {
-      this.setState({ checked: true })
+      newOptions = ['YES', 'NO']
+      this.setState({ checked: true, options: newOptions })
     } else {
-      this.setState({ checked: false })
+      if (newOptions.indexOf('NO') >= 0 && newOptions.indexOf('YES') >= 0) {
+        newOptions = []
+      }
+      this.setState({ checked: false, options: newOptions })
     }
   }
 
@@ -49,15 +55,21 @@ class AskOption extends React.Component {
   }
 
   handleContinue(client) {
-    if (this.state.checked === true) {
-      client.writeData({
-        data: { askOptions: JSON.stringify(['yes', 'no']) }
-      })
-    } else {
-      client.writeData({
-        data: { askOptions: JSON.stringify(this.state.options) }
-      })
-    }
+    const { newAsk } = client.readQuery({ query: NEW_ASK_DETAILS })
+
+    client.writeData({
+      data: {
+        newAsk: {
+          ...newAsk,
+          askOptions: {
+            __typename: 'AskOptions',
+            yes_no: this.state.checked,
+            values: this.state.checked ? ['YES', 'NO'] : this.state.options
+          }
+        }
+      }
+    })
+
     this.props.history.push('/askInvite')
   }
 
@@ -76,10 +88,10 @@ class AskOption extends React.Component {
       listView = (
         <ul className="option-list-view drop-shadow">
           <li key="0" className="option-li">
-            no
+            YES
           </li>
           <li key="1" className="option-li">
-            yes
+            NO
           </li>
         </ul>
       )
@@ -91,7 +103,7 @@ class AskOption extends React.Component {
             <div className="overall-container">
               <div className="top-container">
                 <div className="section-header ask-option-header">
-                  Is this a yes or no question?
+                  Is this a yes/no question?
                 </div>
                 <Toggle
                   defaultChecked={this.state.checked}
@@ -132,13 +144,8 @@ class AskOption extends React.Component {
   }
 }
 
-const WithExistingAnswers = ({ history }) => (
-  <Query query={FETCH_ASK_DETAILS}>
-    {({ loading, data }) => {
-      if (loading) return null
-      return <AskOption data={data} history={history} />
-    }}
-  </Query>
+export default props => (
+  <NewAskDetailsWrapper {...props}>
+    <AskOption />
+  </NewAskDetailsWrapper>
 )
-
-export default WithExistingAnswers

@@ -13,6 +13,11 @@ export const NEW_ASK_DETAILS = gql`
         name
       }
       askDate
+      askDeadline
+      askOptions {
+        yes_no
+        values
+      }
     }
   }
 `

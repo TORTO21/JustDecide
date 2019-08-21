@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom'
 // import AskConfirm from './asks/AskConfirm'
 // import AskDetail from './asks/AskDetail'
 // import AskInvite from './asks/AskInvite'
-// import AskOption from './asks/AskOption'
+import AskOption from './asks/AskOption'
 import AskQuestion from './ask_question/AskQuestion'
 import AuthRoute from '../util/route_util'
 import CurrentUserWrapper from '../graphql/queries/current_user_wrapper'
@@ -55,6 +55,7 @@ const App = () => (
         <AuthRoute exact path="/asks/new" component={AskQuestion} />
         <AuthRoute exact path="/selectDate" component={SelectDate} />
         <AuthRoute exact path="/deadlineDate" component={Deadline} />
+        <AuthRoute exact path="/askOption" component={AskOption} />
       </Switch>
 
       {/* 
@@ -62,7 +63,6 @@ const App = () => (
       <AuthRoute exact path="/asks/:ask_id/new-option" component={NewOption} />
       <AuthRoute exact path="/asks" component={AskAnswerIndex} />
 
-      <AuthRoute exact path="/askOption" component={AskOption} />
       <AuthRoute exact path="/askInvite" component={AskInvite} />
       <AuthRoute
         exact

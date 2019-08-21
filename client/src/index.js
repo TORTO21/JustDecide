@@ -37,7 +37,12 @@ cache.writeData({
         name: ''
       },
       askDate: '',
-      askDeadline: ''
+      askDeadline: '',
+      askOptions: {
+        __typename: 'AskOptions',
+        yes_no: false,
+        values: []
+      }
     },
     isLoggedIn: Boolean(token),
     currentUserId
@@ -101,7 +106,12 @@ if (token) {
           name: ''
         },
         askDate: '',
-        askDeadline: ''
+        askDeadline: '',
+        askOptions: {
+          __typename: 'AskOptions',
+          yes_no: false,
+          values: []
+        }
       },
       isLoggedIn: false,
       currentUserId: ''
